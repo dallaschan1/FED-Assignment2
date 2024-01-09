@@ -1,0 +1,39 @@
+header{
+    display: flex;
+    justify-content: space-between;
+}
+
+#main-nav {
+    position: relative;
+    display: flex;
+    gap: 1.5rem;
+    margin-right: 3rem;
+}
+
+#main-nav a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 600;
+    position: relative;
+}
+
+#underline {
+    position: absolute;
+    height: 2px;
+    background-color: black;
+    width: 0;
+    bottom: -1px;
+    transition: all 0.3s ease;
+}
+
+#underline2 {
+    content: '';
+    position: absolute;
+    height: 2px;
+    background-color: black;
+    width: 0;
+    bottom: -5px; 
+    transition: all 0.5s ease; 
+}
+

@@ -179,7 +179,6 @@ form.sign-in-form {
   right: 48%;
   transform: translateY(-50%);
   background-color: black;
-  background-image: url(/images/footer-form-bg.png);
   
   transition: 1.8s ease-in-out;
   border-radius: 50%;
@@ -282,19 +281,19 @@ form.sign-in-form {
   pointer-events: all;
 }
 .close-btn {
-  position: fixed; /* Or absolute, depending on your layout */
-  top: 40px;       /* Adjust as needed */
-  right: 40px;     /* Adjust as needed */
+  position: fixed; 
+  top: 40px;       
+  right: 40px;   
   background-color: transparent;
   border: none;
-  font-size: 24px; /* Adjust as needed */
+  font-size: 24px; 
   cursor: pointer;
   width: 40px;
   height: 40px;
   color: #fff; 
   border: 2px white solid;
-  border-radius: 50%;    /* Adjust as needed */
-  z-index: 10;     /* Ensure it's above other elements */
+  border-radius: 50%;    
+  z-index: 10;     
 }
 
 @media (max-width: 870px) {

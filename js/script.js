@@ -30,3 +30,22 @@ document.addEventListener('DOMContentLoaded', function () {
     
     moveUnderline(activeLink);
 });
+function updateNav() {
+    const loginSignupBtn = document.getElementById('login-signup-btn');
+    const userImg = document.getElementById('user-img');
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userImageSrc = localStorage.getItem('userImage'); // URL or base64 of user image
+
+    if (isLoggedIn && userImageSrc) {
+        loginSignupBtn.style.display = 'none';
+        userImg.src = userImageSrc;
+        userImg.style.display = 'block';
+    } else {
+        loginSignupBtn.style.display = 'block';
+        userImg.style.display = 'none';
+    }
+}
+
+window.onload = updateNav;
+
+

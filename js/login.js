@@ -82,21 +82,21 @@ function registerUser(event) {
 }
 
 sign_up_btn.addEventListener("click", () => {
-    container.classList.add("sign-up-mode");
-  });
-  
-  sign_in_btn.addEventListener("click", () => {
-    container.classList.remove("sign-up-mode");
-  });
-  
-  document.getElementById('actual-btn').addEventListener('change', function() {
-      document.getElementById('file-chosen').value = this.files[0].name;
-    });
-    document.getElementById('file-chosen').addEventListener('click', function() {
-      document.getElementById('actual-btn').click();
-    });
-    
-    
-    document.getElementById('close-btn').addEventListener('click', function() {
-      window.history.back(); 
-  });
+container.classList.add("sign-up-mode");
+});
+
+sign_in_btn.addEventListener("click", () => {
+container.classList.remove("sign-up-mode");
+});
+
+document.getElementById('actual-btn').addEventListener('change', function() {
+  document.getElementById('file-chosen').value = this.files[0].name;
+});
+document.getElementById('file-chosen').addEventListener('click', function() {
+  document.getElementById('actual-btn').click();
+});
+
+
+document.getElementById('close-btn').addEventListener('click', function() {
+  window.history.back(); 
+});

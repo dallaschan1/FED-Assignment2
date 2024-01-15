@@ -1,92 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script
-      src="https://kit.fontawesome.com/64d58efce2.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/Login-Styles.css">
-  </head>
-  <body>
-   
-    
-    <div class="container">
-      <button id="close-btn" class="close-btn">X</button>
-      <div class="forms-container">
-        <div class="signin-signup">
-          <form action="#" class="sign-in-form" onsubmit="loginUser(event)">
-            <h2 class="title">Sign in</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username">
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password">
-            </div>
-            <input type="submit" value="Login" class="btn solid">
-            
-          </form>
-          <form action="#" class="sign-up-form" onsubmit="registerUser(event)">
-            <h2 class="title">Sign up</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username">
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password">
-            </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="email" placeholder="Email">
-            </div>
-            <div class="input-field">
-              <i class="fas fa-phone"></i>
-              <input type="tel" placeholder="Phone Number">
-            </div>
-            <div class="input-field">
-                <i class="fas fa-image"></i>
-                <input type="text" id="file-chosen" placeholder="Upload Image" readonly>
-                <input type="file" id="actual-btn" hidden>
-            </div>
-              
-            <input type="submit" class="btn" value="Sign up">
-        </form>          
-        </div>
-      </div>
+</head>
+<body>
+    <div id="Sign-In" class="container">
+        <img src="../images/grass.avif" alt="Sign In Image">
 
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>New here ?</h3>
-            <p>
-              Click Here to Signup!
-            </p>
-            <button class="btn transparent" id="sign-up-btn">
-              Sign up
-            </button>
+        <!-- Sign in form -->
+        <form action="#" class="forms sign-in-form">
+            <h2>Sign In</h2>
+            <p>Don't have an account yet? <span class="transfer">Sign Up</span></p>
+            <div class="username">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Username" required>
+            </div>
+            <div class="password">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" required>
+                <i class="far fa-eye" style="display: none;" id="isSignIn"></i> 
+                <i class="far fa-eye-slash" id="notSignIn"></i> 
+            </div>
+            <div class="Additional">
+                <input type="checkbox" class="remember">
+                <label for="Remember">Remember Me</label>
+                <p>Forgot Password?</p>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+
+        <!-- Sign up form -->
+        <form action="#" class="forms sign-up-form" style="display: none;">
+          <h2>Sign Up</h2>
+          <p>Already have an account? <span class="transfer">Sign In</span></p>
+          <div class="username">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Username" required>
           </div>
-   
-        </div>
-        <div class="panel right-panel">
-          <div class="content">
-            <h3>One of us ?</h3>
-            <p>
-              Click Here to Login!
-            </p>
-            <button class="btn transparent" id="sign-in-btn">
-              Sign in
-            </button>
+          <div class="email">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email Address" required>
           </div>
-  
-        </div>
-      </div>
-    </div>
-    
+          <div class="password">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" required>
+              <i class="far fa-eye" style="display: none;" id="isSignUp"></i> 
+              <i class="far fa-eye-slash" id="notSignUp"></i> 
+          </div>
+          <div class="phone">
+              <i class="fas fa-phone"></i>
+              <input type="tel" placeholder="Phone Number" required>
+          </div>
+          <div class="profile-image">
+              <label for="profile-image-upload">Upload Profile Image</label>
+              <input type="file" id="profile-image-upload" accept="image/*">
+          </div>
+          <div class="Additional">
+              <input type="checkbox" class="remember">
+              <label for="Remember">Remember Me</label>
+              <p>Forgot Password?</p>
+          </div>
+          <button type="submit" class="btn">Sign Up</button>
+      </form>
+  </div>
+
     <script src="../js/login.js"></script>
-   
-  </body>
+</body>
 </html>

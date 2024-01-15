@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
+
+#navigation-header{
+    padding: 10px 0px;
+    background-color: rgb(246, 246, 246);
+}
+
+.logo{
+    margin-left: 80px;
+    width: 180px;
+}
+
+#nav-text li{
+    display: inline;
+}
+
+#nav-text{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 8px;
+    font-size: 18px;
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif
+}
+
+
+.icon-nav{
+    display: flex;
+    margin-right: 80px;
+    gap: 15px;
+    font-size: 22px;
+}
+

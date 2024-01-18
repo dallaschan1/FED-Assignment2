@@ -106,7 +106,7 @@ class Background {
         const types = ['ocean', 'rock'];
         const elementCount = Math.floor(Math.random() * 5);
         const minAdditionalDistance = 500;
-const maxAdditionalDistance = 1000;
+        const maxAdditionalDistance = 1000;
 
     
         for (let i = 0; i < elementCount; i++) {
@@ -115,7 +115,7 @@ const maxAdditionalDistance = 1000;
     
             let x, y;
             let attempts = 0;
-            const maxAttempts = 20; // Maximum attempts for positioning an element
+            const maxAttempts = 30; // Maximum attempts for positioning an element
     
             do {
                 if (attempts++ > maxAttempts) {
@@ -124,15 +124,15 @@ const maxAdditionalDistance = 1000;
                 }
     
                 // Random position logic
-if (Math.random() < 0.5) {
-    const additionalX = minAdditionalDistance + Math.random() * (maxAdditionalDistance - minAdditionalDistance);
-    x = Math.random() < 0.5 ? player.x - canvas.width - additionalX : player.x + canvas.width + additionalX;
-    y = Math.random() * canvas.height;
-} else {
-    const additionalY = minAdditionalDistance + Math.random() * (maxAdditionalDistance - minAdditionalDistance);
-    x = Math.random() * canvas.width;
-    y = Math.random() < 0.5 ? player.y - canvas.height - additionalY : player.y + canvas.height + additionalY;
-}
+        if (Math.random() < 0.5) {
+            const additionalX = minAdditionalDistance + Math.random() * (maxAdditionalDistance - minAdditionalDistance);
+            x = Math.random() < 0.5 ? player.x - canvas.width - additionalX : player.x + canvas.width + additionalX;
+            y = Math.random() * canvas.height;
+        } else {
+            const additionalY = minAdditionalDistance + Math.random() * (maxAdditionalDistance - minAdditionalDistance);
+            x = Math.random() * canvas.width;
+            y = Math.random() < 0.5 ? player.y - canvas.height - additionalY : player.y + canvas.height + additionalY;
+        }
 
     
                 // Check for overlap with existing elements
@@ -147,8 +147,8 @@ if (Math.random() < 0.5) {
     
             // Check if a suitable position was found
             if (attempts <= maxAttempts) {
-                const width = type === 'ocean' ? 300 : 50;
-                const height = type === 'ocean' ? 200 : 50;
+                const width = type === 'ocean' ? 300 : 500;
+                const height = type === 'ocean' ? 200 : 500;
     
                 // Add the new element if a suitable position was found
                 this.elements.push({ type, x, y, width, height });
@@ -166,47 +166,28 @@ if (Math.random() < 0.5) {
                 if (distance < element.width * 1.5 + player.size / 2) {
                     return {horizontal: dx, vertical: dy};
             }
-            } else if (element.type === 'rock') {
-                // More accurate rock collision detection
-                const rockLeft = element.x;
-                const rockRight = element.x + element.width * 10;
-                const rockTop = element.y;
-                const rockBottom = element.y + element.height * 10;
-
-                const playerLeft = player.x - player.size / 2;
-                const playerRight = player.x + player.size / 2;
-                const playerTop = player.y - player.size / 2;
-                const playerBottom = player.y + player.size / 2;
-
-                if (playerRight > rockLeft && playerLeft < rockRight &&
-                    playerBottom > rockTop && playerTop < rockBottom) {
-                    // Determine the side of collision
-                    const overlapLeft = playerRight - rockLeft;
-                    const overlapRight = rockRight - playerLeft;
-                    const overlapTop = playerBottom - rockTop;
-                    const overlapBottom = rockBottom - playerTop;
-
-                    // Find which overlap is smallest to determine collision side
-                    const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
-
-                    if (minOverlap === overlapLeft) {
-                        player.x = rockLeft - player.size / 2;
-                        return { horizontal: -player.deltaX, vertical: 0 };
-                    } else if (minOverlap === overlapRight) {
-                        player.x = rockRight + player.size / 2;
-                        return { horizontal: player.deltaX, vertical: 0 };
-                    }
-
-                    if (minOverlap === overlapTop) {
-                        player.y = rockTop - player.size / 2;
-                        return { horizontal: 0, vertical: -player.deltaY };
-                    } else if (minOverlap === overlapBottom) {
-                        player.y = rockBottom + player.size / 2;
-                        return { horizontal: 0, vertical: player.deltaY };  
-                    }
+            }else if (element.type === 'rock') {
+                // Collision detection for rock elements
+                const playerCenterX = player.x;
+                const playerCenterY = player.y;
+                const rockCenterX = element.x + element.width / 2;
+                const rockCenterY = element.y + element.height / 2;
+    
+                if (Math.abs(playerCenterX - rockCenterX) < (player.size / 2 + element.width / 2) &&
+                    Math.abs(playerCenterY - rockCenterY) < (player.size / 2 + element.height / 2)) {
+                    // Calculate overlap in both directions
+                    const overlapX = player.size / 2 + element.width / 2 - Math.abs(playerCenterX - rockCenterX);
+                    const overlapY = player.size / 2 + element.height / 2 - Math.abs(playerCenterY - rockCenterY);
+                    
+                    // Return the direction and magnitude of the overlap
+                    return {
+                        horizontal: (playerCenterX < rockCenterX) ? -overlapX : overlapX,
+                        vertical: (playerCenterY < rockCenterY) ? -overlapY : overlapY
+                    };
                 }
+        }
             
-            }
+            
         }
         return null;
     }
@@ -220,7 +201,7 @@ if (Math.random() < 0.5) {
     };
 
     draw() {
-        // Draw background elements without scaling
+        
         this.elements.forEach(element => {
             if (element.type === 'ocean') {
                 ctx.fillStyle = 'blue';
@@ -229,7 +210,7 @@ if (Math.random() < 0.5) {
                 ctx.fill();
             } else if (element.type === 'rock') {
                 ctx.fillStyle = 'gray';
-                ctx.fillRect(element.x, element.y, element.width * 10, element.height * 10); 
+                ctx.fillRect(element.x, element.y, 500, 500); 
             }
           
         });

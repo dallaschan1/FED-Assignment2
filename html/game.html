@@ -9,17 +9,18 @@
 </head>
 <body>
     <header>
-        <img src="img/logo.png" alt="logo">
+        <img src="img/logo.png" alt="logo"> 
         <nav id="main-nav">
-            <a href="../index.html" >Home</a>
-            <a href="game.html" class="active">Game</a>
+            <a href="index.html" class="active">Home</a>
+            <a href="html/game.html">Game</a>
             <a href="forum.html">Forum</a>
             <a href="shop.html">Shop</a>
+            
             <div id="underline"></div>
             <div id="underline2"></div>
-            <div id = "ButtonOrPfp">
-                <button id = "LoginOrSignup">Hmm</button>
-                <img display = "none">
+            <div id = "place">
+            <button id="login-signup-btn" onclick="window.location.href='html/login.html'">Login / Sign Up</button>
+            <img id="user-img" src="" alt="User Image" style="display: none;">
             </div>
         </nav>
         
@@ -27,6 +28,10 @@
 
     <main>
         <canvas id = "gameCanvas"></canvas>
+        <div id="portrait-overlay" style="display: none;">
+            <p>Please rotate your device to landscape mode to play the game.</p>
+        </div>
+        
     </main>
 
     <script src="../js/script.js"></script>

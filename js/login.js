@@ -65,15 +65,17 @@ function loginUser(event) {
   .then(data => {
     if (data.length > 0 && data[0].password === password) {
       alert("Login successful!");
+      
+      const userImage = data[0].userImage; // Assuming the user image is stored in this field
 
       if (rememberMe) {
-        
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('username', username);
+        localStorage.setItem('userImage', userImage); // Store the user image
       } else {
-        
         sessionStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('username', username);
+        sessionStorage.setItem('userImage', userImage); // Store the user image
       }
     } else {
       alert("Invalid credentials!");
@@ -84,6 +86,7 @@ function loginUser(event) {
     alert("Login failed!");
   });
 }
+
 
 function registerUser(event) {
   event.preventDefault();  

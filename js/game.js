@@ -1,5 +1,8 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+const bullets = [];
+let mouseX = 0;
+let mouseY = 0;
 
 
 function resizeCanvas() {
@@ -39,6 +42,27 @@ function resizeCanvas() {
     positionGameElements();
 }
 
+class Bullet {
+    constructor(x, y, velocityX, velocityY, size = 5) {
+        this.x = x;
+        this.y = y;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
+        this.size = size;
+    }
+
+    update() {
+        this.x += this.velocityX;
+        this.y += this.velocityY;
+    }
+
+    draw() {
+        ctx.fillStyle = 'yellow';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
 
 function scaleGameElements(ratio) {
     const screenWidth = window.innerWidth;
@@ -231,6 +255,16 @@ class Player {
         ctx.fillStyle = 'blue';
         ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
     }
+
+    shoot() {
+        const bulletVelocity = 10; // Speed of the bullet
+        const angle = Math.atan2(mouseY - this.y, mouseX - this.x); // Angle towards the cursor
+        const velocityX = Math.cos(angle) * bulletVelocity;
+        const velocityY = Math.sin(angle) * bulletVelocity;
+
+        const bullet = new Bullet(this.x, this.y, velocityX, velocityY);
+        bullets.push(bullet);
+    }
 }
 
 class Enemy {
@@ -332,6 +366,26 @@ setInterval(() => {
     background.generateRandomElements();
 }, 1000); 
 
+let isMouseDown = false;
+let lastShotTime = 0;
+const shootingInterval = 1000; // Time between shots in milliseconds
+
+canvas.addEventListener('mousedown', () => {
+    isMouseDown = true;
+    player.shoot();
+    lastShotTime = Date.now();
+});
+
+canvas.addEventListener('mouseup', () => {
+    isMouseDown = false;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX - canvas.getBoundingClientRect().left;
+    mouseY = e.clientY - canvas.getBoundingClientRect().top;
+});
+
+
 function updateGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -339,6 +393,21 @@ function updateGame() {
 
     drawStaticBackground();
 
+    if (isMouseDown && Date.now() - lastShotTime >= shootingInterval) {
+        player.shoot();
+        lastShotTime = Date.now();
+    }
+
+    // Update and draw bullets
+    bullets.forEach((bullet, index) => {
+        bullet.update();
+        bullet.draw();
+
+        // Remove bullets that are off-screen
+        if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
+            bullets.splice(index, 1);
+        }
+    });
     // Check for collisions with background elements
     const collision = background.checkCollisionWithPlayer(player);
     if (collision) {
@@ -350,7 +419,11 @@ function updateGame() {
             player.deltaY = 0;
         }
     }
-
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(player.x, player.y);
+    ctx.lineTo(mouseX, mouseY);
+    ctx.stroke();
     // Update background and enemies with player's movement
     background.update(player.deltaX, player.deltaY);
     enemies.forEach(enemy => {
@@ -364,6 +437,8 @@ function updateGame() {
 
     requestAnimationFrame(updateGame);
 }
+
+
 resizeCanvas(); 
 
 

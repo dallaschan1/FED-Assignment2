@@ -66,7 +66,7 @@ function loginUser(event) {
     if (data.length > 0 && data[0].password === password) {
       alert("Login successful!");
       
-      const userImage = data[0].userImage; // Assuming the user image is stored in this field
+      const userImage = data[0].userImage; 
 
       if (rememberMe) {
         localStorage.setItem('isLoggedIn', 'true');

@@ -58,7 +58,7 @@ function loginUser(event) {
   fetch('https://users-4250.restdb.io/rest/accounts?q={"username":"' + username + '"}', {
     method: 'GET',
     headers: {
-      'x-apikey': '65a3cb99c69bc8c9bdf5e233'
+      'x-apikey': '65aa4cb7c0aebd4508c42aa9'
     }
   })
   .then(response => response.json())
@@ -110,7 +110,7 @@ function registerUser(event) {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
-              'x-apikey': '65a3cb99c69bc8c9bdf5e233'
+              'x-apikey': '65aa4cb7c0aebd4508c42aa9'
           },
           body: JSON.stringify({
               username,

@@ -12,6 +12,7 @@ window.addEventListener("load", function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   const profileImageElement = document.getElementById('profileImage');
+  const a = document.getElementById('user');
   const isLoggedIn = localStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn');
 
   if (isLoggedIn) {
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (userImage) {
       profileImageElement.src = userImage;
       profileImageElement.style.display = 'block';
+      a.style.display = 'none';
     }
   }
 });

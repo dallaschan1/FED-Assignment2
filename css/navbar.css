@@ -45,6 +45,7 @@
 }
 
 #profileImage{
+    margin-top: 4px;
     width: 22px;         
     height: 22px;        
     border-radius: 50%;  

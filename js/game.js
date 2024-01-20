@@ -9,8 +9,8 @@ function resizeCanvas() {
     const devicePixelRatio = window.devicePixelRatio || 1;
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const portraitOverlay = document.getElementById('portrait-overlay');
-    const pcWidthPercentage = 0.95; // 90% of screen width for PC
-    const pcHeightPercentage = 0.85; // 80% of screen height for PC
+    const pcWidthPercentage = 0.98; // 90% of screen width for PC
+    const pcHeightPercentage = 0.88; // 80% of screen height for PC
     const mobileWidthPercentage = 0.95; // 90% of screen width for mobile in landscape
     const mobileHeightPercentage = 0.8; // 80% of screen height for mobile in landscape
 
@@ -43,12 +43,13 @@ function resizeCanvas() {
 }
 
 class Bullet {
-    constructor(x, y, velocityX, velocityY, size = 5) {
+    constructor(x, y, velocityX, velocityY, size = 10, damage = 50) {
         this.x = x;
         this.y = y;
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.size = size;
+        this.damage = damage;
     }
 
     update() {
@@ -63,6 +64,20 @@ class Bullet {
         ctx.fill();
     }
 }
+function checkBulletEnemyCollisions() {
+    bullets.forEach((bullet, bulletIndex) => {
+        for (let i = 0; i < enemies.length; i++) {
+            const enemy = enemies[i];
+            // Simple collision detection (can be improved)
+            if (bullet.x > enemy.x - enemy.size && bullet.x < enemy.x + enemy.size &&
+                bullet.y > enemy.y - enemy.size && bullet.y < enemy.y + enemy.size) {
+                enemy.takeDamage(bullet.damage);
+                bullets.splice(bulletIndex, 1); // Remove the bullet after it hits an enemy
+                break; // Stop checking for further collisions since the bullet is removed
+            }
+        }
+    });
+}
 
 function scaleGameElements(ratio) {
     const screenWidth = window.innerWidth;
@@ -71,7 +86,7 @@ function scaleGameElements(ratio) {
 
     // Set different base sizes for player based on screen width
     if (screenWidth > 1024) { // Larger screens like PC
-        basePlayerSize = 50; // Slightly larger player size for larger screens
+        basePlayerSize = 50; 
     } else {
         basePlayerSize = 30; // Original size for smaller screens (phones, iPads)
     }
@@ -129,7 +144,7 @@ class Background {
     generateRandomElements() {
         const types = ['ocean', 'rock'];
         const elementCount = Math.floor(Math.random() * 5);
-        const minAdditionalDistance = 500;
+        const minAdditionalDistance = 300;
         const maxAdditionalDistance = 1000;
 
     
@@ -162,7 +177,7 @@ class Background {
                 // Check for overlap with existing elements
                 redo = false;
                 for(let element of this.elements) {
-                    if (Math.abs(element.x - x) <= 3000 && Math.abs(element.y - y) <= 3000) {
+                    if (Math.abs(element.x - x) <= 2000 && Math.abs(element.y - y) <= 2000) {
                         redo = true;
                         break; 
                     }
@@ -241,6 +256,22 @@ class Background {
     }
 }
 
+let lastShotTime = 0;
+let playerPoints = 0; // Variable to track player points
+
+function getShootingCooldown() {
+    
+    // As points increase, the cooldown decreases
+    if (playerPoints < 10) {
+        return 1000; // 1 second
+    } else if (playerPoints < 20) {
+        return 800; // 0.8 seconds
+    } else {
+        return 600; // 0.6 seconds
+    }
+}
+
+
 
 class Player {
     constructor(x, y, size) {
@@ -249,21 +280,78 @@ class Player {
         this.size = size;
         this.deltaX = 0;
         this.deltaY = 0;
+        this.hp = 200;
+        this.isHit = false;
+        this.hitDuration = 0;
+        this.knockbackVelocityX = 0;
+        this.knockbackVelocityY = 0;
+        this.knockbackDuration = 0;
     }
 
+
+    takeDamage(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0) {
+            // Handle player defeat (e.g., end game, restart level)
+        }
+    
+        this.isHit = true;
+        this.hitDuration = 10;
+    }
+
+    applyKnockback(knockbackX, knockbackY, duration) {
+        this.knockbackVelocityX = knockbackX / duration;
+        this.knockbackVelocityY = knockbackY / duration;
+        this.knockbackDuration = duration;
+    }
+    update() {
+        if (this.knockbackDuration > 0) {
+            // Apply knockback effect
+            background.elements.forEach(element => {
+                element.x -= this.knockbackVelocityX;
+                element.y -= this.knockbackVelocityY;
+            });
+            enemies.forEach(enemy => {
+                enemy.x -= this.knockbackVelocityX;
+                enemy.y -= this.knockbackVelocityY;
+            });
+
+            this.knockbackDuration--;
+        }
+    }
     draw() {
-        ctx.fillStyle = 'blue';
+        if (this.hitDuration > 0) {
+            ctx.fillStyle = 'orange'; // Change color when hit
+            this.hitDuration--;
+        } else {
+            ctx.fillStyle = 'blue';
+        }
         ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
     }
 
     shoot() {
-        const bulletVelocity = 10; // Speed of the bullet
-        const angle = Math.atan2(mouseY - this.y, mouseX - this.x); // Angle towards the cursor
-        const velocityX = Math.cos(angle) * bulletVelocity;
-        const velocityY = Math.sin(angle) * bulletVelocity;
+        const now = Date.now();
+        const shootingCooldown = getShootingCooldown();
 
-        const bullet = new Bullet(this.x, this.y, velocityX, velocityY);
-        bullets.push(bullet);
+        if (now - lastShotTime >= shootingCooldown) {
+            lastShotTime = now;
+            const bulletVelocity = 10; // Speed of the bullet
+            const lineLength = 100; // Length of the aiming line (should match the length used for drawing the line)
+            const angle = Math.atan2(mouseY - this.y, mouseX - this.x); // Angle towards the cursor
+
+            // Calculate the start position of the bullet at the tip of the aiming line
+            const bulletStartX = this.x + lineLength * Math.cos(angle);
+            const bulletStartY = this.y + lineLength * Math.sin(angle);
+
+            // Calculate bullet velocity
+            const velocityX = Math.cos(angle) * bulletVelocity;
+            const velocityY = Math.sin(angle) * bulletVelocity;
+
+            // Create the bullet at the start position
+            const bulletSize = 10; // Set the desired bullet size
+            const bullet = new Bullet(bulletStartX, bulletStartY, velocityX, velocityY, bulletSize);
+            bullets.push(bullet);
+        }
     }
 }
 
@@ -272,7 +360,41 @@ class Enemy {
         this.x = Math.random() * (canvas.width - 30);
         this.y = Math.random() * (canvas.height - 30);
         this.size = size;
+        this.hp = 100;
+        this.speed = 1;
+        this.wanderAngle = 0; 
+        
     }
+
+    takeDamage(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0) {
+            playerPoints++;
+            const index = enemies.indexOf(this);
+            if (index > -1) {
+                enemies.splice(index, 1);
+            }
+        }
+    }
+    update() {
+        // Update the wander angle with a small random change
+        this.wanderAngle += (Math.random() - 0.5) * 0.2; 
+
+        // Limit the wander angle to prevent extreme deviations
+        const maxWander = Math.PI / 3; // Maximum deviation angle (e.g., 45 degrees)
+        this.wanderAngle = Math.max(Math.min(this.wanderAngle, maxWander), -maxWander);
+
+        // Calculate the angle towards the player with added randomness
+        const dx = player.x - this.x;
+        const dy = player.y - this.y;
+        const angleToPlayer = Math.atan2(dy, dx) + this.wanderAngle;
+
+        // Move the enemy towards the player with wandering effect
+        this.x += Math.cos(angleToPlayer) * this.speed;
+        this.y += Math.sin(angleToPlayer) * this.speed;
+    }
+
+
 
     draw() {
         ctx.fillStyle = 'red';
@@ -284,14 +406,45 @@ class Enemy {
         ctx.fill();
     }
 }
+
+
+function checkPlayerEnemyCollisions() {
+    enemies.forEach(enemy => {
+        const dx = player.x - enemy.x;
+        const dy = player.y - enemy.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+       if (distance < enemy.size + player.size / 2) {
+            player.takeDamage(10); // Player loses 10 HP
+
+            // Apply smoother knockback
+            const knockbackStrength = 100;
+            const knockbackX = dx / distance * knockbackStrength;
+            const knockbackY = dy / distance * knockbackStrength;
+            const knockbackDuration = 10; // Duration of the knockback in frames
+            player.applyKnockback(knockbackX, knockbackY, knockbackDuration);
+        }
+    });
+}
+
+
 const player = new Player(canvas.width / 2, canvas.height / 2, 50);
 const enemies = [];
 function addEnemy() {
     const size = 30;
-    const enemy = new Enemy(size);
+    const baseHP = 100; // Base HP of enemies
+    const baseSpeed = 1; // Base speed of enemies
+
+    // Scaling factors for enemy HP and speed
+    const hpScalingFactor = 0.5; // Increase in HP per point
+    const speedScalingFactor = 0.01; // Increase in speed per point
+
+    // Calculate enemy HP and speed based on player points
+    const enemyHP = baseHP + playerPoints * hpScalingFactor;
+    const enemySpeed = baseSpeed + playerPoints * speedScalingFactor;
+
+    const enemy = new Enemy(size, enemyHP, enemySpeed);
     enemies.push(enemy);
 }
-
 setInterval(addEnemy, 3000);
 
 
@@ -367,13 +520,11 @@ setInterval(() => {
 }, 1000); 
 
 let isMouseDown = false;
-let lastShotTime = 0;
-const shootingInterval = 1000; // Time between shots in milliseconds
 
 canvas.addEventListener('mousedown', () => {
     isMouseDown = true;
     player.shoot();
-    lastShotTime = Date.now();
+    
 });
 
 canvas.addEventListener('mouseup', () => {
@@ -384,16 +535,24 @@ canvas.addEventListener('mousemove', (e) => {
     mouseX = e.clientX - canvas.getBoundingClientRect().left;
     mouseY = e.clientY - canvas.getBoundingClientRect().top;
 });
-
+function drawPoints() {
+    ctx.fillStyle = 'black';
+    ctx.font = '20px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top'; // Ensure text is drawn from the top
+    ctx.fillText(`Points: ${playerPoints}`, canvas.width / 2, 20); // Adjust Y position as needed
+}
 
 function updateGame() {
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
 
     colorChangeOffset += (Math.abs(player.deltaX) + Math.abs(player.deltaY)) * colorChangeSpeed;
 
     drawStaticBackground();
 
-    if (isMouseDown && Date.now() - lastShotTime >= shootingInterval) {
+    if (isMouseDown && Date.now() - lastShotTime >= getShootingCooldown()) {
         player.shoot();
         lastShotTime = Date.now();
     }
@@ -419,22 +578,42 @@ function updateGame() {
             player.deltaY = 0;
         }
     }
+    const lineLength = 100; // Fixed length of the line
+    const lineWidth = 10; // Thickness of the line
     ctx.strokeStyle = 'red';
+    ctx.lineWidth = lineWidth;
+
+    checkBulletEnemyCollisions();
+
+    // Calculate the angle towards the cursor
+    const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+
+    // Calculate the end coordinates of the line based on the fixed length
+    const endX = player.x + lineLength * Math.cos(angle);
+    const endY = player.y + lineLength * Math.sin(angle);
+
+    // Draw the line
     ctx.beginPath();
     ctx.moveTo(player.x, player.y);
-    ctx.lineTo(mouseX, mouseY);
+    ctx.lineTo(endX, endY);
     ctx.stroke();
+
     // Update background and enemies with player's movement
     background.update(player.deltaX, player.deltaY);
     enemies.forEach(enemy => {
         enemy.x -= player.deltaX;
         enemy.y -= player.deltaY;
     });
+    player.update();
+
+    enemies.forEach(enemy => enemy.update());
+    checkPlayerEnemyCollisions();
 
     background.draw();
     player.draw();
     enemies.forEach(enemy => enemy.draw());
 
+    drawPoints();
     requestAnimationFrame(updateGame);
 }
 

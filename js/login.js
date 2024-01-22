@@ -58,22 +58,24 @@ function loginUser(event) {
   fetch('https://users-4250.restdb.io/rest/accounts?q={"username":"' + username + '"}', {
     method: 'GET',
     headers: {
-      'x-apikey': '65a3cb99c69bc8c9bdf5e233'
+      'x-apikey': '65aa4cb7c0aebd4508c42aa9'
     }
   })
   .then(response => response.json())
   .then(data => {
     if (data.length > 0 && data[0].password === password) {
       alert("Login successful!");
+      
+      const userImage = data[0].userImage; 
 
       if (rememberMe) {
-        
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('username', username);
+        localStorage.setItem('userImage', userImage); // Store the user image
       } else {
-        
         sessionStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('username', username);
+        sessionStorage.setItem('userImage', userImage); // Store the user image
       }
     } else {
       alert("Invalid credentials!");
@@ -84,6 +86,7 @@ function loginUser(event) {
     alert("Login failed!");
   });
 }
+
 
 function registerUser(event) {
   event.preventDefault();  
@@ -107,7 +110,7 @@ function registerUser(event) {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
-              'x-apikey': '65a3cb99c69bc8c9bdf5e233'
+              'x-apikey': '65aa4cb7c0aebd4508c42aa9'
           },
           body: JSON.stringify({
               username,

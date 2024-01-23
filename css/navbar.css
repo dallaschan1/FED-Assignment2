@@ -4,12 +4,25 @@
 
 #navigation-header{
     padding: 10px 0px;
-    background-color: rgb(246, 246, 246);
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    /* backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, 0.2); */
+}
+
+.flex-no-wrap{
+    flex-wrap: nowrap !important;
 }
 
 .logo{
     margin-left: 80px;
-    width: 180px;
+    width: 160px;
+    max-width: 100%;
+}
+
+.logo img{
+    max-width: 100%;
 }
 
 #nav-text li{
@@ -17,31 +30,39 @@
 }
 
 #nav-text{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 8px;
     font-size: 18px;
-    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
+    z-index: 1;
 }
 
+.nav-link {
+    color: black;
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+.nav-link:link {
+    color: black;
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
+    font-weight: 600;
+}
+
+.nav-link:visited {
+    color: black;
+}
+
+.nav-link:hover {
+    cursor: pointer;
+    color: rgb(100, 100, 100);
+}
 
 .icon-nav{
     display: flex;
     margin-right: 80px;
     gap: 15px;
     font-size: 22px;
-}
-
-#loader {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
-    place-items: center;
-    background-color: white;
-    position: absolute;
-    z-index: 1;
-    transition: all ease-in-out 0.3s;
+    width: 160px;
+    max-width: 100%;
 }
 
 #profileImage{
@@ -50,4 +71,12 @@
     height: 22px;        
     border-radius: 50%;  
     object-fit: cover; 
+}
+
+#search:hover, #Pfp:hover, #cart:hover{
+    cursor:pointer;
+}
+
+@media (min-width: 825px) and (max-width: 1020px){
+    /* Add menu button*/
 }

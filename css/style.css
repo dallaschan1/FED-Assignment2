@@ -2,37 +2,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
 
-#navigation-header{
-    padding: 10px 0px;
-    background-color: rgb(246, 246, 246);
-    backdrop-filter: blur(8px);
+body{
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-.logo{
-    margin-left: 80px;
-    width: 180px;
-}
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 
-#nav-text li{
-    display: inline;
-}
-
-#nav-text{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 8px;
-    font-size: 18px;
-    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif
-}
-
-
-.icon-nav{
-    display: flex;
-    margin-right: 80px;
-    gap: 15px;
-    font-size: 22px;
-}
+  ::-webkit-scrollbar-corner{
+    border-radius: 10px;
+  }
 
 #loader {
     width: 100vw;
@@ -40,19 +40,387 @@
     display: grid;
     place-items: center;
     background-color: white;
-    position: absolute;
-    z-index: 1;
+    position: fixed;
+    z-index: 16;
     transition: all ease-in-out 0.6s;
 }
 
-#header-image-container{
+#main-image-container{
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    filter: drop-shadow(0 5px 0.75rem rgb(226, 226, 226));
 }
 
-#header-image-container img{
+#main-image-container img{
     width: 100%;
     height: 100%;
-    
+}
+
+#scroll-down{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-in-out, display 0.3s ease-in-out, visibility 0.3s ease-in-out;;
+}
+
+#shopcat-header{
+  color: black;
+  font-weight: bold;
+  font-size: 3rem;
+  width: fit-content;
+  margin: 0 auto;
+  margin-top: 6%;
+  margin-bottom: 2%;
+}
+
+#shopcat-container{
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  width: 100%;
+  height: fit-content;
+  width: calc(100% - 100px); /* This will set both left and right margins to 20px */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.big {
+  width: fit-content;
+  height: fit-content;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.small{
+  width: fit-content;
+  height: fit-content;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.big, .small-item {
+  opacity: 1;
+  transition: 0.3s all ease-in-out;
+}
+
+.big:hover, .small-item:hover{
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  transition: 0.3s all ease-in-out;
+}
+
+.big:hover .shop-now-link{
+  color: black;
+  transition: 0.3s all ease-in-out;
+}
+
+#s1:hover .shop-now-link, #s1:hover #shop-now-arrow1{
+  color: black;
+  transition: 0.3s all ease-in-out;
+}
+
+#s2:hover .shop-now-link, #s2:hover #shop-now-arrow2{
+  color: black;
+  transition: 0.3s all ease-in-out;
+}
+
+.big-item{
+  max-width: 548px;
+  max-height: 664px;
+}
+
+.small-item{  
+  max-width: 548px;
+  max-height: 319px;
+}
+
+.big-item, .small-item{
+  background-color: #F3F5F7;
+  overflow-y: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.small{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.big-overlay{
+  position: absolute;
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
+.small-overlay{
+  position: absolute;
+  margin-top: 10%;
+  margin-left: 2%;
+}
+
+.item-title{
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 0px;
+}
+
+.shop-now-link{
+  text-decoration: underline;
+  font-weight: normal;
+  font-size: 1.5em;
+  color: rgb(100, 100, 100);
+}
+
+.shop-now-arrow{
+  text-decoration: underline;
+  color: rgb(100, 100, 100);
+}
+
+.shop-now-link:hover{
+  color: black;
+  transition: 0.3s all ease-in-out;
+}
+
+.shop-now-link:hover .shop-now-arrow {
+  color: black;
+  transition: 0.3s all ease-in-out;
+}
+
+.small-item-title{
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+.small-item img{
+  object-fit: fill;
+  object-position: center;
+  max-width: 100%;
+  height: auto;
+}
+
+#new-arrivals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 150px;
+  margin-top: 150px;
+  margin-bottom: 40px;
+}
+
+#new-arrivals-header p {
+  margin: 0;
+  color: black;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.new-arrivals-content{
+  min-height: auto;
+  height: 100%;
+  background: white;
+  z-index: 1;
+}
+
+.body-container{
+  position: relative;
+  max-width: 1350px;
+  width: 100%;
+  height: 100%;
+  margin: 75px auto;
+}
+
+button{
+  padding:10px 20px;
+  font-size: 18px;
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow:0 0 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.filter_buttons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+button:hover{
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+button.active{
+  background: #181818;
+  color: white;
+}
+
+button.active:hover{
+  background: #181818;
+}
+
+.card_body button{
+  margin-top: 15px;
+  background: #181818;
+  color: white;
+}
+
+.card_body button:hover{
+  margin-top: 15px;
+  background: rgba(24, 24, 24,0.6);
+}
+
+.filterable_cards{
+  display: flex;
+  margin: 10px 0px;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card{
+  flex-grow: 1;
+  flex-basis: 350px;
+  background-color: white;
+  margin: 3px; /*This causes the white stuff around the sides */
+  border-radius: 8px;
+  max-width: 400px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  cursor:pointer;
+  transition: all 0.3s;
+  box-shadow: rgba(149, 157, 165, 0.3) 0px 8px 24px;
+}
+
+.card:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card.hide{
+  display: none;
+}
+
+.card img{
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.card_body{
+  padding: 15px 20px 20px;
+  text-align: center;
+}
+
+.card_title{
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.card_text{
+  font-size: 18px;
+  color: #333;
+}
+
+
+
+@media (min-width: 825px) and (max-width: 1020px) {
+  #shopcat-header {
+    font-size: 3rem; /* Adjusted font size for screens between 650px and 1020px */
+  }
+
+  #shopcat-container {
+    gap: 18px; /* Adjusted gap for screens between 650px and 1020px */
+  }
+
+  .small {
+    gap: 18px;
+  }
+
+  .item-title, .small-item-title{
+    font-size: 2rem;
+  }
+
+  .shop-now-link{
+    font-size: 1rem;
+  }
+}
+
+@media (700px <= width <= 825px) {
+  #shopcat-header {
+    font-size: 2.5rem; /* Adjusted font size for screens between 650px and 1020px */
+  }
+
+  #shopcat-container {
+    gap: 0.8rem; /* Adjusted gap for screens between 650px and 1020px */
+  }
+
+  .small {
+    gap: 1rem;
+  }
+
+  .item-title, .small-item-title{
+    font-size: 1.8rem;
+  }
+
+  .shop-now-link{
+    font-size: 1rem;
+  }
+}
+
+@media (600px <= width <= 700px) {
+  #shopcat-header {
+    font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
+  }
+
+  #shopcat-container {
+    gap: 0.6rem; /* Adjusted gap for screens between 650px and 1020px */
+  }
+
+  .small {
+    gap: 0.8rem;
+  }
+
+  .item-title, .small-item-title{
+    font-size: 1.5rem;
+  }
+
+  .shop-now-link{
+    font-size: 1rem;
+  }
+}
+
+@media (200px <= width <= 600px) {
+  #shopcat-header {
+    font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
+  }
+
+  #shopcat-container {
+    gap: 1rem; /* Adjusted gap for screens between 650px and 1020px */
+    flex-wrap: wrap;
+  }
+
+  .small {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .item-title, .small-item-title{
+    font-size: 1.5rem;
+  }
+
+  .shop-now-link{
+    font-size: 1rem;
+  }
 }

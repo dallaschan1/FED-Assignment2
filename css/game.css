@@ -1,11 +1,11 @@
 #gameCanvas{
     border: 1px solid black;
     
-    cursor: none;
+    
 
 }
 main{
-    margin-top: 50px;
+    
     display: flex;
     justify-content: center;
 }

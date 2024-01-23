@@ -4,13 +4,25 @@ const bullets = [];
 let mouseX = 0;
 let mouseY = 0;
 
+let gameStarted = false;
+function requestPointerLock() {
+    if (!gameStarted) {
+        gameStarted = true;
+        canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
+        canvas.requestPointerLock();
+        updateGame();
+        setInterval(addEnemy, 3000); 
+    }
+}
+
+
 
 function resizeCanvas() {
     const devicePixelRatio = window.devicePixelRatio || 1;
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const portraitOverlay = document.getElementById('portrait-overlay');
     const pcWidthPercentage = 0.98; // 90% of screen width for PC
-    const pcHeightPercentage = 0.88; // 80% of screen height for PC
+    const pcHeightPercentage = 0.95; // 80% of screen height for PC
     const mobileWidthPercentage = 0.95; // 90% of screen width for mobile in landscape
     const mobileHeightPercentage = 0.8; // 80% of screen height for mobile in landscape
 
@@ -78,6 +90,30 @@ function checkBulletEnemyCollisions() {
         }
     });
 }
+canvas.addEventListener('click', requestPointerLock);
+function lockChangeAlert() {
+    if (document.pointerLockElement === canvas ||
+        document.mozPointerLockElement === canvas ||
+        document.webkitPointerLockElement === canvas) {
+        console.log('The pointer lock status is now locked');
+        document.addEventListener("mousemove", updatePosition, false);
+    } else {
+        console.log('The pointer lock status is now unlocked');  
+        document.removeEventListener("mousemove", updatePosition, false);
+    }
+}
+
+function updatePosition(e) {
+    mouseX += e.movementX;
+    mouseY += e.movementY;
+    // Adjust the values of mouseX and mouseY to ensure they stay within the canvas bounds
+    mouseX = Math.max(0, Math.min(canvas.width, mouseX));
+    mouseY = Math.max(0, Math.min(canvas.height, mouseY));
+}
+
+document.addEventListener('pointerlockchange', lockChangeAlert, false);
+document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
+document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
 
 function scaleGameElements(ratio) {
     const screenWidth = window.innerWidth;
@@ -286,6 +322,8 @@ class Player {
         this.knockbackVelocityX = 0;
         this.knockbackVelocityY = 0;
         this.knockbackDuration = 0;
+        this.weaponUnlocked = false;
+        this.weapon = new SpinningWeapon(this, 250, 30, 20);
     }
 
 
@@ -318,6 +356,12 @@ class Player {
 
             this.knockbackDuration--;
         }
+        if (playerPoints >= 3) {
+            this.weaponUnlocked = true;
+        }
+        if (this.weaponUnlocked) {
+            this.weapon.update();
+        }
     }
     draw() {
         if (this.hitDuration > 0) {
@@ -327,6 +371,9 @@ class Player {
             ctx.fillStyle = 'blue';
         }
         ctx.fillRect(this.x - this.size / 2, this.y - this.size / 2, this.size, this.size);
+        if (this.weaponUnlocked) {
+            this.weapon.draw();
+        }
     }
 
     shoot() {
@@ -356,12 +403,12 @@ class Player {
 }
 
 class Enemy {
-    constructor(size) {
+    constructor(size, hp, speed) {
         this.x = Math.random() * (canvas.width - 30);
         this.y = Math.random() * (canvas.height - 30);
         this.size = size;
-        this.hp = 100;
-        this.speed = 1;
+        this.hp = hp;
+        this.speed = speed;
         this.wanderAngle = 0; 
         
     }
@@ -426,6 +473,50 @@ function checkPlayerEnemyCollisions() {
     });
 }
 
+class SpinningWeapon {
+    constructor(player, orbitRadius, weaponRadius, damage) {
+        this.player = player;
+        this.orbitRadius = orbitRadius;
+        this.weaponRadius = weaponRadius;
+        this.damage = damage;
+        this.angle = 0; // Starting angle
+        this.rotationSpeed = 0.05; // Speed of rotation
+        this.lastHitTime = new Map(); // Map to store the last hit time for each enemy
+        this.hitCooldown = 1000; 
+    }
+
+    update() {
+        this.angle += this.rotationSpeed; // Rotate the weapon around the player
+    }
+
+    draw() {
+        const x = this.player.x + this.orbitRadius * Math.cos(this.angle);
+        const y = this.player.y + this.orbitRadius * Math.sin(this.angle);
+
+        ctx.beginPath();
+        ctx.arc(x, y, this.weaponRadius, 0, Math.PI * 2);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+    }
+
+    checkCollisionWithEnemy(enemy) {
+        const now = Date.now();
+        const x = this.player.x + this.orbitRadius * Math.cos(this.angle);
+        const y = this.player.y + this.orbitRadius * Math.sin(this.angle);
+
+        const dx = x - enemy.x;
+        const dy = y - enemy.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < enemy.size + this.weaponRadius) {
+            // Check if enough time has passed since the last hit
+            if (!this.lastHitTime.has(enemy) || now - this.lastHitTime.get(enemy) > this.hitCooldown) {
+                enemy.takeDamage(this.damage);
+                this.lastHitTime.set(enemy, now); // Update last hit time
+            }
+        }
+    }
+}
+
 
 const player = new Player(canvas.width / 2, canvas.height / 2, 50);
 const enemies = [];
@@ -445,7 +536,6 @@ function addEnemy() {
     const enemy = new Enemy(size, enemyHP, enemySpeed);
     enemies.push(enemy);
 }
-setInterval(addEnemy, 3000);
 
 
 let horizontalKeys = []; // Stack to track horizontal keys pressed
@@ -531,10 +621,7 @@ canvas.addEventListener('mouseup', () => {
     isMouseDown = false;
 });
 
-canvas.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX - canvas.getBoundingClientRect().left;
-    mouseY = e.clientY - canvas.getBoundingClientRect().top;
-});
+
 function drawPoints() {
     ctx.fillStyle = 'black';
     ctx.font = '20px Arial';
@@ -544,7 +631,9 @@ function drawPoints() {
 }
 
 function updateGame() {
-    
+    if (!gameStarted) {
+        return; // Stop the function if the game hasn't started
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
 
@@ -605,6 +694,11 @@ function updateGame() {
         enemy.y -= player.deltaY;
     });
     player.update();
+    if (player.weaponUnlocked) {
+        enemies.forEach(enemy => {
+            player.weapon.checkCollisionWithEnemy(enemy);
+        });
+    }
 
     enemies.forEach(enemy => enemy.update());
     checkPlayerEnemyCollisions();

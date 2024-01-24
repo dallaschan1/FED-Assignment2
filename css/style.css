@@ -10,29 +10,29 @@ body{
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-    border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+  width: 5px;
+}
 
-  ::-webkit-scrollbar-corner{
-    border-radius: 10px;
-  }
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 10px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+::-webkit-scrollbar-corner{
+border-radius: 10px;
+}
 
 #loader {
     width: 100vw;
@@ -73,8 +73,8 @@ body{
   font-size: 3rem;
   width: fit-content;
   margin: 0 auto;
-  margin-top: 6%;
-  margin-bottom: 2%;
+  margin-top: 10vw;
+  margin-bottom: 5vw;
 }
 
 #shopcat-container{
@@ -209,9 +209,10 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 150px;
-  margin-top: 150px;
-  margin-bottom: 40px;
+  margin: 0px auto;
+  margin-top: 10vw;
+  margin-bottom: 3vw;
+  width: 78vw;
 }
 
 #new-arrivals-header p {
@@ -223,120 +224,107 @@ body{
 
 .new-arrivals-content{
   min-height: auto;
-  height: 100%;
+  height: fit-content;
+  width: fit-content;
   background: white;
   z-index: 1;
 }
 
-.body-container{
-  position: relative;
-  max-width: 1350px;
-  width: 100%;
-  height: 100%;
-  margin: 75px auto;
-}
-
-button{
-  padding:10px 20px;
-  font-size: 18px;
-  background: white;
-  color: black;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow:0 0 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s;
-  border: 1px solid rgba(0,0,0,0.1);
-}
-
-.filter_buttons{
+.card-flex{
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
+  gap: 2vw;
+  width: 78vw;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  padding-bottom: 4vw;
 }
 
-button:hover{
-  background-color: rgba(0, 0, 0, 0.08);
+.card-flex::-webkit-scrollbar {
+  width: 1px !important;
 }
 
-button.active{
-  background: #181818;
-  color: white;
+.card-flex::-webkit-scrollbar-thumb {
+  background: #343839;
+  border-radius: 10px;
+  width: 1px;
 }
 
-button.active:hover{
-  background: #181818;
-}
-
-.card_body button{
-  margin-top: 15px;
-  background: #181818;
-  color: white;
-}
-
-.card_body button:hover{
-  margin-top: 15px;
-  background: rgba(24, 24, 24,0.6);
-}
-
-.filterable_cards{
-  display: flex;
-  margin: 10px 0px;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+.card-container{
+  width: fit-content;
+  height: fit-content;
+  opacity: 1;
+  transition: 0.3s all ease-in-out;
 }
 
 .card{
-  flex-grow: 1;
-  flex-basis: 350px;
-  background-color: white;
-  margin: 3px; /*This causes the white stuff around the sides */
-  border-radius: 8px;
-  max-width: 400px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  cursor:pointer;
-  transition: all 0.3s;
-  box-shadow: rgba(149, 157, 165, 0.3) 0px 8px 24px;
+  width: 18vw;
 }
 
 .card:hover{
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  transition: 0.3s all ease-in-out;
 }
 
-.card.hide{
-  display: none;
+.card-product{
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
-.card img{
-  width: 100%;
-  height: 210px;
-  object-fit: cover;
-  border-radius: 8px 8px 0 0;
+.card-price{
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
-.card_body{
-  padding: 15px 20px 20px;
-  text-align: center;
+#benefit-container{
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  gap: 2vw;
+  margin-top: 10vw;
+  margin-bottom: 10vw;
 }
 
-.card_title{
-  font-size: 20px;
-  font-weight: 500;
-  color: #333;
+.benefit-box{
+  width: 17.5vw;
+  height: 13vw;
+  background-color: #F3F5F7;
+  padding: 2vw 2vw;
 }
 
-.card_text{
-  font-size: 18px;
-  color: #333;
+.benefit-icon{
+  font-size: 3.5vw;
+  color: #353636;
+  margin-bottom: 1vw;
 }
 
+.benefit-title{
+  margin: 0;
+  color: black;
+  font-weight: bold;
+  font-size: 1.6vw;
+}
 
+.benefit-subtitle{
+  margin: 0;
+  color: #6C7275;
+  font-size: 1vw;
+}
+
+footer{
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+footer .nav{
+  border: none !important;
+  padding-bottom: 0 !important;
+}
 
 @media (min-width: 825px) and (max-width: 1020px) {
-  #shopcat-header {
+  #shopcat-header, #new-arrivals-header p {
     font-size: 3rem; /* Adjusted font size for screens between 650px and 1020px */
   }
 
@@ -355,10 +343,14 @@ button.active:hover{
   .shop-now-link{
     font-size: 1rem;
   }
+
+  .card{
+    width: 24.5vw;
+  }
 }
 
 @media (700px <= width <= 825px) {
-  #shopcat-header {
+  #shopcat-header, #new-arrivals-header p {
     font-size: 2.5rem; /* Adjusted font size for screens between 650px and 1020px */
   }
 
@@ -377,10 +369,14 @@ button.active:hover{
   .shop-now-link{
     font-size: 1rem;
   }
+
+  .card{
+    width: 24.5vw;
+  }
 }
 
 @media (600px <= width <= 700px) {
-  #shopcat-header {
+  #shopcat-header, #new-arrivals-header p {
     font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
   }
 
@@ -399,10 +395,14 @@ button.active:hover{
   .shop-now-link{
     font-size: 1rem;
   }
+
+  .card{
+    width: 30vw;
+  }
 }
 
 @media (200px <= width <= 600px) {
-  #shopcat-header {
+  #shopcat-header, #new-arrivals-header p {
     font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
   }
 
@@ -422,5 +422,45 @@ button.active:hover{
 
   .shop-now-link{
     font-size: 1rem;
+  }
+
+  .card{
+    width: 60vw;
+  }
+}
+
+@media (200px <= width <= 1020px){
+  #benefit-container{
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10vw;
+    gap: 2.5vw;
+  }
+
+  .benefit-box{
+    flex: 1; /* Adjust the width and margin total as needed */
+    flex-basis: 30vw;
+    height: 25vw;
+    padding: 4vw 5vw;
+  }
+
+  .benefit-icon{
+    font-size: 8vw;
+    color: #353636;
+    margin-bottom: 1vw;
+  }
+  
+  .benefit-title{
+    margin: 0;
+    color: black;
+    font-weight: bold;
+    font-size: 3.5vw;
+  }
+  
+  .benefit-subtitle{
+    margin: 0;
+    color: #6C7275;
+    font-size: 2vw;
   }
 }

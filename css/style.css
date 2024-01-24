@@ -376,6 +376,7 @@ footer .nav{
 }
 
 @media (600px <= width <= 700px) {
+  
   #shopcat-header, #new-arrivals-header p {
     font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
   }
@@ -430,6 +431,12 @@ footer .nav{
 }
 
 @media (200px <= width <= 1020px){
+  #main-image-container img{
+    content:url("../images/Mobile-Home.jpeg");
+    height: 100vh; /* Set the height to cover the full viewport height */
+    object-fit: cover;
+  }
+
   #benefit-container{
     flex-flow: row wrap;
     justify-content: center;

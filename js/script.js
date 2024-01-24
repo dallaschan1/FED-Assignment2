@@ -22,7 +22,6 @@ function includeHTMLHeader() {
   }
 }
 
-const navigationHeader = document.getElementById('navigation-header');
 window.addEventListener("load", function() {
   const loader = document.getElementById("loader");
   setTimeout(function() {
@@ -33,7 +32,6 @@ window.addEventListener("load", function() {
     }, 600);
   }, /*3*/100);
 });
-
 
 const scrollDown = document.getElementById("scroll-down");
 window.addEventListener("scroll", function() {

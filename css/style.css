@@ -230,7 +230,7 @@ border-radius: 10px;
   z-index: 1;
 }
 
-.card-flex{
+#card-flex{
   display: flex;
   gap: 2vw;
   width: 78vw;
@@ -240,11 +240,11 @@ border-radius: 10px;
   padding-bottom: 4vw;
 }
 
-.card-flex::-webkit-scrollbar {
+#card-flex::-webkit-scrollbar {
   width: 1px !important;
 }
 
-.card-flex::-webkit-scrollbar-thumb {
+#card-flex::-webkit-scrollbar-thumb {
   background: #343839;
   border-radius: 10px;
   width: 1px;
@@ -271,6 +271,7 @@ border-radius: 10px;
   font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 0;
+  margin-top: 1vw;
 }
 
 .card-price{
@@ -316,6 +317,7 @@ border-radius: 10px;
 
 footer{
   border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: black;
 }
 
 footer .nav{

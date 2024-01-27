@@ -265,7 +265,6 @@ border-radius: 10px;
   margin: 0;
 }
 
-/* Optionally, for Firefox, you may need to reset the appearance */
 .value {
   -moz-appearance: textfield;
 }

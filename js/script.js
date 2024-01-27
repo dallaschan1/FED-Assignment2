@@ -74,6 +74,13 @@ function includeHTMLHeader() {
       return;
     }
   }
+
+  document.getElementById('zencraft-logo').src = 'images/ZenCraft Logo.png';
+  document.getElementById('profileImage').src ='images/water.jpg';
+  document.getElementById('home-nav-link').href = '#';
+  document.getElementById('shop-nav-link').href = 'html/shop.html';
+  document.getElementById('contact-us-nav-link').href = 'html/contact.html';
+  document.getElementById('about-us-nav-link').href = 'html/about.html';
 }
 
 document.addEventListener("DOMContentLoaded", function () {

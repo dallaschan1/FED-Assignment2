@@ -94,18 +94,18 @@
 }
 
 .nav-link:link {
-    color: black;
+    color: black; 
     font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
     font-weight: 600;
 }
 
 .nav-link:visited {
-    color: black;
+    color: black !important;
 }
 
 .nav-link:hover {
     cursor: pointer;
-    color: rgb(100, 100, 100);
+    color: rgb(100, 100, 100) !important;
 }
 
 .icon-nav{

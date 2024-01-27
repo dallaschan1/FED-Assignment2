@@ -1,0 +1,398 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
+
+body{
+    width: 100vw;
+    overflow-x: hidden;
+    /* overflow-y: hidden; */
+}
+
+body *{
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 10px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+::-webkit-scrollbar-corner{
+border-radius: 10px;
+}
+
+#loader {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: white;
+    position: fixed;
+    z-index: 16;
+    transition: all ease-in-out 0.6s;
+}
+
+#main-image-container{
+    width: 78vw;
+    height: 50vh;
+    filter: drop-shadow(0 5px 0.75rem rgb(226, 226, 226));
+    margin: 0 auto;
+}
+
+#main-image-container img{
+    width: 100%;
+    height: 100%;
+}
+
+#main-image-container-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 100%; /* Adjust the max-width based on your design */
+    height: auto;
+    text-align: center;
+}
+
+#image-title{
+    font-weight: bold;
+    font-size: 4rem;
+}
+
+#image-subtitle{
+    font-size: 1.6rem;
+}
+
+#filter{
+    width: 78vw;
+    margin: 0 auto;
+    margin-bottom: 2.5em;
+    margin-top: 4.5em;
+    height: fit-content;
+    display: flex;
+    justify-content: start;
+    gap: 50px;
+}
+
+.mydropdown *{
+    box-sizing: border-box;
+}
+
+.mydropdown{
+    max-width: 18em;
+    width: 100%;
+    position: relative;
+}
+
+#filter-cat-title, #filter-price-header{
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+    color:rgb(105, 110, 115);
+}
+
+.select{
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px #2a2f3b solid;
+    border-radius: 0.5em;
+    padding: 0.6em 1.5em;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.select:hover{
+    background-color: rgb(61, 61, 61);
+    color: white;
+}
+
+.selected{
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.selected-clicked{
+    border: 2px #2a2f3b solid;
+    box-shadow: 0 0 1em #000000;
+}
+
+.selected:hover{
+    background: black;
+    color: white;
+}
+
+.caret-rotate{
+    transform: rotate(180deg);
+    transition: 0.3s all ease-in-out;
+}
+
+.mymenu{
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #ffffff;
+    border: 1px #2a2f3b;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #727581;
+    position: absolute;
+    top: 5.8em;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    opacity: 0;
+    display: none;
+    transition: 0.2s;
+    z-index: 1;
+
+}
+
+.mymenu li{
+    padding: 0.7em 0.5em;
+    margin: 0.3em 0;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.mymenu li:hover{
+    background: rgb(243, 243, 243);
+}
+
+.active-filter{
+    background: rgb(61, 61, 61);
+    color: white;
+}
+
+.active-filter:hover{
+    background: rgb(61, 61, 61) !important;
+    color: white !important;
+}
+
+.mymenu-open{
+    display: block;
+    opacity: 1;
+}
+
+#filter-price{
+    margin: auto 0;
+    width: fit-content;
+}
+
+.field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 15px;
+    padding: 0.5em 0;
+}
+
+#drag-filter{
+    --c: black; /* active color */
+    --g: 8px; /* the gap */
+    --l: 5px; /* line thickness*/
+    --s: 30px; /* thumb size*/
+    width: 15vw;
+    --_c: color-mix(in srgb, var(--c), #000 var(--p,0%));
+    -webkit-appearance :none;
+    -moz-appearance :none;
+    appearance :none;
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#drag-filter:focus-visible,
+#drag-filter:hover{
+  --p: 25%;
+}
+#drag-filter:active,
+#drag-filter:focus-visible{
+  --_b: var(--s)
+}
+
+#drag-filter[type="range" i]::-webkit-slider-thumb{
+    height: var(--s);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: 0 0 0 var(--_b,var(--l)) inset var(--_c);
+    border-image: linear-gradient(90deg,var(--_c) 50%,#ababab 0) 0 1/calc(50% - var(--l)/2) 100vw/0 calc(100vw + var(--g));
+    -webkit-appearance: none;
+    appearance: none;
+    transition: .3s;
+  }
+
+.value, #text-filter-span{
+    font-size: 1.5rem;
+    border: none;
+    width: 4.5rem;
+}
+
+#text-filter-span{
+    padding-left: 5px;
+}
+
+.value:focus-visible{
+    border: none;
+    width: 4.5rem;
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+
+.value::-webkit-inner-spin-button,
+.value::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Optionally, for Firefox, you may need to reset the appearance */
+.value {
+  -moz-appearance: textfield;
+}
+
+#shop-container {
+    min-height: auto;
+    height: fit-content;
+    width: fit-content;
+    background: white;
+    z-index: 1;
+}
+  
+#card-flex{
+display: flex;
+gap: 2vw;
+width: 78vw;
+margin: 0 auto;
+flex-wrap: wrap;
+padding-bottom: 4vw;
+justify-content: center;
+}
+
+#card-flex::-webkit-scrollbar {
+width: 1px !important;
+}
+
+#card-flex::-webkit-scrollbar-thumb {
+background: #343839;
+border-radius: 10px;
+width: 1px;
+}
+
+.card-container{
+width: fit-content;
+height: fit-content;
+opacity: 1;
+transition: 0.3s all ease-in-out;
+}
+
+.card{
+width: 18vw;
+}
+
+.card:hover{
+cursor: pointer;
+box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+transition: 0.3s all ease-in-out;
+}
+
+.card-product{
+font-size: 1.3rem;
+font-weight: bold;
+margin-bottom: 0;
+margin-top: 1vw;
+}
+
+.card-price{
+font-size: 1.1rem;
+font-weight: bold;
+margin-bottom: 0;
+}
+
+.hide{
+    display: none;
+}
+
+footer{
+border: 1px solid rgba(0, 0, 0, 0.1);
+width: 100vw;
+}
+
+footer .nav{
+border: none !important;
+padding-bottom: 0 !important;
+}
+
+@media (min-width: 825px) and (max-width: 1020px) {
+    #image-title {
+      font-size: 3rem; /* Adjusted font size for screens between 650px and 1020px */
+    }
+
+    #image-subtitle{
+        font-size: 2rem
+    }
+  
+    .card{
+      width: 24.5vw;
+    }
+  }
+  
+  @media (700px <= width <= 825px) {
+    #image-title {
+      font-size: 2.5rem; /* Adjusted font size for screens between 650px and 1020px */
+    }
+  
+    .card{
+      width: 24.5vw;
+    }
+  }
+  
+  @media (600px <= width <= 700px) {
+    
+    #image-title {
+      font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
+    }
+  
+    #card-flex{
+        column-gap: 6%;
+        row-gap: 20px;
+    }
+
+    .card{
+      width: 35vw;
+    }
+  }
+  
+  @media (200px <= width <= 600px) {
+    #image-title {
+      font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
+    }
+  
+    #card-flex{
+        column-gap: 6%;
+        row-gap: 20px;
+    }
+
+    .card{
+      width: 35vw;
+    }
+  }

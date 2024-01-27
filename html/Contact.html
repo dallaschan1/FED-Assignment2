@@ -10,49 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
-    <title>NavBar Testing</title>
+    <title>Contact Page</title>
 </head>
 <body>
-<header>
-  <div id="navigation-header">
-      <ul id="nav-text" class="nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home</a>
-          </li>
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="../html/shop.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Shop
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
-      </ul>
-      <nav class="navbar">
-          <a class="logo" href="../index.html">
-            <img src="../images/ZenCraft Logo.png" width="180" alt="">
-          </a>
-          <div class="nav justify-content-end icon-nav">
-              <a id="search" href="#" class="text-dark"><i class="fa-solid fa-magnifying-glass"></i></a>
-              <!-- This is just for profile picture testing, we can remove it in future-->
-              <div id="Pfp">
-                <img id="profileImage" src="default-image.png" alt="Profile Picture" style="display: none;">
-                <a id="user" href="login.html" class="text-dark"><i class="fa-solid fa-user"></i></a>
-              </div>
-              
-              <a id="cart" href="#" class="text-dark"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
-      </nav>
-  </div>
-</header>
+<header w3-include-html="../html/navbar.html" class="bg-light"></header>
 <main>
     <section id="intro">
       <h1>We believe in sustainable decor. We're passionate about life at home</h1>

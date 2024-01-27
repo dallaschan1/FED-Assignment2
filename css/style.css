@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
 
+html{
+  height: 100%;
+}
+
 body{
     width: 100vw;
     overflow-x: hidden;
@@ -320,7 +324,6 @@ border-radius: 10px;
 
 footer{
   border: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: black;
 }
 
 footer .nav{

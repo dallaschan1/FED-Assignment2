@@ -25,53 +25,52 @@ function includeHTMLHeader() {
 }
 
 // document.addEventListener("DOMContentLoaded", function () {
-//     const APIKEY = "65b39da5fc1ad2bd332e3653";
-  
-//     function fetchProductsAndPopulateCards() {
-//       let settings = {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//           "x-apikey": APIKEY,
-//           "Cache-Control": "no-cache"
-//         },
-//       };
-    
-//       fetch("https://fedassg2product-f089.restdb.io/rest/product", settings)
-//         .then(response => response.json())
-//         .then(products => {
-//           let content = "";
-    
-//           for (let i = 0; i < 6; i++) {
-//             content += `<div class="card-container" data-name="${product[i].category}">
-//                             <div class="card">
-//                                 <img src="../images/${products[i].name}.png" class="card-img-top card-img" alt="${products[i].name}">
-//                             </div>
-//                             <p class="card-product">${products[i].name}</p>
-//                             <p class="card-price">$${products[i].price.toFixed(2)}</p>
-//                         </div>`;
-//           }
-    
-//           document.getElementById("card-flex").innerHTML = content;
-  
-//           // Hide the loader after data is loaded
-//           const loader = document.getElementById("loader");
-//           loader.style.opacity = "0";
-//           setTimeout(function(){
-//             document.body.style.overflowY = 'scroll';
-//             loader.style.display = "none";
-//           }, 1000);
-//         })
-//         .catch(error => {
-//           console.error("Error fetching products:", error.message);
-//           // You may want to handle errors here and adjust the loader accordingly
-//         });
-//     }
-    
-//     // Call the function to fetch data and populate cards
-//     fetchProductsAndPopulateCards();  
+//   const APIKEY = "65b39da5fc1ad2bd332e3653";
+
+//   function fetchProductsAndPopulateCards() {
+//     let settings = {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-apikey": APIKEY,
+//         "Cache-Control": "no-cache"
+//       },
+//     };
+
+//     fetch("https://fedassg2product-f089.restdb.io/rest/product", settings)
+//       .then(response => response.json())
+//       .then(products => {
+//         let content = "";
+
+//         for (let i = 0; i < products.length; i++) {
+//           content += `<div class="card-container" data-name="${products[i].category}">
+//                           <div class="card">
+//                               <img src="../images/${products[i].name}.png" class="card-img-top card-img" alt="${products[i].name}">
+//                           </div>
+//                           <p class="card-product">${products[i].name}</p>
+//                           <p class="card-price">$${products[i].price.toFixed(2)}</p>
+//                       </div>`;
+//         }
+
+//         document.getElementById("card-flex").innerHTML = content;
+
+//         // Hide the loader after data is loaded
+//         const loader = document.getElementById("loader");
+//         loader.style.opacity = "0";
+//         setTimeout(function(){
+//           document.body.style.overflowY = 'scroll';
+//           loader.style.display = "none";
+//         }, 1000);
+//       })
+//       .catch(error => {
+//         console.error("Error fetching products:", error.message);
+//         // You may want to handle errors here and adjust the loader accordingly
+//       });
 //   }
-//   );
+
+//   // Call the function to fetch data and populate cards
+//   fetchProductsAndPopulateCards();  
+// });
 
 const dropdowns = document.querySelectorAll('.mydropdown');
 
@@ -100,26 +99,28 @@ dropdowns.forEach(dropdown => {
                 opt.classList.remove('active-filter');
             });
             option.classList.add('active-filter');
-
+            
             filterCards(option.dataset.name); // Call the filtering function with the selected category
         });
     });
 });
 
-const filterableCards = document.querySelectorAll(".card-container");
-
 const filterCards = (selectedCategory) => {
-    filterableCards.forEach(card => {
-        const cardCategories = card.dataset.name.split(',');
+  console.log("Filtering");
+  filterableCards.forEach(card => {
+    const cardCategories = card.dataset.name.includes(',')
+      ? card.dataset.name.split(',')
+      : [card.dataset.name.trim()]; 
 
-        card.classList.add("hide");
+    card.classList.add("hide");
 
-        if (selectedCategory === "all" || cardCategories.includes(selectedCategory)) {
-            card.classList.remove("hide");
-        }
-    });
+    if (selectedCategory === "all" || cardCategories.includes(selectedCategory)) {
+      card.classList.remove("hide");
+    }
+  });
 };
 
+const filterableCards = document.querySelectorAll(".card-container");
 
 const slider = document.getElementById('drag-filter');
 const valueInput = document.getElementById('text-filter');

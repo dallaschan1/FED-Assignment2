@@ -2,10 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
 
+html{
+    height: 100%;
+}
+
 body{
-    width: 100vw;
     overflow-x: hidden;
     /* overflow-y: hidden; */
+    height: fit-content;
+    margin: 0;
 }
 
 body *{
@@ -208,10 +213,10 @@ border-radius: 10px;
 
 #drag-filter{
     --c: black; /* active color */
-    --g: 8px; /* the gap */
+    --g: 0px; /* the gap */
     --l: 5px; /* line thickness*/
-    --s: 30px; /* thumb size*/
-    width: 15vw;
+    --s: 20px; /* thumb size*/
+    width: 200px;
     --_c: color-mix(in srgb, var(--c), #000 var(--p,0%));
     -webkit-appearance :none;
     -moz-appearance :none;
@@ -265,16 +270,13 @@ border-radius: 10px;
   margin: 0;
 }
 
-.value {
-  -moz-appearance: textfield;
-}
-
 #shop-container {
     min-height: auto;
     height: fit-content;
     width: fit-content;
     background: white;
     z-index: 1;
+    margin: 0 auto;
 }
   
 #card-flex{
@@ -334,6 +336,7 @@ margin-bottom: 0;
 footer{
 border: 1px solid rgba(0, 0, 0, 0.1);
 width: 100vw;
+margin-top: auto;
 }
 
 footer .nav{
@@ -349,15 +352,59 @@ padding-bottom: 0 !important;
     #image-subtitle{
         font-size: 2rem
     }
+
+    #filter-price-header, #filter-cat-title{
+        font-size: 0.9rem;
+    }
+
+    .mydropdown{
+        max-width: 15em;
+    }
+
+    .value, #text-filter-span{
+        font-size: 1.2rem;
+        border: none;
+        width: 4.5vw;
+    }
   
     .card{
       width: 24.5vw;
+    }
+
+    #drag-filter{
+        width: 200px;
     }
   }
   
   @media (700px <= width <= 825px) {
     #image-title {
       font-size: 2.5rem; /* Adjusted font size for screens between 650px and 1020px */
+    }
+
+    #image-subtitle{
+        font-size: 1.5rem
+    }
+
+    #filter-price-header, #filter-cat-title{
+        font-size: 0.9rem;
+    }
+
+    #drag-filter{
+        width: 200px;
+    }
+
+    .mydropdown{
+        max-width: 12em;
+    }
+
+    .value, #text-filter-span{
+        font-size: 1.2rem;
+        border: none;
+        width: 40px;
+    }
+
+    .card-product{
+        font-size:1rem;
     }
   
     .card{
@@ -370,10 +417,44 @@ padding-bottom: 0 !important;
     #image-title {
       font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
     }
+
+    #image-subtitle{
+        font-size: 1rem
+    }
   
+    #filter-price-header, #filter-cat-title{
+        font-size: 0.9rem;
+    }
+
+    #drag-filter{
+        width: 180px;
+    }
+
+    .mydropdown{
+        max-width: 10em;
+    }
+
+    .select{
+        padding: 0.4em 1em;
+    }
+
+    .selected{
+        font-size: 1rem;
+    }
+
+    .value, #text-filter-span{
+        font-size: 1.2rem;
+        border: none;
+        width: 40px;
+    }
+
     #card-flex{
         column-gap: 6%;
         row-gap: 20px;
+    }
+
+    .card-product{
+        font-size:1rem;
     }
 
     .card{
@@ -385,10 +466,49 @@ padding-bottom: 0 !important;
     #image-title {
       font-size: 2rem; /* Adjusted font size for screens between 650px and 1020px */
     }
+
+    #image-subtitle{
+        font-size: 1rem
+    }
   
+    #filter{
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    #filter-price-header, #filter-cat-title{
+        font-size: 0.9rem;
+    }
+
+    .value, #text-filter-span{
+        font-size: 1.2rem;
+        border: none;
+        width: 40px;
+    }
+
+    #drag-filter{
+        width: 180px;
+    }
+
+    .mydropdown{
+        max-width: 8em;
+    }
+
+    .select{
+        padding: 0.3em 1em;
+    }
+
+    .selected{
+        font-size: 1rem;
+    }
+
     #card-flex{
         column-gap: 6%;
         row-gap: 20px;
+    }
+
+    .card-product{
+        font-size:1rem;
     }
 
     .card{

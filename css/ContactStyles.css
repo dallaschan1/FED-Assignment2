@@ -3,11 +3,10 @@ body {
   margin: 0;
   padding: 0;
   padding-bottom: 60px;
+  overflow-x: hidden;
 }
 
-header {
-  /* Header styles */
-}
+
 
 main {
   width: 86%;
@@ -22,6 +21,7 @@ main {
   font-weight: 500;
   padding-top: 100px; 
   
+  
   text-align: left;
 }
 
@@ -34,6 +34,7 @@ main {
 
 #intro>h1{
   margin-bottom: 2px;
+  width: calc(300px + 40%);
 }
 
 
@@ -54,7 +55,7 @@ main {
   flex-direction: column;
   justify-content: center;
   padding-left: calc(10% + 20px);
-  width: 60%;
+  width: 70%;
   background-color: #F3F5F7;
 }
 
@@ -81,7 +82,7 @@ main {
 
 .Contact-Card{
   background-color: #F3F5F7;
-  width: 30%;
+  width: 33%;
   height: 200px;
   font-size: calc(10px + 0.8vw);
   font-family: 'Inter', sans-serif;
@@ -166,7 +167,7 @@ button:hover {
 }
 
 #map{
-  flex-grow: 0.63;
+  flex-grow: 0.7;
 }
 
 @media (max-width: 768px) {

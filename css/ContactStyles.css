@@ -8,12 +8,14 @@ body {
 
 
 
+
 main {
   width: 86%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  padding-top: 30px;
 }
 
 #intro {

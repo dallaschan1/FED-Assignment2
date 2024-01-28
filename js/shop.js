@@ -159,19 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedCategory = document.querySelector('.active-filter').dataset.name;
         filterCards(selectedCategory, parseInt(this.value));
       });
-
-
-      // function filterCardsPrice(selectedPrice) {
-      //   filterableCards.forEach(card => {
-      //     const cardPrice = parseFloat(card.querySelector('.card-price').textContent.replace('$', ''));
-
-      //     card.classList.add("hide");
-
-      //     if (selectedPrice === 300 || (cardPrice <= selectedPrice)) {
-      //       card.classList.remove("hide");
-      //     }
-      //   });
-      // }
     })
     .catch(error => {
       console.error("Error:", error.message);

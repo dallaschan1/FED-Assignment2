@@ -1,5 +1,5 @@
 main {
-    border: 1px solid black;
+    
     width: calc(300px + 70vw);
     height: 70%;
     margin-left: auto;
@@ -8,27 +8,48 @@ main {
     padding-top: 140px;
 }
 
+#nav-break{
+    margin-top: 30px;
+}
+
+#navbars{
+    display: none;
+}
+
+#search-bar2{
+    display: none;
+}
+
 #Top{
     display: flex;
     
     width: 100%;
-    height: 20px;
+    height: 70px;
+    
 }
 
-#Tags, #Create {
-    width: 16.67%;
-    
+#Tags {
+    width: 300px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+#Create{
+    width: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
 }
   
 #Search {
-    width: 66.66%;
-
+    width: 90%;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 
 .search-container {
     position: relative;
-    width: 80%;
+    width: 94%;
     margin-left: auto;
     margin-right: auto;
     height: 70px; 
@@ -169,4 +190,223 @@ main {
     border: 1px solid rgb(231, 229, 229);
     border-radius: 15px;
     background-color: rgb(231, 229, 229);
+}
+
+#Create {
+    /* Align the button container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#createButton {
+    height: 100%;
+    width: 100%;
+    
+    /* Styling the button */
+    background: linear-gradient(to right, #24C6DC, #514A9D); /* Gradient color */
+    border: none; /* Remove default border */
+    color: white; /* Text color */
+    margin-right: 40px;
+    
+    border-radius: 15px; /* Rounded corners */
+    font-size: 20px; /* Font size */
+    font-weight: bold; /* Font weight */
+    cursor: pointer; /* Cursor changes to pointer */
+    transition: transform 0.2s, background-color 0.2s; /* Transition for hover effect */
+}
+
+#createButton:hover {
+    /* Hover effect */
+    transform: scale(1.05); /* Slightly enlarges */
+    background: linear-gradient(to right, #57CC99, #3498DB); /* Brightens the color */
+}
+
+#Content {
+    width: calc(97% - 330px); 
+    height: 50px;
+    margin-top: 40px;
+    margin-left: 350px;
+    border: 1px solid black;
+}
+
+@media (max-width: 1200px) {
+
+    #Top{
+        display: none;
+    }
+    
+    
+
+    #navbars, #Left, #Right{
+    display: flex;
+    }
+    #Left, #Right{
+        gap: 20px;
+        width: fit-content;
+        height: 50px;
+        align-items: center;
+    }
+    #navbars{
+        justify-content: space-between;
+        padding: 20px;
+        padding-top: 30px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
+    
+
+
+#navigation-header{
+    display: none !important; 
+}
+
+#navbars{
+    position: relative;
+    width: 96%;
+    height: 20px;
+}
+.search-icons {
+    position: relative;
+    cursor: pointer;
+    line-height: 30px;
+}
+
+.search-icons i {
+    color: #555; 
+    font-size: 25px; 
+    vertical-align: bottom;
+}
+
+.dropdowns {
+    
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+    align-items: center;
+    font-size: 14px; 
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 1.2px; 
+    color: black;
+    
+    box-sizing: border-box;
+    padding: 7px;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    background-color: grey;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 90px; /* Position below the dropdowns element */
+    left: 0;
+    width: 96vw; /* Full width of the device */
+    background-color: white;
+    
+    z-index: 1000;
+    transform: translateY(-100%); /* Start hidden above */
+    transition: transform 2s ease-in-out;
+    border: 1px solid #ddd;
+}
+
+.dropdowns .dropdown-content.show {
+    display: block;
+    transform: translateY(0); /* Slide down */
+}
+
+.tag {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.tag:last-child {
+    border-bottom: none;
+}
+
+.tag .icon {
+    margin-right: 10px;
+    /* Style for the icon */
+}
+#dropdowns-text{
+
+    font-size: 17px;
+}
+.dropdowns i {
+    transition: transform 0.5s;
+    transform-origin: center;
+}
+
+
+.dropdowns i.rotated {
+    transform: rotate(180deg); 
+}
+
+.fa-bars{
+    font-size: 25px;
+}
+
+.user-image > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#search-bar2 {
+    width: 96%;
+    height: 60px;
+    padding: 20px; 
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 30px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.search-field-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1; 
+    margin-right: 20px; 
+}
+
+#search-input {
+    flex-grow: 1;
+    padding-left: 35px; 
+    padding-right: 35px; 
+    height: 40px; 
+    border-radius: 5px; 
+    
+}
+
+.search-icons2, .clear-icon {
+    position: absolute;
+    cursor: pointer;
+}
+
+.search-icons2 {
+    left: 10px; 
+}
+
+.clear-icon {
+    right: 10px; 
+}
+
+.cancel-text {
+    cursor: pointer;
+   
+}
+
+
+
 }

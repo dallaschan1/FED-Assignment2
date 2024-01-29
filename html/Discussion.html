@@ -6,7 +6,7 @@
     <title>Document</title>
     
     <link rel='stylesheet' href='../css/Discussion.css'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" type="text/css" href="../css/normalize.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/navbar.css">
@@ -54,9 +54,54 @@
         </div>
     </nav>
   </div>
+
+  <div id="navbars">
+    <div id = "Left">
+      <div class="hamburg-menu">
+        <i class="fa fa-bars"></i>
+    </div>
+    
+    <div class="dropdowns">
+      <span id="dropdowns-text">Home</span> 
+      <i class="fas fa-caret-down"></i>
+  
+      <div class="dropdown-content">
+          <div class="tag" onclick="updateText('Home')"><i class="icon">[Icon]</i> Home</div>
+          <div class="tag" onclick="updateText('Tagsdasdsadsa1')"><i class="icon">[Icon]</i> Tagsdasdsadsa1</div>
+          <div class="tag" onclick="updateText('Tagasdasdsadasdsadsadsa2')"><i class="icon">[Icon]</i> Tagasdasdsadasdsadsadsa2</div>
+          <!-- Add more tags as needed -->
+      </div>
+  </div>
+  
+    </div>
+  <div id="Right">
+    <div class="search-icons">
+      <i class="fa fa-search"></i>
+    </div>
+  
+    <div class="user-image">
+        <img src="../images/Default.png" alt="User">
+    </div>
+  </div>
+  
+</div>
+
+
+
+<div id="search-bar2" style="display: none;">
+  <div class="search-field-container">
+      <i class="fa fa-search search-icons2"></i>
+      <input type="text" id="search-input" placeholder="Search...">
+      <i class="fa fa-times clear-icon" onclick="clearSearch()"></i>
+  </div>
+  <div class="cancel-text" onclick="toggleSearchBar()">Cancel</div>
+</div>
   </header>
 
+  <hr id = "nav-break">
+
   <main>
+    
     <div id = "Top">
       <div id="Tags">
         <ul class="menu">
@@ -76,9 +121,19 @@
         <span class="search-icon"><i class="fas fa-search"></i></span> 
     </div>
 </div>
-       <div id = "Create"></div>
+       <div id = "Create">
+        <button id="createButton">Create</button>
+
+       </div>
+    </div>
+    <div id = "Content">
+      <div class="thread"></div>
+    </div>
+    <div id = "Content">
+      <div class="thread"></div>
     </div>
   </main>
+ 
 
     <script src="../js/Discussion.js"></script>
     <script src="https://kit.fontawesome.com/229dff7a33.js" crossorigin="anonymous"></script>

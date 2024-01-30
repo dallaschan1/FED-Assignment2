@@ -6,14 +6,19 @@ main {
     margin-right: auto;
     height: 900px;
     padding-top: 140px;
+    overflow-x: hidden;
 }
 
 #nav-break{
+    display: none;
     margin-top: 30px;
 }
 
 #navbars{
     display: none;
+}
+body{
+    overflow-x: hidden;
 }
 
 #search-bar2{
@@ -27,6 +32,8 @@ main {
     height: 70px;
     
 }
+
+
 
 #Tags {
     width: 300px;
@@ -224,11 +231,121 @@ main {
 
 #Content {
     width: calc(97% - 330px); 
-    height: 50px;
+    height: calc(100vh - 250px);
     margin-top: 40px;
-    margin-left: 350px;
-    border: 1px solid black;
+    margin-left: 330px;
+        
 }
+#Content{
+
+    overflow-y: auto;
+}
+#Content::-webkit-scrollbar {
+    display: none;
+}
+
+/* For other browsers: */
+#Content {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.thread {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-height: 100px; /* Minimum height */
+    max-height: 2000px; /* Maximum height */
+    margin-bottom: 10px;
+    border: 1px solid black;
+    padding: 15px;
+    padding-left: 20px; /* Additional padding for content */
+}
+
+.Main-Image{
+    width: 100%; /* Full width of the container */
+    min-height: 100px; /* Minimum height */
+    max-height: 500px; /* Maximum height */
+    object-fit: cover; /* Cover the area without distortion */
+    object-position: center; 
+}
+
+.Content-Header{
+    width: fit-content;
+    height: 50px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+
+}
+
+.Head > h2{
+    font-size: 23px;
+    word-spacing: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word; /* Break long words */
+    overflow-wrap: break-word;
+}
+
+.Likes{
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 10px;
+
+    width: 90px;
+    background-color: rgb(184, 184, 184);
+}
+
+.Likes > span{
+    margin-left: 2px;
+}
+
+.para{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 90%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+}
+
+.Content-Tag{
+    width: fit-content;
+    height: f;  
+    padding: 3px 20px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    background-color: #24C6DC;
+  
+}
+
+.dot{
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 5px;
+    background-color: black;
+}
+
+.Content-Profile-Picture{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
 
 @media (max-width: 1200px) {
 
@@ -277,6 +394,9 @@ main {
     color: #555; 
     font-size: 25px; 
     vertical-align: bottom;
+}
+#nav-break{
+    display: block;
 }
 
 .dropdowns {
@@ -407,6 +527,17 @@ main {
    
 }
 
+#Content{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+main{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0;
+    
+}
 
 }

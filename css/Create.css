@@ -1,0 +1,97 @@
+body{
+    font-family: 'IBM Plex Sans', Arial, sans-serif; 
+    background-color: lightgray;
+}
+
+main {
+    display: flex;
+    width: 1100px;
+    max-width: 1136px; /* Maximum width */
+    height: 200px;
+    gap: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 130px;
+}
+
+#Create {
+    display: flex;
+    gap: 0 px;
+    flex-direction: column;
+    flex-grow: 1; /* Take up available space */
+
+}
+
+#Rules {
+    width: 250px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+#Create h3 {
+    font-family: 'IBM Plex Sans', Arial, sans-serif; 
+}
+
+#Community{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 10px;
+    width: 250px;
+    background-color: white;
+    
+}
+
+#post-form {
+    margin-top: 30px;
+    width: 100%;
+    border: 3px solid white;
+    padding: 20px;
+}
+
+#form-options {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ccc;
+    padding: 20px;
+    justify-content: center;
+}
+
+.option:last-child {
+    border-right: none;
+}
+
+#heading, #main-text {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+#form-buttons button {
+    padding: 5px 10px;
+}
+
+/* ... rest of your styles ... */
+
+
+/* Media query for screen sizes 1136px and below */
+@media (max-width: 1136px) {
+    main {
+        width: calc(100% - 60px); /* Adjust the width to maintain margins */
+        margin-left: 20px;
+        max-width: none; /* Remove the maximum width restriction */
+    }
+
+
+}

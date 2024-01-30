@@ -1,6 +1,8 @@
 body{
     font-family: 'IBM Plex Sans', Arial, sans-serif; 
     background-color: lightgray;
+    overflow-x: hidden;
+    min-height: calc(100vh + 100px);
 }
 
 main {
@@ -12,6 +14,7 @@ main {
     margin-left: auto;
     margin-right: auto;
     padding-top: 130px;
+    
 }
 
 #Create {
@@ -19,7 +22,7 @@ main {
     gap: 0 px;
     flex-direction: column;
     flex-grow: 1; /* Take up available space */
-
+    
 }
 
 #Rules {
@@ -47,21 +50,23 @@ main {
     margin-top: 30px;
     width: 100%;
     border: 3px solid white;
-    padding: 20px;
+    
+    
 }
 
 #form-options {
     display: flex;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid white;
 }
 
 .option {
     flex: 1;
     display: flex;
     align-items: center;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid white;
     padding: 20px;
     justify-content: center;
+    cursor: pointer;
 }
 
 .option:last-child {
@@ -69,22 +74,79 @@ main {
 }
 
 #heading, #main-text {
-    width: 100%;
-    margin: 10px 0;
+    width: 95%;
+    
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+#heading{
+    padding: 10px;
+}
+
+#main-text{
+    padding-top: 5px;
+    padding-left: 10px;
+    min-height: 200px;
 }
 
 #form-buttons {
     display: flex;
-    gap: 10px;
+    gap: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 #form-buttons button {
     padding: 5px 10px;
+    background-color: red;
 }
 
-/* ... rest of your styles ... */
+#Submit#Submit{
+    background-color: green;
+}
+
+#image-upload-area {
+    width: 95%;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    
+    border: 1px dashed black;
+    height: 300px;
+
+}
+
+#image-drop-zone {
+    width: 600px; /* Fixed width */
+    height: 300px; /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Hide parts of the image that overflow */
+}
 
 
+.upload-link {
+    color: blue;
+    border: 1px solid blue;
+    border-radius: 5px;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+
+
+
+#image-upload-area img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+ 
 /* Media query for screen sizes 1136px and below */
 @media (max-width: 1136px) {
     main {

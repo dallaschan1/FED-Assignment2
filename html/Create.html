@@ -71,27 +71,33 @@
             <i class="fas fa-caret-down"></i>
         </div>
         <form id="post-form">
-            <div id="form-options">
-                <div class="option">
-                    <i class="fas fa-align-left"></i>
-                    <span>Text</span>
-                </div>
-                <div class="option">
-                    <i class="fas fa-image"></i>
-                    <span>Image</span>
-                </div>
+          <div id="form-options">
+            <div class="option" id="text-option">
+                <i class="fas fa-align-left"></i>
+                <span>Text</span>
             </div>
+            <div class="option" id="image-option">
+                <i class="fas fa-image"></i>
+                <span>Image</span>
+            </div>
+        </div>
+        
             <input type="text" id="heading" placeholder="Heading">
             <textarea id="main-text" placeholder="Your text here..."></textarea>
+            <div id="image-upload-area" style="display: none;">
+              <div id="image-drop-zone">
+                <p>Drag and Drop Image or <span class="upload-link" id="upload-link">Upload</span></p>
+                <input type="file" id="image-input" accept="image/*" style="display: none;">
+              </div>
+          </div>
             <div id="form-buttons">
-                <button type="submit">Post</button>
+                <button type="submit" id = "Submit">Post</button>
                 <button type="button" onclick="cancelForm()">Cancel</button>
             </div>
         </form>
     </div>
     <div id = "Rules"></div>
   </main>
-
 
   <script src="../js/Create.js"></script>
     <script src="https://kit.fontawesome.com/229dff7a33.js" crossorigin="anonymous"></script>

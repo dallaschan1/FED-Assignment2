@@ -27,6 +27,7 @@ main {
 
 #Rules {
     width: 250px;
+    min-width: 250px;
     height: 500px;
     border: 1px solid black;
 }
@@ -117,13 +118,15 @@ main {
     background-color: white;
     
     border: 1px dashed black;
-    height: 300px;
+    min-height: 300px;
+    height: auto;
 
 }
 
 #image-drop-zone {
-    width: 600px; /* Fixed width */
-    height: 300px; /* Fixed height */
+    width: 100%; /* Fixed width */
+    height: auto;
+    min-height: 300px; /* Fixed height */
     display: flex;
     align-items: center;
     justify-content: center;

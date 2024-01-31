@@ -1,3 +1,6 @@
+let globalThreadsData = [];
+
+
 document.addEventListener("DOMContentLoaded", function() {
     // Function to handle menu item click
     const menuItems = document.querySelectorAll('.menu li:not(.separator):not(.dropdown):not(.dropdowns)');
@@ -9,9 +12,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Add "active" class to the clicked item
             this.classList.add('Active');
+
+            // Determine which menu item was clicked and sort accordingly
+            if (this.textContent.includes('Popular')) {
+                sortThreadsBy('comments');
+            } else if (this.textContent.includes('Latest')) {
+                sortThreadsBy('time');
+            } else if (this.textContent.includes('Home')) {
+                fetchThreads(); // Fetch threads without sorting
+            }
         });
     });
-
     // Handle clicks on menu items excluding separators and dropdowns
    
     
@@ -89,6 +100,30 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: false }); // Disable passive listener to allow preventDefault
 });
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchThreads();
+    setupSearch();
+});
+
+function fetchThreads() {
+    fetch('https://users-4250.restdb.io/rest/main-threads', {
+        method: 'GET',
+        headers: {
+            'x-apikey': '65aa4cb7c0aebd4508c42aa9'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        globalThreadsData = data; // Store data in global variable
+        createThreads(data);
+    })
+    .catch(error => {
+        console.error('Error fetching threads:', error);
+    });
+}
+
 document.getElementById('holder').addEventListener('click', function(event) {
     document.getElementById('tag').classList.toggle('show');
     event.stopPropagation();
@@ -112,30 +147,6 @@ choices.forEach(choice => {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    fetchThreads();
-    setupSearch();
-});
-
-function fetchThreads() {
-    fetch('https://users-4250.restdb.io/rest/main-threads', {
-        method: 'GET',
-        headers: {
-            'x-apikey': '65aa4cb7c0aebd4508c42aa9'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        const threadsDict = createThreadsDict(data);
-        createThreads(threadsDict);
-    })
-    .catch(error => {
-        console.error('Error fetching threads:', error);
-    });
-}
-
-
-
 
 function createThreadsDict(threads) {
     const threadsDict = {};
@@ -145,15 +156,16 @@ function createThreadsDict(threads) {
     return threadsDict;
 }
 
-function createThreads(threadsDict) {
+function createThreads(sortedThreads) {
     const contentDiv = document.getElementById('Content');
-    Object.values(threadsDict).forEach(thread => {
+    contentDiv.innerHTML = ''; // Clear existing threads
+
+    sortedThreads.forEach(thread => {
         const threadDiv = document.createElement('div');
         threadDiv.classList.add('thread');
-        threadDiv.dataset.threadId = thread['Thread-ID']; // Set thread ID as data attribute
-        threadDiv.dataset.likes = thread.Likes;
+        threadDiv.dataset.threadId = thread['Thread-ID'];
+        threadDiv.dataset.commentCount = thread.CommentCount;
 
-        // Generate HTML based on whether an image is present
         let threadHTML = `
             <div class="Content-Header">
                 <img src="../images/Default.png" alt="Profile Picture" class="Content-Profile-Picture">
@@ -162,14 +174,11 @@ function createThreads(threadsDict) {
                 <span class="TimeStamp">${thread.datetime}</span>
             </div>
             <div class="Content-Tag">
-                    <span>${thread.tags}</span>
+                <span>${thread.tags}</span>
             </div>
             <div class="Head">
                 <h2>${thread.heading}</h2>
             </div>`;
-
-      
-        
 
         if (thread.Image && thread.Image !== 'NULL') {
             threadHTML += `<img class="Main-Image" src="${thread.Image}">`;
@@ -182,12 +191,10 @@ function createThreads(threadsDict) {
                 </div>`;
         }
 
-        
-
         threadHTML += `
-            <div class="Likes">
-                <i class="fas fa-thumbs-up"></i>
-                <span class="Likes-Count">${thread.Likes}</span>
+            <div class="Comments">
+                <i class="fas fa-comments"></i>
+                <span class="Comments-Count">${thread.CommentCount}</span>
             </div>`;
 
         threadDiv.innerHTML = threadHTML;
@@ -224,3 +231,15 @@ function filterThreads(searchTerm) {
 document.getElementById('createButton').addEventListener('click', function() {
     window.location.href = 'Create.html';
 });
+
+
+function sortThreadsBy(criteria) {
+    let sortedThreads = [...globalThreadsData]; // Create a copy of the global data
+    if (criteria === 'comments') {
+        sortedThreads.sort((a, b) => parseInt(b.CommentCount) - parseInt(a.CommentCount));
+    } else if (criteria === 'time') {
+        sortedThreads.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+    }
+
+    createThreads(sortedThreads); // Pass the sorted array directly
+}

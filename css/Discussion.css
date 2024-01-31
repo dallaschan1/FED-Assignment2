@@ -308,7 +308,7 @@ body{
     overflow-wrap: break-word;
 }
 
-.Likes{
+.Comments{
     padding: 5px;
     padding-left: 15px;
     border-radius: 10px;
@@ -317,7 +317,7 @@ body{
     background-color: rgb(184, 184, 184);
 }
 
-.Likes > span{
+.Comments > span{
     margin-left: 2px;
 }
 

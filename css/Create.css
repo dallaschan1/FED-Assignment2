@@ -7,8 +7,8 @@ body{
 
 main {
     display: flex;
-    width: 1100px;
-    max-width: 1136px; /* Maximum width */
+    width: 1200px;
+    max-width: 1236px; /* Maximum width */
     height: 200px;
     gap: 60px;
     margin-left: auto;
@@ -16,6 +16,8 @@ main {
     padding-top: 130px;
     
 }
+
+
 
 #Create {
     display: flex;
@@ -26,11 +28,28 @@ main {
 }
 
 #Rules {
-    width: 250px;
+    width: 350px;
     min-width: 250px;
-    height: 500px;
+    height: 350px;
     border: 1px solid black;
+    padding: 20px;
 }
+
+#Rules-Title{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Rule-Content{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
 
 #Create h3 {
     font-family: 'IBM Plex Sans', Arial, sans-serif; 
@@ -39,12 +58,40 @@ main {
 #Community{
     display: flex;
     align-items: center;
+    position: relative;
     justify-content: space-between;
     margin-top: 10px;
     padding: 10px;
     width: 250px;
     background-color: white;
     
+    
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; /* Position below the Community div */
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-item i {
+    margin-right: 10px;
+}
+.dropdown-menu.show {
+    display: block;
 }
 
 #post-form {
@@ -76,20 +123,36 @@ main {
 
 #heading, #main-text {
     width: 95%;
-    
-    margin: 20px;
+    display: block;
+    margin: 20px auto;
     margin-bottom: 0px;
 }
 
-#heading{
+
+
+#heading {
     padding: 10px;
+    width: 95%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 0px;
+    border: 1px solid #ccc;
+    font-family: 'IBM Plex Sans', Arial, sans-serif;
+    resize: none; /* Prevents resizing */
+    overflow: hidden; /* Hides the scrollbar */
 }
+
 
 #main-text{
     padding-top: 5px;
     padding-left: 10px;
     min-height: 200px;
+    
 }
+
+
 
 #form-buttons {
     display: flex;
@@ -110,7 +173,7 @@ main {
 
 #image-upload-area {
     width: 95%;
-    margin: 20px;
+    margin: 20px auto;
     padding: 10px;
     display: flex;
     align-items: center;
@@ -150,13 +213,20 @@ main {
     object-fit: cover;
 }
  
+
 /* Media query for screen sizes 1136px and below */
-@media (max-width: 1136px) {
+@media (max-width: 1226px) {
     main {
-        width: calc(100% - 60px); /* Adjust the width to maintain margins */
+        width: calc(100% - 40px); /* Adjust the width to maintain margins */
         margin-left: 20px;
         max-width: none; /* Remove the maximum width restriction */
+        flex-direction: column;
+        
     }
 
+    #Rules{
+        width: calc(100%);
+        max-width: none;
+    }
 
 }

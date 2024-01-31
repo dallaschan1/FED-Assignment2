@@ -14,6 +14,16 @@ main {
     margin-top: 30px;
 }
 
+*::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+* {
+    -ms-overflow-style: none;  /* Hide scrollbar for IE 10+ */
+    scrollbar-width: none;  /* Hide scrollbar for Firefox */
+}
+
+
 #navbars{
     display: none;
 }
@@ -234,9 +244,10 @@ body{
     height: calc(100vh - 250px);
     margin-top: 40px;
     margin-left: 330px;
-        
+    padding-bottom: 100px;
 }
 #Content{
+
 
     overflow-y: auto;
 }
@@ -267,9 +278,10 @@ body{
 .Main-Image{
     width: 100%; /* Full width of the container */
     min-height: 100px; /* Minimum height */
-    max-height: 500px; /* Maximum height */
+    max-height: 700px; /* Maximum height */
     object-fit: cover; /* Cover the area without distortion */
-    object-position: center; 
+    object-position: center;
+    margin-bottom: 20px;
 }
 
 .Content-Header{

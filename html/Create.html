@@ -63,13 +63,28 @@
     <div id = "Create">
         <h3>Create a post</h3>
         <hr>
-        <div id = "Community">
-            <div id = "left">
-                <img>
-                <span>Choose a Community</span>
-            </div>
-            <i class="fas fa-caret-down"></i>
-        </div>
+        <div id="Community">
+          <div id="left">
+              <img>
+              <span>Choose a Community</span>
+          </div>
+          <i class="fas fa-caret-down"></i>
+          <div id="community-dropdown" class="dropdown-menu">
+              <div class="dropdown-item">
+                  <i class="fas fa-gamepad"></i>
+                  <span>Game</span>
+              </div>
+              <div class="dropdown-item">
+                  <i class="fas fa-users"></i>
+                  <span>General</span>
+              </div>
+              <div class="dropdown-item">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span>Issues</span>
+              </div>
+          </div>
+      </div>
+      
         <form id="post-form">
           <div id="form-options">
             <div class="option" id="text-option">
@@ -82,7 +97,8 @@
             </div>
         </div>
         
-            <input type="text" id="heading" placeholder="Heading">
+        <textarea id="heading" placeholder="Heading" rows="1"></textarea>
+
             <textarea id="main-text" placeholder="Your text here..."></textarea>
             <div id="image-upload-area" style="display: none;">
               <div id="image-drop-zone">
@@ -92,18 +108,44 @@
           </div>
             <div id="form-buttons">
                 <button type="submit" id = "Submit">Post</button>
-                <button type="button" onclick="cancelForm()">Cancel</button>
+                <button type="button" id="cancel-button">Cancel</button>
             </div>
         </form>
     </div>
-    <div id = "Rules"></div>
+    <div id = "Rules">
+      <div id = "Rules-Title">
+        
+        <h3>Posting to ZenCraft</h3>
+      </div>
+      <div class="Rule-Content">
+        <hr>
+        <span>1. Remember the human</span>
+        <hr>
+      </div>
+      <div class="Rule-Content">
+        
+        <span>2. Behave like you would in real life</span>
+        <hr>
+      </div>
+      <div class="Rule-Content">
+        
+        <span>3. Look for the original source of content</span>
+        <hr>
+      </div>
+      <div class="Rule-Content">
+        
+        <span>4. Search for duplicates before posting</span>
+        <hr>
+      </div>
+    </div>
   </main>
 
-  <script src="../js/Create.js"></script>
+  
     <script src="https://kit.fontawesome.com/229dff7a33.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
     <script src="../js/navbar.js"></script>
+    <script src="../js/Create.js"></script>
   </body>

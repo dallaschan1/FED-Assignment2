@@ -148,7 +148,7 @@ function createThreads(threadsDict) {
         
 
         if (thread.Image && thread.Image !== 'NULL') {
-            threadHTML += `<img class="Main Image" src="${thread.Image}">`;
+            threadHTML += `<img class="Main-Image" src="${thread.Image}">`;
         }
 
         if (thread.content && thread.content !== 'NULL') {
@@ -197,3 +197,6 @@ function filterThreads(searchTerm) {
     });
 }
 
+document.getElementById('createButton').addEventListener('click', function() {
+    window.location.href = 'Create.html';
+});

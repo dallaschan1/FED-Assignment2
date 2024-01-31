@@ -53,8 +53,9 @@ autoResizeTextarea(mainTextTextarea);
 
 
 document.getElementById('cancel-button').addEventListener('click', function() {
-    window.history.back();
+    window.location.href = 'Discussion.html';
 });
+
 
 
 // Toggle dropdown menu
@@ -92,6 +93,7 @@ document.getElementById('post-form').addEventListener('submit', async function(e
     const heading = document.getElementById('heading').value.trim();
     const isTextPost = document.getElementById('main-text').style.display !== 'none';
     const content = isTextPost ? document.getElementById('main-text').value.trim() : "NULL";
+    const tags = document.querySelector('#Community #left span').textContent; // existing code
     
     // Validate heading
     if (!heading) {
@@ -107,13 +109,18 @@ document.getElementById('post-form').addEventListener('submit', async function(e
         flashRedBorder(document.getElementById('image-upload-area'));
         allFieldsFilled = false;
     }
+    else if (!tags || tags === "Choose a Community") { // Replace DEFAULT_TAG with your default value if any
+        flashRedBorder(document.querySelector('#Community #left span'));
+        allFieldsFilled = false;
+    }
+    
 
     // If any field is unfilled, stop execution
     if (!allFieldsFilled) return;
 
     // Assuming username is stored in localStorage or similar
     const username = localStorage.getItem('username') || 'defaultUser';
-    const tags = document.querySelector('#Community #left span').textContent; // Example to get community tag
+     //  get community tag
     const datetime = new Date().toLocaleString("en-US"); // Formats date and time
     const likes = 0;
 
@@ -153,10 +160,10 @@ function postToAPI(data) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        // Handle success (e.g., show a success message, redirect, etc.)
+        
     })
     .catch((error) => {
         console.error('Error:', error);
-        // Handle errors here
+       
     });
 }

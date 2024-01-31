@@ -102,6 +102,15 @@ main {
     
 }
 
+#drop{
+    width: 100%;
+}
+#tag{
+    width: 100%;
+
+}
+
+
 #form-options {
     display: flex;
     border-bottom: 1px solid white;

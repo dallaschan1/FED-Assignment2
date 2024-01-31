@@ -22,6 +22,9 @@ main {
     -ms-overflow-style: none;  /* Hide scrollbar for IE 10+ */
     scrollbar-width: none;  /* Hide scrollbar for Firefox */
 }
+html, body {
+    overflow-x: hidden;
+}
 
 
 #navbars{
@@ -161,7 +164,7 @@ body{
     position: relative;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    gap: 40px;
     font-size: 14px; /* Adjusted font size */
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     letter-spacing: 1.2px; /* Increased letter spacing */
@@ -358,7 +361,52 @@ body{
     object-fit: cover;
 }
 
+.choice{
+    font-family: 'IBM Plex Sans', Arial, sans-serif; 
+    
+    padding-left: 30px;
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    padding-left: 30px;
+    cursor: pointer;
+    padding-top: 20px;
+    
+}
 
+#holder{
+    position: relative;
+}
+
+#tag{
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+
+    
+    position: absolute;
+    top: 100%; /* Position below the Community div */
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    transition: 1s smooth;
+}
+
+#tag.show{
+    display: flex;
+}
+
+.add{
+    background-color: #24C6DC;
+}
+
+.choice:hover{
+    background-color: #f1f1f1;
+}
 @media (max-width: 1200px) {
 
     #Top{
@@ -380,8 +428,8 @@ body{
         justify-content: space-between;
         padding: 20px;
         padding-top: 30px;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     
@@ -435,16 +483,18 @@ body{
 
 .dropdown-content {
     display: none;
+    flex-direction: column;
+    gap: 10px;
+
+    width: 100vw;
     position: absolute;
-    top: 90px; /* Position below the dropdowns element */
-    left: 0;
-    width: 96vw; /* Full width of the device */
+    top:80px; /* Position below the Community div */
+    left: -9px;
+    right: 0;
     background-color: white;
-    
-    z-index: 1000;
-    transform: translateY(-100%); /* Start hidden above */
-    transition: transform 2s ease-in-out;
-    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    transition: 1s smooth;
 }
 
 .dropdowns .dropdown-content.show {
@@ -453,7 +503,7 @@ body{
 }
 
 .tag {
-    padding: 10px;
+    padding: 20px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
 }
@@ -539,16 +589,27 @@ body{
    
 }
 
+
+
 #Content{
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+    height: fit-content;
 }
 
 main{
     margin-left: 0px;
     margin-right: 0px;
     padding-top: 0;
+    width: 100%;
+    
+}
+
+.Main-Image{
+    object-fit:fill;
+    min-height: 200px;
+    max-height: 1000px; 
     
 }
 

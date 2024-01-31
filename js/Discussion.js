@@ -89,6 +89,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: false }); // Disable passive listener to allow preventDefault
 });
 
+document.getElementById('holder').addEventListener('click', function(event) {
+    document.getElementById('tag').classList.toggle('show');
+    event.stopPropagation();
+});
+
+// Add this to close the dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    var isClickInside = document.getElementById('holder').contains(event.target);
+    if (!isClickInside) {
+        document.getElementById('tag').classList.remove('show');
+    }
+});
+
+const choices = document.querySelectorAll('.choice');
+
+choices.forEach(choice => {
+    choice.addEventListener('click', function() {
+        choice.classList.toggle('add'); 
+        
+    });
+});
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -112,6 +133,9 @@ function fetchThreads() {
         console.error('Error fetching threads:', error);
     });
 }
+
+
+
 
 function createThreadsDict(threads) {
     const threadsDict = {};

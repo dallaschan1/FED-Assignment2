@@ -132,7 +132,7 @@ document.getElementById('post-form').addEventListener('submit', async function(e
         tags,
         Image: isTextPost ? "NULL" : globalImageBase64,
         datetime,
-        Likes: likes
+        CommentCount: likes
     };
 
     // Send data to API

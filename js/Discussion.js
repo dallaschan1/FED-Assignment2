@@ -84,7 +84,23 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function updateText(text) {
-    document.getElementById('dropdowns-text').textContent = text;
+    const dropdownText = document.getElementById('dropdowns-text');
+    dropdownText.textContent = text; // Update the dropdown text
+
+    const threads = document.querySelectorAll('.thread');
+    threads.forEach(thread => {
+        const threadTags = thread.dataset.tag.split(',').map(tag => tag.trim());
+        if (threadTags.includes(text) || text === 'Home') {
+            thread.style.display = ''; // Show thread
+        } else {
+            thread.style.display = 'none'; // Hide thread
+        }
+    });
+
+    // Optionally, reset the choices in the PC version
+    const pcChoices = document.querySelectorAll('.choice');
+    pcChoices.forEach(c => c.classList.remove('add'));
+    selectedTags.clear();
 }
 
 
@@ -137,15 +153,73 @@ document.addEventListener('click', function(event) {
     }
 });
 
-const choices = document.querySelectorAll('.choice');
+let selectedTags = new Set(); // Global variable to keep track of selected tags
 
+const choices = document.querySelectorAll('.choice');
 choices.forEach(choice => {
     choice.addEventListener('click', function() {
-        choice.classList.toggle('add'); 
-        
+        this.classList.toggle('add');
+        const tag = this.textContent.trim();
+        if (selectedTags.has(tag)) {
+            selectedTags.delete(tag);
+        } else {
+            selectedTags.add(tag);
+        }
+        filterThreadsByTags();
     });
 });
 
+//FUNCTIONS for the slideout menu
+document.querySelector('.hamburg-menu').addEventListener('click', function() {
+    var menu = document.getElementById('slideout-menu');
+    var overlay = document.getElementById('overlay');
+    var html = document.documentElement;
+
+    menu.classList.toggle('open');
+    overlay.classList.toggle('active');
+    html.classList.toggle('no-scroll'); // Toggle the no-scroll class
+});
+
+// Close the menu and hide the overlay when clicking on the overlay
+document.getElementById('overlay').addEventListener('click', function() {
+    document.getElementById('slideout-menu').classList.remove('open');
+    this.classList.remove('active');
+    document.documentElement.classList.remove('no-scroll'); // Remove the no-scroll class
+});
+
+// Optional: close the menu and hide the overlay when clicking outside
+document.addEventListener('click', function(event) {
+    var isClickInsideMenu = document.getElementById('slideout-menu').contains(event.target);
+    var isClickHamburgMenu = document.querySelector('.hamburg-menu').contains(event.target);
+    var overlay = document.getElementById('overlay');
+
+    if (!isClickInsideMenu && !isClickHamburgMenu && overlay.classList.contains('active')) {
+        document.getElementById('slideout-menu').classList.remove('open');
+        overlay.classList.remove('active');
+        document.documentElement.classList.remove('no-scroll'); // Remove the no-scroll class
+    }
+});
+
+
+
+
+//Ends Here
+
+
+function filterThreadsByTags() {
+    const threads = document.querySelectorAll('.thread');
+
+    threads.forEach(thread => {
+        const threadTags = thread.dataset.tag.split(',').map(tag => tag.trim()); // Get tags of the thread
+        const hasMatchingTag = selectedTags.size === 0 || threadTags.some(tag => selectedTags.has(tag)); // Check for matching tags
+
+        if (hasMatchingTag) {
+            thread.style.display = ''; // Show thread
+        } else {
+            thread.style.display = 'none'; // Hide thread
+        }
+    });
+}
 
 
 function createThreadsDict(threads) {
@@ -165,6 +239,8 @@ function createThreads(sortedThreads) {
         threadDiv.classList.add('thread');
         threadDiv.dataset.threadId = thread['Thread-ID'];
         threadDiv.dataset.commentCount = thread.CommentCount;
+        threadDiv.dataset.tag = thread.tags;
+        
 
         let threadHTML = `
             <div class="Content-Header">

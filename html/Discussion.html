@@ -63,14 +63,14 @@
     </div>
     
     <div class="dropdowns">
-      <span id="dropdowns-text">Home</span> 
+      <span id="dropdowns-text">Home</span>   
       <i class="fas fa-caret-down"></i>
   
       <div class="dropdown-content">
-          <div class="tag" onclick="updateText('Home')"><i class="icon">[Icon]</i> Home</div>
-          <div class="tag" onclick="updateText('Tagsdasdsadsa1')"><i class="icon">[Icon]</i> Tagsdasdsadsa1</div>
-          <div class="tag" onclick="updateText('Tagasdasdsadasdsadsadsa2')"><i class="icon">[Icon]</i> Tagasdasdsadasdsadsadsa2</div>
-          <!-- Add more tags as needed -->
+       
+          <div class="choice" onclick="updateText('Game')"><i class="fas fa-gamepad"></i><span>Game</span></div>
+          <div class="choice" onclick="updateText('General')"><i class="fas fa-users"></i><span>General</span></div>
+          <div class="choice" onclick="updateText('Issues')"><i class="fas fa-exclamation-triangle"></i><span>Issues</span></div>
       </div>
   </div>
   
@@ -84,7 +84,16 @@
         <img src="../images/Default.png" alt="User">
     </div>
   </div>
-  
+  <div id="slideout-menu" class="slideout-menu">
+    <img src="../images/ZenCraft Logo.png" alt="Logo" class="slideout-logo">
+    <div class="slideout-item"><i class="fa fa-home"></i> Home</div>
+    <div class="slideout-item"><i class="fa fa-shopping-cart"></i> Shop</div>
+    <div class="slideout-item"><i class="fas fa-gamepad"></i> Game</div>
+    <div class="slideout-item"><i class="fa fa-envelope"></i> Contact Us</div>
+    <button class="slideout-button"><i class="fas fa-shopping-bag"></i> Check out</button>
+</div>
+<div id="overlay" class="overlay"></div>
+
 </div>
 
 

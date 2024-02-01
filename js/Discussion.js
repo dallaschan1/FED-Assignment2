@@ -319,3 +319,5 @@ function sortThreadsBy(criteria) {
 
     createThreads(sortedThreads); // Pass the sorted array directly
 }
+
+

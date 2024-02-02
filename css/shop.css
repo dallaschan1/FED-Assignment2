@@ -13,6 +13,10 @@ body{
     margin: 0;
 }
 
+body p{
+    margin-bottom: 0;
+}
+
 body *{
     font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif
 }
@@ -54,7 +58,7 @@ border-radius: 10px;
 }
 
 #main-image-container{
-    width: 78vw;
+    width: 100vw;
     height: 50vh;
     filter: drop-shadow(0 5px 0.75rem rgb(226, 226, 226));
     margin: 0 auto;
@@ -473,7 +477,7 @@ padding-bottom: 0 !important;
   
     #filter{
         flex-wrap: wrap;
-        row-gap: 10px;
+        row-gap: 20px;
     }
 
     #filter-price-header, #filter-cat-title{

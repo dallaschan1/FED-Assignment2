@@ -156,3 +156,155 @@
         width: unset;
     }
 }
+
+
+
+html, body {
+    overflow-x: hidden;
+}
+/* Navigation Bar Settings */
+#navbars{
+    display: none;
+}
+
+#navigation-header{
+    display: block;
+}
+
+/* Ends here */
+
+
+
+/* Navigation For Mobile */
+
+@media (max-width: 1200px) {
+    #navigation-header{
+        display: none;
+    }
+    .user-image > img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+
+    .fa-bars{
+        font-size: 25px;
+    }
+
+    .fa-search{
+        color: #555; 
+        font-size: 25px;
+        vertical-align: bottom;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+
+    #navigation-header {
+        display: none !important; 
+    }
+
+
+    #navbars, #Left, #Right {
+        display: flex;
+    }
+
+    #navbars {
+        justify-content: space-between;
+        padding: 20px;
+        padding-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        width: 96%;
+        height: fit-content;
+    }
+
+        
+    #Left, #Right {
+        gap: 20px;
+        width: fit-content;
+        height: 50px;
+        align-items: center;
+    }
+
+    .slideout-menu {
+        position: fixed;
+        top: 0;
+        left: calc(-250px - 10%);
+        width: calc(250px + 10%);
+        height: 100%;
+        background-color: #fff;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+        transition: left 0.3s;
+        padding-top: 20px; /* Added padding at the top */
+        z-index: 1000;
+        
+    }
+
+    .slideout-menu.open {
+        left: 0;
+    }
+
+    .no-scroll {
+        overflow: hidden;
+    }
+
+
+    .slideout-logo {
+        display: block; 
+        width: 80%;
+        
+        padding: 10px; /* Add padding around the logo */
+        margin-bottom: 20px; /* Spacing below the logo */
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); 
+        z-index: 999; /* Ensure it's above other content but below the menu */
+    }
+
+    .overlay.active {
+        display: block; /* Show the overlay */
+    }
+
+
+    .slideout-item {
+        padding: 15px; /* Increased padding */
+        border-bottom: 1px solid #ddd;
+        font-size: 18px; /* Larger font size */
+    }
+
+    .slideout-item i {
+        margin-right: 10px; /* Spacing between icon and text */
+    }
+
+    .slideout-button {
+        display: block;
+        width: 93%;
+        padding: 15px; /* Increased padding */
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        font-size: 18px; /* Larger font size */
+        margin-top: 20px; /* Spacing before the button */
+        background-color: lightblue; 
+        color: rgb(83, 83, 83); /* Text color */
+        border: none; /* No border */
+        cursor: pointer; /* Pointer cursor on hover */
+    }
+
+    .slideout-button i {
+        margin-right: 10px; /* Spacing between icon and text */
+    }
+}
+/* Ends Here */

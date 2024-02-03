@@ -19,6 +19,7 @@
 .container > img {
   height: 100vh;
   width: 40vw;
+  object-fit: cover;
 }
 
 .forms {
@@ -140,3 +141,100 @@
 .profile-image > input:focus::placeholder {
   color: transparent; 
 }
+
+/* Media query for viewport width 980px or less */
+@media (max-width: 980px) {
+  .container {
+    flex-direction: column; /* Stack children vertically */
+    align-items: center;
+    gap: 100px; /* Center-align children */
+  }
+
+  .container > img {
+    width: 100vw; /* Adjust width as needed */
+    height: 300px;
+    object-fit: cover;
+  }
+
+  
+}
+
+@media (max-width: 450px) {
+  
+  .forms,
+  .username,
+  .password,
+  .email,
+  .phone,
+  .profile-image {
+    width: 65vw; /* Adjust width to match the new layout */
+  }
+
+  .Additional > p {
+    margin-left: calc(10vw - 4px);
+    font-size: 13px;
+  }
+  
+}
+
+@media (max-width: 410px) {
+  
+  .forms,
+  .username,
+  .password,
+  .email,
+  .phone,
+  .profile-image {
+    width: 70vw; /* Adjust width to match the new layout */
+  }
+
+  .Additional > p {
+    margin-left: calc(10vw );
+    font-size: 13px;
+  }
+  
+}
+
+
+
+/* Media query for viewport width 980px or less */
+@media (max-width: 375px) {
+  
+  .forms,
+  .username,
+  .password,
+  .email,
+  .phone,
+  .profile-image {
+    width: 70vw; /* Adjust width to match the new layout */
+  }
+
+  .Additional > p {
+    margin-left: calc(10vw - 10px);
+    font-size: 13px;
+  }
+  
+}
+
+
+
+/* Media query for viewport width 980px or less */
+@media (max-width: 360px) {
+  
+  .forms,
+  .username,
+  .password,
+  .email,
+  .phone,
+  .profile-image {
+    width: 70vw; /* Adjust width to match the new layout */
+  }
+
+  .Additional > p {
+    margin-left: calc(10vw - 20px);
+    font-size: 13px;
+  }
+  
+}
+
+

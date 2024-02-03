@@ -241,6 +241,26 @@ function createThreads(sortedThreads) {
         threadDiv.innerHTML = threadHTML;
         contentDiv.appendChild(threadDiv);
     });
+
+    // Attach click event listener to comments section of each thread
+    const commentSections = document.querySelectorAll('.Comments');
+    commentSections.forEach((commentSection, index) => {
+        commentSection.addEventListener('click', function() {
+            // Retrieve relevant information from the corresponding thread
+            const threadId = sortedThreads[index]['Thread-ID'];
+            const membername = sortedThreads[index].username;
+            
+            
+            
+            
+
+            // Construct URL query string to pass information to Post.html
+            const queryString = `?threadId=${threadId}&membername=${membername}`;
+
+            // Redirect to Post.html with the necessary information
+            window.location.href = `Post.html${queryString}`;
+        });
+    });
 }
 
 

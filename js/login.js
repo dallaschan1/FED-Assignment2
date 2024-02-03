@@ -96,6 +96,7 @@ function loginUser(event) {
 function registerUser(event) {
   event.preventDefault();  
 
+  const rememberMe = document.querySelector('.sign-up-form .remember').checked; 
   const username = document.querySelector('.sign-up-form .username input[type="text"]').value;
   const email = document.querySelector('.sign-up-form .email input[type="email"]').value;
   const password = document.querySelector('.sign-up-form .password input').value;
@@ -133,9 +134,15 @@ function registerUser(event) {
       })
       .then(data => {
           alert("Registration successful!");
-          localStorage.setItem('username', username);
-          localStorage.setItem('userImage', base64Image);
-          localStorage.setItem('isLoggedIn', 'true');
+          if (rememberMe) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', username);
+            localStorage.setItem('userImage', userImage); 
+          } else {
+            sessionStorage.setItem('isLoggedIn', 'true');
+            sessionStorage.setItem('username', username);
+            sessionStorage.setItem('userImage', userImage); 
+          }
       })
       .catch(error => {
           console.error('Error:', error);

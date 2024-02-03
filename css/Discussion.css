@@ -328,6 +328,7 @@ body{
 
     width: 90px;
     background-color: rgb(184, 184, 184);
+    cursor: pointer;
 }
 
 .Comments > span{

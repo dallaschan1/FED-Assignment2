@@ -61,7 +61,12 @@ function loginUser(event) {
       'x-apikey': '65aa4cb7c0aebd4508c42aa9'
     }
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) { // Check if response status is not OK
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
   .then(data => {
     if (data.length > 0 && data[0].password === password) {
       alert("Login successful!");
@@ -120,7 +125,12 @@ function registerUser(event) {
               userImage: base64Image
           })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) { // Check if response status is not OK
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
           alert("Registration successful!");
           localStorage.setItem('username', username);

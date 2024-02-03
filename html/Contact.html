@@ -13,46 +13,80 @@
 </head>
 <body>
   <header>
-  <div id="navigation-header">
-    <nav class="navbar flex-no-wrap">
-        <a class="logo" href="index.html">
-          <img id='zencraft-logo' src="../images/ZenCraft Logo.png" width="180" alt="ZenCraft Logo">
-        </a>
-        <ul id="nav-text" class="nav">
-          <li class="nav-item">
-            <a id="home-nav-link" class="nav-link active" href="../index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a id="shop-nav-link" class="nav-link active" href="">Shop</a>
-          </li>
-          <li class="nav-item">
-            <a id="contact-us-nav-link" class="nav-link" href="#">Contact Us</a>
-          </li>
-          <li class="nav-item">
-            <a id="about-us-link" class="nav-link" href="#" tabindex="-1" aria-disabled="false">About Us</a>
-          </li>
-        </ul>
-        <div class="nav justify-content-end icon-nav">
-            <div id="Pfp">
-              <img id="profileImage" src="../images/water.jpg" alt="Profile Picture" style="display: none;">
-              <a id="user" href="../html/login.html" class="text-dark"><i class="fa-solid fa-user"></i></a>
+
+    <div id="navigation-header">
+        <nav class="navbar flex-no-wrap">
+            <a class="logo" href="index.html">
+              <img id='zencraft-logo' src="../images/ZenCraft Logo.png" width="180" alt="ZenCraft Logo">
+            </a>
+            <ul id="nav-text" class="nav">
+              <li class="nav-item">
+                <a id="home-nav-link" class="nav-link active" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a id="shop-nav-link" class="nav-link active" href="">Shop</a>
+              </li>
+              <li class="nav-item">
+                <a id="contact-us-nav-link" class="nav-link" href="#">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a id="about-us-link" class="nav-link" href="#" tabindex="-1" aria-disabled="false">About Us</a>
+              </li>
+            </ul>
+            <div class="nav justify-content-end icon-nav">
+                <div id="Pfp">
+                  <img id="profileImage" src="../images/water.jpg" alt="Profile Picture" style="display: none;">
+                  <a id="user" href="../html/login.html" class="text-dark"><i class="fa-solid fa-user"></i></a>
+                </div>
+                <a id="cart" href="#" class="text-dark"><i class="fa-solid fa-cart-shopping"></i></a>
+                <div class="menu-toggle-button">
+                  <i class="fa-solid fa-bars"></i>
+                </div>
             </div>
-            <a id="cart" href="#" class="text-dark"><i class="fa-solid fa-cart-shopping"></i></a>
-            <div class="menu-toggle-button">
-              <i class="fa-solid fa-bars"></i>
+            <div class="hamburger-menu">
+              <li><a class="" href="#">Home</a></li>
+              <li>
+                <a class="" href="#">Shop</a></li>
+              </li>
+              <li><a class="" href="#">Contact Us</a></li>
+              <li><a class="" href="#" tabindex="-1" aria-disabled="false">About Us</a></li>
             </div>
+        </nav>  
+    </div>
+    
+      <div id="navbars">
+        <div id = "Left">
+          <div class="hamburg-menu">
+            <i class="fa fa-bars"></i>
         </div>
-        <div class="hamburger-menu">
-          <li><a class="" href="#">Home</a></li>
-          <li>
-            <a class="" href="#">Shop</a></li>
-          </li>
-          <li><a class="" href="#">Contact Us</a></li>
-          <li><a class="" href="#" tabindex="-1" aria-disabled="false">About Us</a></li>
         </div>
-    </nav>
-  </div>
-  </header> 
+        
+       
+      
+        
+      <div id="Right">
+        <div class="search-icons">
+          <i class="fa fa-search"></i>
+        </div>
+      
+        <div class="user-image">
+            <img src="../images/Default.png" alt="User">
+        </div>
+      </div>
+      
+    
+      <div id="slideout-menu" class="slideout-menu">
+        <img src="../images/ZenCraft Logo.png" alt="Logo" class="slideout-logo">
+        <div class="slideout-item"><i class="fa fa-home"></i> Home</div>
+        <div class="slideout-item"><i class="fa fa-shopping-cart"></i> Shop</div>
+        <div class="slideout-item"><i class="fas fa-gamepad"></i> Game</div>
+        <div class="slideout-item"><i class="fa fa-envelope"></i> Contact Us</div>
+        <div class="slideout-item active-nav"><i class="fa fa-envelope"></i> Forums</div>
+        <button class="slideout-button"><i class="fas fa-shopping-bag"></i> Check out</button>
+    </div>
+    <div id="overlay" class="overlay"></div>
+    </div>
+</header>
   <main>
     <section id="intro">
       <h1>We believe in sustainable decor. We're passionate about life at home</h1>

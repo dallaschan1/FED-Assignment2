@@ -1,9 +1,299 @@
 
 html, body {
     overflow-x: hidden;
+    background-color: #cfaf90;
+    height: 100%;
+    margin: 0;
+    
 }
 
-main{
-    width: 80%;
+header {
+    position: fixed;
+    top: 0;
+    width: 99%;
+    height: 100px;
+    z-index: 1000;
+    background-color: #cfaf90;
+}
+
+main {
+    width: 90%;
     display: flex;
+    margin: 0 auto;
+    margin-top: 200px;
+    border: 1px solid black;
+    gap: 50px;
+    z-index: 1;
+    
+    
+}
+
+#Recommended{
+    width: 300px;
+    border: 1px solid wheat;
+    height: 400px;
+    position: fixed;
+    
+}
+
+/* Post Css*/
+#Post{
+    height: fit-content;   
+    border: 1px solid black;
+  
+    padding-top: 20px;
+}
+
+#Post-Container {
+    width: calc(100% - 330px);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
+  
+}
+#Post-Image{
+    width: 100%;
+    max-height: fit-content;
+    
+    border: 1px solid black;
+
+}
+
+#Post-Heading{
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 5px;
+    position: relative;
+}
+
+#Post-Heading > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#Post-Heading > h3{
+    font-size: 17px;
+    margin-bottom: 0;
+}
+
+#Post-Time{
+    margin-bottom: -1px;
+}
+
+#dot{
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-color: black;
+}
+
+
+#Cancel{
+    position: absolute;
+    right: 20px;
+    
+    font-size: 40px;
+}
+
+/* Ends Here */
+
+/* Each Comment Css */
+.fa-comment{
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.textarea-container {
+    display: none;
+    position: relative;
+    width: calc(100% - 60px); /* Adjust according to parent container's width */
+    margin: 0 30px; /* Center container */
+    margin-top: 10px;
+}
+
+textarea {
+    width: 100%;
+    padding: 5px;
+    padding-bottom: 40px; /* Increase padding at the bottom to make space for the buttons */
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    resize: none;
+    overflow-y: auto; /* Adjust if needed */
+    box-sizing: border-box;
+    min-height: 100px;
+    height: auto; 
+}
+
+.textarea-buttons {
+    position: absolute;
+    right: 15px; 
+    bottom: 15px; 
+    display: flex;
+    gap: 5px; 
+ 
+}
+
+.enterBtn, .cancelBtn {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+.Reply-Button{
+    margin-left: 35px;
+    margin-top: -10px;
+    background-color: beige;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 10px;
+    width: 90px;
+    height: 35px;
+}
+
+.Reply-Button > span{
+    font-size: 13px;
+
+}
+
+.Head{
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    margin-bottom: 3px;
+    gap: 5px;
+    position: relative;
+}
+
+.Head > img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.Head > h3{
+    font-size: 17px;
+    margin-bottom: 0;
+}
+
+.Post-Time{
+    margin-bottom: -1px;
+}
+
+.dot{
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background-color: black;
+}
+
+#Comment-Container{
+    border: 1px solid black;
+    
+   
+    
+}
+
+.Comment-Content{
+    margin-left: 35px;
+    
+}
+
+.Reply{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.Reply-Name{
+    color: blue;
+    font-weight: bolder;
+}
+.Comments{
+    margin-top: 20px;
+}
+
+.Comments-Reply1{
+    margin-left: 25px;
+    margin-top: 20px;
+}
+
+.Comments-Reply2{
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.Comments-Reply3{
+    margin-left: 75px;
+    margin-top: 20px;
+}
+
+.Comments-Reply4{
+    margin-left: 100px;
+    margin-top: 20px;
+}
+/* Ends Here */
+
+/* Comment Input Css */
+
+  #Input {
+    display: flex;
+    
+  }
+
+  input[type="text"] {
+    padding: 8px;
+    margin-right: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Adjust the width as needed */
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #DAA520;
+    color: white;
+    width: calc(100px);
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+/* Ends Here */
+
+  
+
+
+@media (max-width: 1200px) {
+    main {
+        margin-top: 140px;
+    }
+    #Recommended {
+        display: none;
+    }
+    #Post-Container{
+        width: 100%;
+    }
 }

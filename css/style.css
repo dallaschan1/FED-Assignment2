@@ -331,16 +331,6 @@ border-radius: 10px;
   font-size: 1vw;
 }
 
-footer{
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 1.5rem;
-}
-
-footer .nav{
-  border: none !important;
-  padding-bottom: 0 !important;
-}
-
 @media (min-width: 825px) and (max-width: 1020px) {
   #shopcat-header, #new-arrivals-header p {
     font-size: 3rem; /* Adjusted font size for screens between 650px and 1020px */

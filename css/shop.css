@@ -8,7 +8,6 @@ html{
 
 body{
     overflow-x: hidden;
-    /* overflow-y: hidden; */
     height: fit-content;
     margin: 0;
 }
@@ -18,7 +17,7 @@ body p{
 }
 
 body *{
-    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -335,17 +334,6 @@ margin-bottom: 0;
 
 .hide{
     display: none;
-}
-
-footer{
-border: 1px solid rgba(0, 0, 0, 0.1);
-width: 100vw;
-margin-top: 1.5rem;
-}
-
-footer .nav{
-border: none !important;
-padding-bottom: 0 !important;
 }
 
 @media (min-width: 825px) and (max-width: 1020px) {

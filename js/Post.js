@@ -37,38 +37,8 @@ function fetchAndDisplayComments(threadID) {
         document.getElementById('Comment-Container').innerHTML += commentsHTML;
 
 
-        document.querySelectorAll('.checker').forEach(checker => {
-            let enterBtn = checker.querySelector('.enterBtn');
-            let cancelBtn = checker.querySelector('.cancelBtn');
-            let textarea = checker.querySelector('textarea');
-    
-            enterBtn.addEventListener('click', function() {
-                // Your logic for the Enter button click event
-                console.log("Enter button clicked");
-            });
-    
-            cancelBtn.addEventListener('click', function(event) {
-                // Prevent event bubbling
-                event.stopPropagation();
-                
-                // Hide the textarea-container
-                let textareaContainer = this.closest('.textarea-container');
-                textareaContainer.style.display = 'none';
-                
-                // Clear the textarea
-                textarea.value = "";
-    
-                console.log("Cancel button clicked");
-            });
-    
-            checker.addEventListener('click', function() {
-                let show = this.querySelector('.textarea-container');
-                show.style.display = 'block';
-                console.log("Textarea container displayed");
-                show.foc
-                // You can add more logic here if needed
-            });
-        });
+        Add();
+       
         document.querySelectorAll('.autoresizing').forEach(one => {
             one.addEventListener('input', function() {
                 this.style.height = 'auto'; // Reset height to auto to reduce it if needed
@@ -161,7 +131,7 @@ function renderComments(comments, parentUsername = null) {
 
         switch (message.ThreadLevel) {
             case 1:
-                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel} data-identifier="${message.MessageID}"" class="Comments">
+                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel}" data-identifier="${message.MessageID}"" class="Comments">
                 <div class="Head">
                 <img src="../images/Default.png">
                 <h3>${message.username}</h3>
@@ -185,7 +155,7 @@ function renderComments(comments, parentUsername = null) {
             </div></div>`;
                 break;
             case 2:
-                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel} data-identifier="${message.MessageID}" class="Comments-Reply1">
+                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel}" data-identifier="${message.MessageID}" class="Comments-Reply1">
                     <div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>
                     <div class="Head">
                     <img src="../images/Default.png">
@@ -211,13 +181,13 @@ function renderComments(comments, parentUsername = null) {
                     </div>`;
                 break;
             case 3:
-                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel} data-identifier="${message.MessageID}" class="Comments-Reply3">
+                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel}" data-identifier="${message.MessageID}" class="Comments-Reply2">
                     <div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>
                     <div class="Head">
                     <img src="../images/Default.png">
                     <h3>${message.username}</h3>
                     <span class="dot"></span>
-                    <p class="Post-Time">${message.datetime}</p>
+                    <p class="Post-Time">${date}</p>
                 </div>
                 <div class="Comment-Content">
                     <p>${message['comment-content']}</p>
@@ -237,13 +207,13 @@ function renderComments(comments, parentUsername = null) {
                     </div>`;
                 break;
             case 4:
-                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel} data-identifier="${message.MessageID}" class="Comments-Reply4">
+                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel}" data-identifier="${message.MessageID}" class="Comments-Reply3">
                     <div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>
                     <div class="Head">
             <img src="../images/Default.png">
             <h3>${message.username}</h3>
             <span class="dot"></span>
-            <p class="Post-Time">${message.datetime}</p>
+            <p class="Post-Time">${date}</p>
         </div>
         <div class="Comment-Content">
             <p>${message['comment-content']}</p>
@@ -263,13 +233,13 @@ function renderComments(comments, parentUsername = null) {
                     </div>`;
                 break;
             default: // For ThreadLevel 5 and above
-                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel} data-identifier="${message.MessageID}" class="Comments-Reply4">
+                commentHTML = `<div data-username="${message.username}" data-level="${message.ThreadLevel}"  data-identifier="${message.MessageID}" class="Comments-Reply4">
                     <div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>
                     <div class="Head">
                     <img src="../images/Default.png">
                     <h3>${message.username}</h3>
                     <span class="dot"></span>
-                    <p class="Post-Time">${message.datetime}</p>
+                    <p class="Post-Time">${date}</p>
                 </div>
                 <div class="Comment-Content">
                     <p>${message['comment-content']}</p>
@@ -332,29 +302,6 @@ function fetchPostByThreadID(threadID, membername) {
     });
 }
 
-function loadProfilePictures(membername){
-    const url = 'https://users-4250.restdb.io/rest/accounts';
-    const queryParams = `?q={"username":"${membername}"}&fields=userImage`;
-
-    fetch(url + queryParams, {
-        method: 'GET',
-        headers: {
-            'x-apikey': '65aa4cb7c0aebd4508c42aa9'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        if(data && data.length > 0) {
-            const userImage = data[0].userImage; 
-            const profilePictureElement = document.getElementById('.Post-Profile-Picture');
-            profilePictureElement.src = `data:image/*;base64,${data[0].userImage}`;
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching profile picture:', error);
-    });
-}
 
 
 
@@ -373,12 +320,13 @@ function createPost(thread, membername) {
         threadDiv.dataset.tag = thread.tags;
         
 
+        const date = formatDateTime(thread.datetime);
         let threadHTML = `
             <div id="Post-Heading">
                 <img src="../images/Default.png" alt="Profile Picture" id="Post-Profile-Picture">
                 <h3>${thread.username}</h3>
                 <span id="dot"></span>
-                <p id = "Post-Time">${thread.datetime}</p>
+                <p id = "Post-Time">${date}</p>
                 <span id = "Cancel"><i class="fa fa-times"></i></span>
             </div>
             <div id="Post-Title">
@@ -406,7 +354,7 @@ function createPost(thread, membername) {
         threadDiv.innerHTML = threadHTML;
         contentDiv.insertBefore(threadDiv, contentDiv.firstChild);});
 
-    loadProfilePictures(membername);
+    
 }
 
 
@@ -441,6 +389,11 @@ function adjustFixedPosition() {
         let enterBtn = checker.querySelector('.enterBtn');
         let cancelBtn = checker.querySelector('.cancelBtn');
         let textarea = checker.querySelector('textarea');
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+    
+
+        const threadId = urlParams.get('threadId');
 
         if (!enterBtn.dataset.eventListenerAdded) {
             enterBtn.dataset.eventListenerAdded = 'true';
@@ -453,18 +406,28 @@ function adjustFixedPosition() {
                     let dataToSend = {
                         'comment-content': textarea.value,
                         'username': username,
-                        'datetime': new Date().toISOString(),
+                        'datetime': new Date(),
                         'ReplyTo': commentDiv.getAttribute('data-identifier'),
-                        'MainThread': window.location.pathname.split('/').pop(),
+                        'MainThread': threadId,
                         'ThreadLevel': parseInt(commentDiv.getAttribute('data-level')) + 1
                     };
 
-                    sendDataToAPI(dataToSend);
-
-                    // After sending data, dynamically insert the new comment
-                    let newCommentHTML = createNewCommentHTML(dataToSend);
-                    commentDiv.insertAdjacentHTML('afterend', newCommentHTML);
-                    textarea.value = ''; // Clear textarea after posting
+                    console.log('Posting comment:', dataToSend);
+                    postNewReply(dataToSend, (postedComment) => {
+                        // Success callback: Add the posted comment to the DOM
+                        let replyToUsername = commentDiv.getAttribute('data-username'); // Example to get the replyToUsername
+                        let newCommentHTML = createNewCommentHTML(dataToSend, replyToUsername);
+                        commentDiv.insertAdjacentHTML('afterend', newCommentHTML);
+                        textarea.value = ''; // Clear textarea after posting
+                        textarea.style.display = 'none';
+                        enterBtn.style.display = 'none';
+                        cancelBtn.style.display = 'none';
+                        console.log('Comment posted successfully:', postedComment);
+                        Add();
+                    }, (error) => {
+                        // Error callback: Handle the error, e.g., show an error message to the user
+                        console.error('Failed to post the comment:', error);
+                    });
                 } else {
                     console.log('Textarea is empty.');
                 }
@@ -491,13 +454,82 @@ function adjustFixedPosition() {
     });
 };
 
-function sendDataToAPI(data) {
-    console.log('Sending data to API:', data);
-    // API call simulation
-    // Replace this with actual API call logic
+function postNewReply(commentData, onSuccess, onError) {
+    const url = 'https://users-4250.restdb.io/rest/comments'; 
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-apikey': '65aa4cb7c0aebd4508c42aa9'
+        },
+        body: JSON.stringify(commentData)
+    };
+
+    fetch(url, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Comment posted successfully:', data);
+            if (onSuccess) onSuccess(data); 
+        })
+        .catch(error => {
+            console.error('Error posting comment:', error);
+            if (onError) onError(error); 
+        });
 }
 
 
+
+function createNewCommentHTML(data, replyToUsername) {
+    // Determine the comment class based on ThreadLevel
+    let commentClass;
+    switch(data.ThreadLevel) {
+        case 2:
+            commentClass = "Comments-Reply1";
+            break;
+        case 3:
+            commentClass = "Comments-Reply2";
+            break;
+        case 4:
+            commentClass = "Comments-Reply3";
+            break;
+        default:
+            commentClass = "Comments-Reply4"; // For ThreadLevel 5 and above
+    }
+
+    date = formatDateTime(data.datetime);
+    // Generate the HTML for the new comment
+    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.ReplyTo}" class="${commentClass}">
+        ${data.ThreadLevel > 1 ? `<div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>` : ''}
+        <div class="Head">
+            <img src="../images/Default.png">
+            <h3>${data.username}</h3>
+            <span class="dot"></span>
+            <p class="Post-Time">${date}</p>
+        </div>
+        <div class="Comment-Content">
+            <p>${data['comment-content']}</p>
+        </div>
+        <div class="checker">
+            <div class="Reply-Button">
+                <i class="fas fa-comment"></i> <span>Reply</span>
+            </div>
+            <div class="textarea-container">
+                <textarea class="autoresizing" placeholder="Type something..."></textarea>
+                <div class="textarea-buttons">
+                    <button class="enterBtn">Enter</button>
+                    <button class="cancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    return html;
+}
 
 
 
@@ -555,6 +587,7 @@ function appendCommentToUI(commentData) {
     })
     .then(response => response.json())
     .then(data => {
+        const date = formatDateTime(commentData.datetime);
         const commentContainer = document.getElementById('Comment-Container');
     const newCommentHTML = `
         <div data-username = "${commentData.username}" data-level="${commentData.ThreadLevel}" data-identifier="${data.length+1}" class="Comments">
@@ -562,7 +595,7 @@ function appendCommentToUI(commentData) {
                 <img src="../images/Default.png">
                 <h3>${commentData.username}</h3>
                 <span class="dot"></span>
-                <p class="Post-Time">${commentData.datetime}</p>
+                <p class="Post-Time">${date}</p>
             </div>
             <div class="Comment-Content">
                 <p>${commentData['comment-content']}</p>

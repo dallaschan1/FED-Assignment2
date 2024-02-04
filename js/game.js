@@ -3,18 +3,103 @@ const ctx = canvas.getContext('2d');
 const bullets = [];
 let mouseX = 0;
 let mouseY = 0;
+let enemySpawnIntervalId = null; // Store the interval ID
+
 
 let gameStarted = false;
-function requestPointerLock() {
-    if (!gameStarted) {
-        gameStarted = true;
-        canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
-        canvas.requestPointerLock();
-        updateGame();
-        setInterval(addEnemy, 3000); 
+
+
+function initializePointerLock() {
+    canvas.requestPointerLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
+    // Event listeners for pointer lock state changes
+    document.addEventListener('pointerlockchange', lockChangeAlert, false);
+    document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
+    document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
+}
+
+function startGame() {
+    document.getElementById('homepage').style.display = 'none';
+    document.getElementById('pauseMenu').style.display = 'none';
+    canvas.style.display = 'block';
+    gameStarted = true;
+    initializePointerLock();
+    canvas.requestPointerLock();
+    updateGame();
+    if (enemySpawnIntervalId === null) {
+        enemySpawnIntervalId = setInterval(addEnemy, 3000);
     }
 }
 
+function continueGame() {
+    document.getElementById('pauseMenu').style.display = 'none';
+    canvas.style.display = 'block';
+
+    // Instead of directly requesting pointer lock here,
+    // Prompt the user to click on the canvas to continue.
+    let continuePrompt = document.createElement('div');
+    continuePrompt.innerText = 'Click on the game to continue';
+    continuePrompt.style.position = 'absolute';
+    continuePrompt.style.top = '50%';
+    continuePrompt.style.left = '50%';
+    continuePrompt.style.transform = 'translate(-50%, -50%)';
+    continuePrompt.style.color = 'white';
+    continuePrompt.style.fontSize = '24px';
+    continuePrompt.style.zIndex = '1000'; // Ensure it's visible above the canvas
+    document.body.appendChild(continuePrompt);
+
+    // Use a one-time click listener on the canvas to request pointer lock and remove the prompt
+    canvas.addEventListener('click', function handleCanvasClick() {
+        if (!gameStarted) {
+            gameStarted = true;
+            // Assuming 'updateGame' is your game loop or a function that needs to be called to resume game updates
+            updateGame(); // Make sure this function is designed to resume or continue the game's logic
+            
+            // Restart enemy spawning if it's controlled separately from 'updateGame'
+            if (enemySpawnIntervalId === null) {
+                enemySpawnIntervalId = setInterval(addEnemy, 3000);
+            }
+        }
+        canvas.requestPointerLock();
+        document.body.removeChild(continuePrompt);
+        canvas.removeEventListener('click', handleCanvasClick);
+    }, {once: true});
+}
+
+function restartGame() {
+    location.reload(); // Refresh the page to reset the game state
+}
+
+function lockChangeAlert() {
+    if (document.pointerLockElement === canvas ||
+        document.mozPointerLockElement === canvas ||
+        document.webkitPointerLockElement === canvas) {
+        console.log('The pointer lock status is now locked');
+        document.addEventListener("mousemove", updatePosition, false);
+    } else {
+        console.log('The pointer lock status is now unlocked');
+        document.removeEventListener("mousemove", updatePosition, false);
+        gameStarted = false;
+        if (enemySpawnIntervalId !== null) {
+            clearInterval(enemySpawnIntervalId);
+            enemySpawnIntervalId = null;
+        }
+        document.getElementById('pauseMenu').style.display = 'block';
+        canvas.style.display = 'none';
+    }
+}
+
+window.onload = function() {
+    const playButton = document.getElementById('playButton');
+    playButton.addEventListener('click', startGame);
+    document.getElementById('continueButton').addEventListener('click', continueGame);
+    document.getElementById('restartButton').addEventListener('click', restartGame);
+};
+
+
+// Remember to bind the lockChangeAlert function to the pointerlockchange event for it to be called appropriately
+document.addEventListener('pointerlockchange', lockChangeAlert, false);
+document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
+document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
 
 
 function resizeCanvas() {
@@ -22,8 +107,8 @@ function resizeCanvas() {
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const portraitOverlay = document.getElementById('portrait-overlay');
     const pcWidthPercentage = 0.98; // 90% of screen width for PC
-    const pcHeightPercentage = 0.95; // 80% of screen height for PC
-    const mobileWidthPercentage = 0.95; // 90% of screen width for mobile in landscape
+    const pcHeightPercentage = 0.98; // 80% of screen height for PC
+    const mobileWidthPercentage = 0.85; // 90% of screen width for mobile in landscape
     const mobileHeightPercentage = 0.8; // 80% of screen height for mobile in landscape
 
     if (isPortrait) {
@@ -90,18 +175,8 @@ function checkBulletEnemyCollisions() {
         }
     });
 }
-canvas.addEventListener('click', requestPointerLock);
-function lockChangeAlert() {
-    if (document.pointerLockElement === canvas ||
-        document.mozPointerLockElement === canvas ||
-        document.webkitPointerLockElement === canvas) {
-        console.log('The pointer lock status is now locked');
-        document.addEventListener("mousemove", updatePosition, false);
-    } else {
-        console.log('The pointer lock status is now unlocked');  
-        document.removeEventListener("mousemove", updatePosition, false);
-    }
-}
+
+
 
 function updatePosition(e) {
     mouseX += e.movementX;

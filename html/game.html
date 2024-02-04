@@ -11,7 +11,17 @@
     
 
     <main>
-        <canvas id = "gameCanvas"></canvas>
+        <div id="homepage" class="centered">
+            <h1>Infinite Shooter</h1>
+            <button id="playButton">PLAY</button>
+        </div>
+        <div id="pauseMenu" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h1>Infinite Shooter</h1>
+            <button id="continueButton">Continue</button>
+            <button id="restartButton">Exit</button>
+          </div>
+          
+        <canvas id="gameCanvas" width="800" height="600" style="display: none;"></canvas>
         <div id="portrait-overlay" style="display: none;">
             <p>Please rotate your device to landscape mode to play the game.</p>
         </div>

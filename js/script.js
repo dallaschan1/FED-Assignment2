@@ -75,15 +75,25 @@ function includeHTMLHeader() {
     }
   }
 
+  document.getElementById("mobile-navbar-container").style.position = 'absolute';
+  document.getElementById('navigation-header').style.position = 'absolute';
   document.getElementById('zencraft-logo').src = 'images/ZenCraft Logo.png';
-  document.getElementById('logo-home-link').href = '';
+  document.getElementById('logo-link').href = '#';
   document.getElementById('profileImage').src ='images/water.jpg';
   document.getElementById('home-nav-link').href = '#';
   document.getElementById('shop-nav-link').href = 'html/shop.html';
   document.getElementById('contact-us-nav-link').href = 'html/contact.html';
-  document.getElementById('about-us-nav-link').href = 'html/about.html';
-  document.getElementById('home-hamburger-link').href = '';
+  document.getElementById('game-nav-link').href = 'html/game.html';
+  document.getElementById('forum-nav-link').href = 'html/discussion.html';
+  document.getElementById('home-hamburger-link').href = '#';
   document.getElementById('shop-hamburger-link').href = 'html/shop.html';
+  document.getElementById('game-hamburger-link').href = 'html/game.html';
+  document.getElementById('contact-us-hamburger-link').href = 'html/contact.html';
+  document.getElementById('forums-hamburger-link').href = 'html/discussion.html';
+
+  function navigateToPage(url) {
+    window.location.href = url;
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {

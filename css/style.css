@@ -7,9 +7,14 @@ html{
 }
 
 body{
-    width: 100vw;
-    overflow-x: hidden;
-    overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: fit-content;
+  margin: 0;
+}
+
+body p{
+  margin-bottom: 0;
 }
 
 body *{
@@ -17,7 +22,7 @@ body *{
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+width: 5px;
 }
 
 /* Track */
@@ -48,6 +53,9 @@ border-radius: 10px;
     place-items: center;
     background-color: white;
     position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 16;
     transition: all ease-in-out 0.6s;
 }
@@ -249,6 +257,7 @@ border-radius: 10px;
 
 #card-flex::-webkit-scrollbar {
   width: 1px !important;
+  height: 10px !important;
 }
 
 #card-flex::-webkit-scrollbar-thumb {
@@ -324,6 +333,7 @@ border-radius: 10px;
 
 footer{
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
 }
 
 footer .nav{

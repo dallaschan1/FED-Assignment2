@@ -48,6 +48,7 @@ main {
 
 #about>img{
   flex-grow: 1;
+  min-width: 290px;
 }
 
 #about-text{
@@ -61,15 +62,25 @@ main {
   background-color: #F3F5F7;
 }
 
+#about-text>h2{
+  margin-bottom: 30px;
+}
+
 #about-text>p{
   font-family: 'Inter', sans-serif;
   font-weight: regular;
   width: 70%;
+  font-size: 1rem;  
 }
 
+#shop-now-link{
+  color: black;
+  transition: 0.3s all ease-in-out;
+}
 
-
-
+#shop-now-link:hover{
+  color: #6C7275;
+}
 
 #Contact{
   font-family: 'Poppins', sans-serif;
@@ -80,13 +91,14 @@ main {
 #Contact-Nav{
   display: flex;
   gap: 30px;
+  margin-bottom: 30px;
 }
 
 .Contact-Card{
   background-color: #F3F5F7;
   width: 33%;
   height: 200px;
-  font-size: calc(10px + 0.8vw);
+  font-size: calc(10px + 0.6vw);
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   display: flex;
@@ -254,7 +266,7 @@ button:hover {
 
   .Contact-Card {
 
-    font-size: calc(12px + 1vw);
+    font-size: calc(12px + 1.5vw);
     padding: 20px;
   }
 
@@ -264,8 +276,11 @@ button:hover {
   }
 
   .Contact-Card p {
- 
-    font-size: calc(12px + 0.5vw); 
+    font-size: calc(12px + 1.5vw); 
+  }
+
+  .Contact-Card p:first-of-type{
+    font-size: calc(12px + 0.75vw); 
   }
 }
 

@@ -297,6 +297,7 @@ function renderComments(comments, parentUsername = null) {
         }
     }
 
+    Add();
     return html;
 }
 
@@ -304,44 +305,7 @@ function renderComments(comments, parentUsername = null) {
 
   
 
-  function createCommentElement(comment) {
-    const div = document.getElementById('Comment-Container');
-    
-    foreach (comment => {
-        
-        
-
-        
   
-        div.innerHTML = `
-        <div class="Head">
-            <img src="../images/Default.png">
-            <h3>${comment.username}</h3>
-            <span class="dot"></span>
-            <p class="Post-Time">${comment.datetime}</p>
-        </div>
-        <div class="Comment-Content">
-            <p>${comment['comment-content']}</p>
-        </div>
-        <div class="checker">
-            <div class="Reply-Button">
-            <i class="fas fa-comment"></i> <span>Reply</span>
-            </div>
-            <div class="textarea-container">
-            <textarea id="autoresizing" placeholder="Type something..."></textarea>
-            <div class="textarea-buttons">
-                <button class="enterBtn">Enter</button>
-                <button class="cancelBtn">Cancel</button>
-            </div>
-            </div>
-        </div>
-        `;
-
-        
-    
-        return div;
-    });
-  }
   
 
 
@@ -469,41 +433,74 @@ function adjustFixedPosition() {
 
   
   
-  
-  document.addEventListener('DOMContentLoaded', function() {
+  function Add() {
     document.querySelectorAll('.checker').forEach(checker => {
+        if (checker.dataset.initialized) return;
+        checker.dataset.initialized = 'true';
+
         let enterBtn = checker.querySelector('.enterBtn');
         let cancelBtn = checker.querySelector('.cancelBtn');
         let textarea = checker.querySelector('textarea');
 
-        enterBtn.addEventListener('click', function() {
-            // Your logic for the Enter button click event
-            console.log("Enter button clicked");
-        });
+        if (!enterBtn.dataset.eventListenerAdded) {
+            enterBtn.dataset.eventListenerAdded = 'true';
+            enterBtn.addEventListener('click', function() {
+                let commentDiv = this.closest('div[data-username]');
+                if (textarea.value.trim().length > 0) {
+                    let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') || 'false');
+                    let username = isLoggedIn ? (localStorage.getItem('username') || sessionStorage.getItem('username')) : 'defaultUser';
 
-        cancelBtn.addEventListener('click', function(event) {
-            // Prevent event bubbling
-            event.stopPropagation();
-            
-            // Hide the textarea-container
-            let textareaContainer = this.closest('.textarea-container');
-            textareaContainer.style.display = 'none';
-            
-            // Clear the textarea
-            textarea.value = "";
+                    let dataToSend = {
+                        'comment-content': textarea.value,
+                        'username': username,
+                        'datetime': new Date().toISOString(),
+                        'ReplyTo': commentDiv.getAttribute('data-identifier'),
+                        'MainThread': window.location.pathname.split('/').pop(),
+                        'ThreadLevel': parseInt(commentDiv.getAttribute('data-level')) + 1
+                    };
 
-            console.log("Cancel button clicked");
-        });
+                    sendDataToAPI(dataToSend);
+
+                    // After sending data, dynamically insert the new comment
+                    let newCommentHTML = createNewCommentHTML(dataToSend);
+                    commentDiv.insertAdjacentHTML('afterend', newCommentHTML);
+                    textarea.value = ''; // Clear textarea after posting
+                } else {
+                    console.log('Textarea is empty.');
+                }
+            });
+        }
+
+        // Cancel button logic remains unchanged
+        if (!cancelBtn.dataset.eventListenerAdded) {
+            cancelBtn.dataset.eventListenerAdded = 'true';
+            cancelBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+                let textareaContainer = this.closest('.textarea-container');
+                textareaContainer.style.display = 'none';
+                textarea.value = "";
+                console.log("Cancel button clicked");
+            });
+        }
 
         checker.addEventListener('click', function() {
             let show = this.querySelector('.textarea-container');
             show.style.display = 'block';
             console.log("Textarea container displayed");
-            show.foc
-            // You can add more logic here if needed
         });
     });
-});
+};
+
+function sendDataToAPI(data) {
+    console.log('Sending data to API:', data);
+    // API call simulation
+    // Replace this with actual API call logic
+}
+
+
+
+
+
 
 
 
@@ -585,6 +582,7 @@ function appendCommentToUI(commentData) {
         </div>
     `;
     commentContainer.innerHTML += newCommentHTML;
+    Add();
     })
     .catch(error => console.error('Error fetching data:', error));
 

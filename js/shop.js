@@ -20,7 +20,6 @@ function includeHTMLHeader() {
       return;
     }
   }
-  document.getElementById('navigation-header').style.position = 'relative';
   document.getElementById('navigation-header').style.backgroundColor = 'white';
 }
 

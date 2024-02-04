@@ -340,7 +340,7 @@ margin-bottom: 0;
 footer{
 border: 1px solid rgba(0, 0, 0, 0.1);
 width: 100vw;
-margin-top: auto;
+margin-top: 1.5rem;
 }
 
 footer .nav{

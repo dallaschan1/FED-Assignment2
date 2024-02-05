@@ -46,6 +46,7 @@ function fetchAndDisplayComments(threadID) {
             });
         });
 
+        document.getElementById('loader').style.display = 'none';
         
       })
       .catch(error => console.error('Error fetching comments:', error));
@@ -318,7 +319,7 @@ function createPost(thread, membername) {
         threadDiv.dataset.threadId = thread['Thread-ID'];
         threadDiv.dataset.commentCount = thread.CommentCount;
         threadDiv.dataset.tag = thread.tags;
-        
+        const time = formatDateTime(thread.datetime);
 
         const date = formatDateTime(thread.datetime);
         let threadHTML = `
@@ -326,7 +327,11 @@ function createPost(thread, membername) {
                 <img src="../images/Default.png" alt="Profile Picture" id="Post-Profile-Picture">
                 <h3>${thread.username}</h3>
                 <span id="dot"></span>
+<<<<<<< HEAD
                 <p id = "Post-Time">${date}</p>
+=======
+                <p id = "Post-Time">${time}</p>
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
                 <span id = "Cancel"><i class="fa fa-times"></i></span>
             </div>
             <div id="Post-Title">

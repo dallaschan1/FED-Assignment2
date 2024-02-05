@@ -137,11 +137,11 @@ function registerUser(event) {
           if (rememberMe) {
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('username', username);
-            localStorage.setItem('userImage', userImage); 
+            localStorage.setItem('userImage', userImage);
           } else {
             sessionStorage.setItem('isLoggedIn', 'true');
             sessionStorage.setItem('username', username);
-            sessionStorage.setItem('userImage', userImage); 
+            sessionStorage.setItem('userImage', userImage);
           }
       })
       .catch(error => {
@@ -150,8 +150,6 @@ function registerUser(event) {
       });
   };
 }
-
-
 
 
 signInForm.addEventListener('submit', loginUser);

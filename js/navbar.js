@@ -78,6 +78,16 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflowY = "scroll";
     }
     })
+
+    // IMPORTANT LOGIC for getting the cart items
+    // Fetch the items from the account databse
+    // For loop the cart items and set the innerHTML of #card-products
+    // Make sure the quantity input adds up to the quantity of the products
+    // Add up their total price during the loop and set the innerHTML of totalBill defined below 
+    const totalBill = document.getElementById('total-bill');
+
+    // Need to make logic for the different products quantities (maybe including the id for different cart-product-containers)
+
 });
 
 

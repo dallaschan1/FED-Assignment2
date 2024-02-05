@@ -134,6 +134,7 @@ function fetchThreads() {
     .then(data => {
         globalThreadsData = data; // Store data in global variable
         createThreads(data);
+        document.getElementById('loader').style.display = 'none';
     })
     .catch(error => {
         console.error('Error fetching threads:', error);

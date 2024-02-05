@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
+
+html{
+    height: 100%;
+}
+
+body{
+    overflow-x: hidden;
+    height: fit-content;
+    margin: 0;
+}
+
+body p{
+    margin-bottom: 0;
+}
+
+body *{
+    font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 10px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+::-webkit-scrollbar-corner{
+border-radius: 10px;
+}
+
+#loader {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: white;
+    position: fixed;
+    z-index: 16;
+    transition: all ease-in-out 0.6s;
+}
+
+#checkout-forms {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px; /* Adjust the max-width according to your design */
+    margin: auto; /* Center the form on the page */
+}
+
+/* Style each fieldset */
+.checkout-form {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Style the legend within each fieldset */
+.checkout-form legend {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style labels and inputs */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Style submit button */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Optional: Style for better readability or focus effects */
+input:focus,
+select:focus {
+    outline: 2px solid #4CAF50;
+}

@@ -1,10 +1,27 @@
 
 html, body {
     overflow-x: hidden;
+<<<<<<< HEAD
     background-color: aliceblue;
+=======
+    background-color:aliceblue;
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
     height: 100%;
     margin: 0;
     
+}
+
+#loader {
+    position: fixed; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; /* Use flex to center the lottie animation */
+    justify-content: center;
+    align-items: center;
+    background-color: aliceblue; /* Optional: background color if the lottie has transparency */
+    z-index: 9000; /* Ensure it's above all other content */
 }
 
 header {
@@ -13,7 +30,11 @@ header {
     width: 99%;
     height: 100px;
     z-index: 1000;
+<<<<<<< HEAD
     background-color:aliceblue;
+=======
+    background-color: aliceblue;
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
 }
 
 main {
@@ -21,7 +42,11 @@ main {
     display: flex;
     margin: 0 auto;
     margin-top: 100px;
+<<<<<<< HEAD
    
+=======
+
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
     gap: 50px;
     z-index: 1;
     
@@ -40,8 +65,9 @@ main {
 #Post{
     height: fit-content;   
     border: 1px solid black;
-  
+    padding: 10px;
     padding-top: 20px;
+    padding-bottom: 100px;
 }
 
 #Post-Container {
@@ -57,7 +83,7 @@ main {
     height: fit-content;
     max-height: 540px;
     
-    border: 1px solid black;
+    
 
 }
 
@@ -99,9 +125,9 @@ main {
 
 #Cancel{
     position: absolute;
-    right: 20px;
-    
-    font-size: 40px;
+    right: 5px;
+    top: -9px;
+    font-size: 30px;
 }
 
 /* Ends Here */
@@ -205,8 +231,13 @@ textarea {
 
 #Comment-Container{
     border: 1px solid black;
+<<<<<<< HEAD
     min-height: 100px;
    padding-bottom: 50px;
+=======
+    
+   padding-bottom: 100px;
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
     
 }
 

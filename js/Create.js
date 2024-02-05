@@ -85,6 +85,7 @@ dropdownItems.forEach(function(item) {
 
 document.getElementById('post-form').addEventListener('submit', async function(e) {
     e.preventDefault();
+    
 
     // Initialize flag to indicate if all required fields are filled
     let allFieldsFilled = true;
@@ -118,6 +119,10 @@ document.getElementById('post-form').addEventListener('submit', async function(e
     // If any field is unfilled, stop execution
     if (!allFieldsFilled) return;
 
+    const lottie = document.getElementById('lottie');
+    lottie.style.display = 'block';
+    const head = document.getElementById('headTitle');
+    head.style.display = 'none';
     // Assuming username is stored in localStorage or similar
     const username = localStorage.getItem('username') || 'defaultUser';
      //  get community tag
@@ -137,6 +142,7 @@ document.getElementById('post-form').addEventListener('submit', async function(e
 
     // Send data to API
     postToAPI(postData);
+    
 });
 
 // Function to flash red border
@@ -160,7 +166,12 @@ function postToAPI(data) {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        
+        const lottie = document.getElementById('lottie');
+        lottie.style.display = 'none';
+        const head = document.getElementById('headTitle');
+        head.style.display = 'block';
+        alert("Post created successfully! Redirecting....");
+        window.location.href = 'Discussion.html';
     })
     .catch((error) => {
         console.error('Error:', error);

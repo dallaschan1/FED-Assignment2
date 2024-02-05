@@ -405,6 +405,20 @@ class Player {
     takeDamage(damage) {
         this.hp -= damage;
         if (this.hp <= 0) {
+            if (playerPoints >= 1000) {
+                
+                localStorage.setItem('playerPoints', 40);
+            } else if (playerPoints >= 100) {
+                
+                localStorage.setItem('playerPoints', 20);
+            } else if (playerPoints >= 50) {
+                
+                localStorage.setItem('playerPoints', 10);
+            } else if (playerPoints >= 20) {
+                
+                localStorage.setItem('playerPoints', 5);
+            }
+            
             location.reload();
         }
     

@@ -161,6 +161,14 @@ main {
     
 }
 
+#lottie{
+    display: none;
+    position: relative;
+    object-fit: cover;
+    height: 200px;
+    margin-left: -30px;
+    margin-top: -120px;
+}
 
 
 #form-buttons {

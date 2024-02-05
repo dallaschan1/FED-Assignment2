@@ -327,11 +327,7 @@ function createPost(thread, membername) {
                 <img src="../images/Default.png" alt="Profile Picture" id="Post-Profile-Picture">
                 <h3>${thread.username}</h3>
                 <span id="dot"></span>
-<<<<<<< HEAD
-                <p id = "Post-Time">${date}</p>
-=======
                 <p id = "Post-Time">${time}</p>
->>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
                 <span id = "Cancel"><i class="fa fa-times"></i></span>
             </div>
             <div id="Post-Title">
@@ -358,7 +354,10 @@ function createPost(thread, membername) {
 
         threadDiv.innerHTML = threadHTML;
         contentDiv.insertBefore(threadDiv, contentDiv.firstChild);});
-
+        const cancel = document.getElementById('Cancel');
+        cancel.addEventListener('click', function(){
+            window.location.href = 'Discussion.html';
+        });
     
 }
 

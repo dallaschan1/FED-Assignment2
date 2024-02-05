@@ -134,7 +134,7 @@ function fetchThreads() {
     .then(data => {
         globalThreadsData = data; // Store data in global variable
         createThreads(data);
-        document.getElementById('loader').style.display = 'none';
+        
     })
     .catch(error => {
         console.error('Error fetching threads:', error);
@@ -196,17 +196,42 @@ function createThreadsDict(threads) {
     return threadsDict;
 }
 
-function createThreads(sortedThreads) {
+
+async function fetchPostByThreadID(threadID) {
+    const url = 'https://users-4250.restdb.io/rest/comments';
+    const queryParams = `?q={"MainThread":${threadID}}&fields=MainThread`;
+
+    try {
+        const response = await fetch(url + queryParams, {
+            method: 'GET',
+            headers: {
+                'x-apikey': '65aa4cb7c0aebd4508c42aa9'
+            }
+        });
+        const data = await response.json();
+        console.log(data);
+        return data.length; 
+    } catch (error) {
+        console.error('Error fetching thread by Thread-ID:', error);
+        return 0;
+        
+    }
+}
+
+
+async function createThreads(sortedThreads) {
     const contentDiv = document.getElementById('Content');
     contentDiv.innerHTML = ''; // Clear existing threads
 
-    sortedThreads.forEach(thread => {
+    for (const thread of sortedThreads) { // Use a for...of loop instead of forEach
         const threadDiv = document.createElement('div');
         threadDiv.classList.add('thread');
         threadDiv.dataset.threadId = thread['Thread-ID'];
-        threadDiv.dataset.commentCount = thread.CommentCount;
-        threadDiv.dataset.tag = thread.tags;
         
+        threadDiv.dataset.tag = thread.tags;
+        let num = await fetchPostByThreadID(thread['Thread-ID']); // This now waits for completion before continuing
+
+        threadDiv.dataset.commentCount = num;
 
         let threadHTML = `
             <div class="Content-Header">
@@ -236,12 +261,12 @@ function createThreads(sortedThreads) {
         threadHTML += `
             <div class="Comments">
                 <i class="fas fa-comments"></i>
-                <span class="Comments-Count">${thread.CommentCount}</span>
+                <span class="Comments-Count">${num}</span>
             </div>`;
 
         threadDiv.innerHTML = threadHTML;
         contentDiv.appendChild(threadDiv);
-    });
+    }
 
     // Attach click event listener to comments section of each thread
     const commentSections = document.querySelectorAll('.Comments');
@@ -262,6 +287,7 @@ function createThreads(sortedThreads) {
             window.location.href = `Post.html${queryString}`;
         });
     });
+    document.getElementById('loader').style.display = 'none';
 }
 
 

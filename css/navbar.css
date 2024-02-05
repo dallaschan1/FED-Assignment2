@@ -203,6 +203,11 @@
         color: #555; 
     }
 
+    .fa-user{
+        font-size: 25px;
+        color: #555;
+    }
+
     .fa-cart-shopping{
         color: #555; 
         font-size: 25px;
@@ -339,11 +344,13 @@
 #cart-blur-overlay {
     display: none;
     position: fixed;
-    width: 100vw;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px); 
-    z-index: 2;
+    z-index: 3;
     transition: backdrop-filter 0.3s ease;
 }
 
@@ -358,12 +365,12 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: right 0.4s ease;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     flex-flow: column;
     overflow-x: hidden;
     overflow-y: hidden;
-  }
+}
 
 #cart-container.open-cart {
     right: 0;

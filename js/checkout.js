@@ -31,4 +31,36 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.style.overflowY = 'scroll';
       loader.style.display = "none";
     }, 1000);
+
+    
+    const placeOrderBtn = document.getElementById('place-order-btn');
+    const closeModal = document.querySelector("[data-close-modal]");
+    const modal = document.querySelector("[data-modal]");
+    const tickAnimation = document.querySelector("#tick-animation");
+
+    placeOrderBtn.addEventListener("click", function(){
+      // logic for adding order to database or something
+
+      modal.showModal();
+      tickAnimation.stop();
+      tickAnimation.currentFrame = 0;
+      tickAnimation.play();
+      document.getElementById('thank-you-modal').style.opacity = '1';
+      document.body.style.overflowY = "hidden";
+      // setTimeout(function(){
+      //   modal.close();
+      //   tickAnimation.pause();
+      //   document.getElementById('thank-you-modal').style.opacity = '0';
+      //   document.body.style.overflowY = "scroll";
+      //   window.location.href = "../index.html";
+      // }, 15000);
+    })
+    
+    closeModal.addEventListener("click", () =>{
+      modal.close();
+      tickAnimation.pause();
+      document.getElementById('thank-you-modal').style.opacity = '0';
+      document.body.style.overflowY = "scroll";
+      window.location.href = "../index.html";
+    })
 });

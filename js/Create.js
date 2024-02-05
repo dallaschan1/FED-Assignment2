@@ -109,7 +109,7 @@ document.getElementById('post-form').addEventListener('submit', async function(e
         flashRedBorder(document.getElementById('image-upload-area'));
         allFieldsFilled = false;
     }
-    else if (!tags || tags === "Choose a Community") { // Replace DEFAULT_TAG with your default value if any
+    else if (!tags || tags === "Choose a Community") { 
         flashRedBorder(document.querySelector('#Community #left span'));
         allFieldsFilled = false;
     }
@@ -121,7 +121,7 @@ document.getElementById('post-form').addEventListener('submit', async function(e
     // Assuming username is stored in localStorage or similar
     const username = localStorage.getItem('username') || 'defaultUser';
      //  get community tag
-    const datetime = new Date().toLocaleString("en-US"); // Formats date and time
+    const datetime = new Date().toLocaleString("en-SG"); // Formats date and time
     const likes = 0;
 
     // Prepare data object

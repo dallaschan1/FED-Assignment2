@@ -1,7 +1,11 @@
 
 html, body {
     overflow-x: hidden;
+<<<<<<< HEAD
+    background-color: aliceblue;
+=======
     background-color:aliceblue;
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
     height: 100%;
     margin: 0;
     
@@ -26,7 +30,11 @@ header {
     width: 99%;
     height: 100px;
     z-index: 1000;
+<<<<<<< HEAD
+    background-color:aliceblue;
+=======
     background-color: aliceblue;
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
 }
 
 main {
@@ -34,7 +42,11 @@ main {
     display: flex;
     margin: 0 auto;
     margin-top: 100px;
+<<<<<<< HEAD
+   
+=======
 
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
     gap: 50px;
     z-index: 1;
     
@@ -68,7 +80,8 @@ main {
 }
 #Post-Image{
     width: 100%;
-    max-height: fit-content;
+    height: fit-content;
+    max-height: 540px;
     
     
 
@@ -218,8 +231,13 @@ textarea {
 
 #Comment-Container{
     border: 1px solid black;
+<<<<<<< HEAD
+    min-height: 100px;
+   padding-bottom: 50px;
+=======
     
    padding-bottom: 100px;
+>>>>>>> b25dc8da1b8e675ff84a74861236ecd3449b4525
     
 }
 
@@ -244,22 +262,22 @@ textarea {
 }
 
 .Comments-Reply1{
-    margin-left: 25px;
+    margin-left: 30px;
     margin-top: 20px;
 }
 
 .Comments-Reply2{
-    margin-left: 50px;
+    margin-left: 60px;
     margin-top: 20px;
 }
 
 .Comments-Reply3{
-    margin-left: 75px;
+    margin-left:90px;
     margin-top: 20px;
 }
 
 .Comments-Reply4{
-    margin-left: 100px;
+    margin-left: 120px;
     margin-top: 20px;
 }
 /* Ends Here */

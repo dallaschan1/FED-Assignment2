@@ -405,7 +405,7 @@ class Player {
     takeDamage(damage) {
         this.hp -= damage;
         if (this.hp <= 0) {
-            // Handle player defeat (e.g., end game, restart level)
+            location.reload();
         }
     
         this.isHit = true;

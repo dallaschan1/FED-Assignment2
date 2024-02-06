@@ -2,6 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&family=Rubik&display=swap');
 
+body{
+    width: 100vw;
+    overflow-x: hidden;
+}
+
 #navigation-header{
     padding: 20px 0px;
     position: relative;
@@ -415,6 +420,19 @@
     color: black !important;
 }
 
+#no-items{
+    font-size: 3em;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    height: 100%;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    flex-direction: column;
+}
+
 #cart-products{
     overflow-y: scroll;
     height: 100%;
@@ -433,8 +451,8 @@
 }
 
 .cart-image-container {
-    width: 100px;
-    height: 100px;
+    width: 118px;
+    height: 118px;
     min-width: 100px;
     min-height: 100px;
     overflow: hidden;
@@ -479,7 +497,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    font-size: 0.8em;
+    font-size: 0.9em;
     text-align: center;
     width: fit-content;
     height: fit-content;
@@ -497,11 +515,13 @@
 .cart-quantity-input{
     border: none;
     max-width: 25px;
-    width: 25px;
+    width: 20px;
     padding: 0;
     margin: 0;
     text-align: center;
     vertical-align: middle;
+    font-weight: bold;
+    color: #6C7275;
 }
 
 .cart-quantity-input:focus-visible{
@@ -542,7 +562,8 @@
         overflow: hidden;
         position: relative;
         min-width: 90px;
-        width: 90px;
+        width: 100px;
+        height: 111px;
         margin-right: 0px;
     }
     
@@ -565,6 +586,10 @@
     .cart-product-color{
         color: #6C7275;
         font-size: 0.9em;
+    }
+
+    #no-items{
+        font-size: 2.5em;
     }
 }
 /* OpenCart Ends Here*/
@@ -593,6 +618,13 @@
     transition: all ease-in-out 0.3s;
     margin: 0px 3px;
     margin-bottom: 20px;
+}
+
+#checkout-btn p{
+    margin-bottom: 5px;
+    text-align: center;
+    vertical-align: middle;
+    width: fit-content;
 }
 
 #checkout-btn:hover{

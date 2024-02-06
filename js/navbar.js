@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // TO REMOVE AFTER API BAN
+    sessionStorage.setItem('isLoggedIn', 'true');
+    sessionStorage.setItem('username', 'ian1');
+    let object = {"_id":"65c1f677d4a556290000b8a9","username":"ian1","cart-items":[{"id":"1","product":"Tray table","color":"White","quantity":"10","totalPrice":"1990.00"},{"id":"2","product":"Loveseat Sofa","color":"Black","quantity":"1","totalPrice":"199.00"},{"id":"3","product":"Loveseat Sofa","color":"Black","quantity":"1","totalPrice":"199.00"}]}
+    sessionStorage.setItem('cart', JSON.stringify(object));
+
     //FUNCTIONS for the slideout menu
     document.querySelector('.hamburg-menu').addEventListener('click', function() {
         var menu = document.getElementById('slideout-menu');
@@ -56,18 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflowY = "scroll";
     })
 
-    document.addEventListener('click', function(event) {
+    document.getElementById('cart-blur-overlay').addEventListener('click', function() {
         var cartContainer = document.getElementById('cart-container');
         var cartOverlay = document.getElementById('cart-blur-overlay');
-        var isClickInsideCart = cartContainer.contains(event.target);
-        var isClickInsideToggleButtons = Array.from(document.querySelectorAll('.toggle-cart-button')).some(button => button.contains(event.target));
-
-        // Close the cart if the click is outside the cart and not on the toggle buttons
-        if (!isClickInsideCart && !isClickInsideToggleButtons && cartContainer.classList.contains('open-cart')) {
-            cartContainer.classList.remove('open-cart');
-            cartOverlay.style.display = "none";
-            document.body.style.overflowY = "scroll";
-        }
+        cartContainer.classList.remove('open-cart');
+        cartOverlay.style.display = "none";
+        document.body.style.overflowY = "scroll";
     });
 
     /* detect Escape key when the overlay is open */
@@ -79,15 +79,216 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     })
 
+    const observer = new MutationObserver((mutationsList, observer) => {
+        let cartContainer = document.getElementById('cart-container');
+        for(const mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const classList = cartContainer.classList;
+                if (!classList.contains('open-cart')) {
+                    // Event triggers when open-cart class is removed
+                    console.log('open-cart class was removed');
+                    // Updating the cart items to the database when the cart is closed
+                    let username = sessionStorage.getItem('username');
+                    let cart = JSON.parse(sessionStorage.getItem('cart'));
+                    let cartId = cart._id;
+                    const APIKEY = "65b39da5fc1ad2bd332e3653";
+    
+                    var jsondata = {
+                        "username": username,
+                        "cart-items": cart['cart-items']
+                    };
+    
+                    var settings = { 
+                        method: "PUT", 
+                        headers: { 
+                            "Content-Type": "application/json",   
+                            "x-apikey": APIKEY, 
+                            "Cache-Control": "no-cache" 
+                        }, 
+                        body: JSON.stringify(jsondata) 
+                    };
+                    fetch(`https://fedassg2product-f089.restdb.io/rest/user-cart/${cartId}`, settings)
+                        .then(response => response.json()) // Parse the response JSON and return it
+                }
+            }
+        }
+    });
+    
+    let cartContainer = document.getElementById('cart-container');
+    // Observer to observe if open-cart class is removed from id='cart-Container'
+    observer.observe(cartContainer, { attributes: true });
+
+    function setUpCartEvenListeners(totalProductPrice) {
+        // Get all input elements with class "cart-quantity-input"
+        let quantityInputs = Array.from(document.getElementsByClassName('cart-quantity-input'));
+
+        // Add event listener to each input
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                let inputId = input.id; // Get the id of the changed input
+                let quantity = parseInt(input.value); // Get the new quantity value
+                // Update the quantity accordingly
+                if (!isNaN(quantity) && quantity >= 1 && quantity <= 10) {
+                    updateQuantityInSessionStorage(inputId, quantity);
+                } else {
+                    // Reset the quantity to 1 if it's less than 1 or greater than 10
+                    input.value = Math.min(Math.max(1, quantity), 10);
+                    updateQuantityInSessionStorage(inputId, quantity);
+                    console.log(`Invalid quantity for input with id ${inputId}. Resetting to ${input.value}`);
+                }
+            });
+        });
+
+        // Function to update quantity in sessionStorage
+        function updateQuantityInSessionStorage(inputId, quantity) {
+            let cart = JSON.parse(sessionStorage.getItem('cart'));
+            let currentCartItems = cart['cart-items'];
+
+            // Find the item in currentCartItems array and update its quantity
+            for (let i = 0; i < currentCartItems.length; i++) {
+                let currentItem = currentCartItems[i];
+                if (`${currentItem.id}-input` === inputId) {
+                    totalProductPrice -= parseFloat(currentItem.totalPrice);
+                    document.getElementById(`${currentItem.id}-totalprice`).innerHTML = `$${(parseFloat(currentItem.totalPrice) / parseInt(currentItem.quantity) * parseInt(quantity)).toFixed(2).toString()}`;
+                    currentItem.totalPrice = (parseFloat(currentItem.totalPrice) / parseInt(currentItem.quantity) * parseInt(quantity)).toFixed(2).toString();
+                    console.log(currentItem.totalPrice);
+                    totalProductPrice += parseFloat(currentItem.totalPrice);
+                    totalBill.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+                    currentItem.quantity = quantity.toString();
+                    break;
+                }
+            }
+
+            // Update cart in sessionStorage
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            console.log(JSON.parse(sessionStorage.getItem('cart')));
+        }
+
+        // Function to increment the quantity
+        function incrementQuantity(inputId) {
+            let input = document.getElementById(inputId);
+            let newValue = parseInt(input.value) + 1;
+            if (newValue <= 10) {
+                input.value = newValue;
+                let quantity = newValue;
+                updateQuantityInSessionStorage(inputId, quantity);
+            }
+        }
+
+        // Function to decrement the quantity
+        function decrementQuantity(inputId) {
+            let input = document.getElementById(inputId);
+            let newValue = parseInt(input.value) - 1;
+            if (newValue >= 1) {
+                input.value = newValue;
+                let quantity = newValue;
+                updateQuantityInSessionStorage(inputId, quantity);
+            }
+        }
+
+        // Attach event listeners to plus and minus buttons
+        Array.from(document.getElementsByClassName('cart-minus')).forEach(button => {
+            button.addEventListener('click', function() {
+                let inputId = this.id.replace('-minus', '-input'); // Get the id of the associated input
+                console.log("input element:", inputId);
+                decrementQuantity(inputId); // Decrement the quantity
+            });
+        });
+
+        Array.from(document.getElementsByClassName('cart-plus')).forEach(button => {
+            button.addEventListener('click', function() {
+                let inputId = this.id.replace('-plus', '-input'); // Get the id of the associated input
+                console.log("input element:", inputId);
+                incrementQuantity(inputId); // Increment the quantity
+            });
+        });
+    }
+
+    setUpCartEvenListeners()
+
     // IMPORTANT LOGIC for getting the cart items
-    // Fetch the items from the account databse
-    // For loop the cart items and set the innerHTML of #card-products
-    // Make sure the quantity input adds up to the quantity of the products
-    // Add up their total price during the loop and set the innerHTML of totalBill defined below 
+    let username = sessionStorage.getItem('username');
+    let cart = JSON.parse(sessionStorage.getItem('cart'));
+    let currentCartItems = cart['cart-items'];
+    let totalProductPrice = 0.00;
     const totalBill = document.getElementById('total-bill');
+    console.log(currentCartItems);
+    console.log(currentCartItems.length);
 
-    // Need to make logic for the different products quantities (maybe including the id for different cart-product-containers)
+    totalProductPrice = generateCartDisplay();
 
+    // Function to regenerate the cart display
+    function generateCartDisplay() {
+        let content = "";
+        let totalProductPrice = 0; // Reset total product price
+        if (currentCartItems === undefined || currentCartItems.length === 0){
+            document.getElementById('no-items').style.display = 'flex';
+            document.getElementById('cart-products').style.display = 'none';
+        }
+        console.log(JSON.stringify(currentCartItems));
+        for (var i = 0; i < currentCartItems.length; i++) {
+            let id = currentCartItems[i]["id"];
+            let product = currentCartItems[i]["product"];
+            let color = currentCartItems[i]["color"];
+            let quantity = currentCartItems[i]["quantity"];
+            let totalPrice = currentCartItems[i]["totalPrice"];
+            totalProductPrice += parseFloat(totalPrice);
+            content += `<div id="${id}" class="cart-product-container">
+                            <div class="cart-image-container">
+                            <img src="../images/${product}.png">
+                            </div>
+                            <div class="cart-details">
+                            <div class="cart-text">
+                                <p class="cart-product-name">${product}</p>
+                                <p class="cart-product-color">${color}</p>
+                                <div class="cart-add-quantity">
+                                <i id="${id}-minus" class="fa-solid fa-minus cart-minus"></i>
+                                <input id="${id}-input" class="cart-quantity-input" type="number" value="${quantity}">
+                                <i id="${id}-plus" class="cart-plus fa-solid fa-plus"></i>
+                                </div>
+                            </div>
+                            <div class="cart-price-cancel">
+                                <p id="${id}-totalprice" class="cart-price">$${totalPrice}</p>
+                                <i id="${id}-delete" class="fa-solid fa-xmark delete-cart"></i>
+                            </div>
+                            </div>
+                        </div>
+                        <hr>
+                        `;
+        }
+        document.getElementById('cart-products').innerHTML = content;
+        totalBill.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+
+        setUpCartEvenListeners(totalProductPrice);
+
+        return totalProductPrice;
+    }
+
+    // Attach event listener to a parent element that persists in the DOM
+    document.getElementById('cart-products').addEventListener('click', function(event) {
+        // Check if the click event originated from a delete button
+        if (event.target.classList.contains('delete-cart')) {
+            let itemId = event.target.id.replace('-delete', ''); // Get the id of the item to be deleted
+            console.log(itemId);
+            // Getting the updated currentCartItems
+            currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
+
+            // Filter out the item with the corresponding id from currentCartItems
+            currentCartItems = currentCartItems.filter(item => item.id !== itemId);
+            console.log(currentCartItems);
+            // Update item IDs accordingly
+            currentCartItems.forEach((item, index) => {
+                item.id = (index + 1).toString(); 
+            });
+            // Update sessionStorage with the updated cart items
+            let cart = JSON.parse(sessionStorage.getItem('cart'));
+            cart['cart-items'] = currentCartItems;
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            console.log(JSON.parse(sessionStorage.getItem('cart')));
+            // Regenerate the cart display
+            generateCartDisplay();
+        }
+    });
 });
 
 

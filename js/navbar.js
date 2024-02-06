@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const closeCart = document.querySelector('#close-cart');
+    if (closeCart) {
     closeCart.addEventListener('click', function(){
         var cartContainer = document.getElementById('cart-container');
         var cartOverlay = document.getElementById('cart-blur-overlay');
@@ -55,10 +56,12 @@ document.addEventListener('DOMContentLoaded', function () {
         cartOverlay.style.display = "none";
         document.body.style.overflowY = "scroll";
     })
+}
 
     document.addEventListener('click', function(event) {
         var cartContainer = document.getElementById('cart-container');
         var cartOverlay = document.getElementById('cart-blur-overlay');
+        if (cartContainer === null) return;
         var isClickInsideCart = cartContainer.contains(event.target);
         var isClickInsideToggleButtons = Array.from(document.querySelectorAll('.toggle-cart-button')).some(button => button.contains(event.target));
 
@@ -103,7 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'Game': 'game.html',
         'Contact Us': 'Contact.html',
         'Forums': 'Discussion.html',
-        'Check out': 'checkout.html' // Assuming you want the button to also navigate
+        'Check out': 'checkout.html',
+        'Create A Post': 'Create.html',
     };
 
     // Select all slideout items

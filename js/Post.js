@@ -24,7 +24,7 @@ function fetchAndDisplayComments(threadID) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-apikey': '65aa4cb7c0aebd4508c42aa9' // Replace with your actual API key
+        'x-apikey': '65aa4cb7c0aebd4508c42aa9' 
       }
     };
 

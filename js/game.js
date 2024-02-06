@@ -104,19 +104,14 @@ document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
 
 function resizeCanvas() {
     const devicePixelRatio = window.devicePixelRatio || 1;
-    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    
     const portraitOverlay = document.getElementById('portrait-overlay');
     const pcWidthPercentage = 0.98; // 90% of screen width for PC
     const pcHeightPercentage = 0.98; // 80% of screen height for PC
-    const mobileWidthPercentage = 0.85; // 90% of screen width for mobile in landscape
-    const mobileHeightPercentage = 0.8; // 80% of screen height for mobile in landscape
+    const mobileWidthPercentage = 1; // 90% of screen width for mobile in landscape
+    const mobileHeightPercentage = 1; // 80% of screen height for mobile in landscape
 
-    if (isPortrait) {
-        portraitOverlay.style.display = 'block';
-        return;
-    } else {
-        portraitOverlay.style.display = 'none';
-    }
+    
 
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
@@ -405,23 +400,32 @@ class Player {
     takeDamage(damage) {
         this.hp -= damage;
         if (this.hp <= 0) {
-            if (playerPoints >= 1000) {
-                
-                localStorage.setItem('playerPoints', 40);
-            } else if (playerPoints >= 100) {
-                
-                localStorage.setItem('playerPoints', 20);
-            } else if (playerPoints >= 50) {
-                
-                localStorage.setItem('playerPoints', 10);
-            } else if (playerPoints >= 20) {
-                
-                localStorage.setItem('playerPoints', 5);
+            let currentPoints = parseInt(localStorage.getItem('playerPoints'), 10);
+            // Check if currentPoints is NaN, which means 'playerPoints' does not exist in localStorage
+            if (isNaN(currentPoints)) {
+                currentPoints = 0; // Initialize to 0 if not exist
             }
-            
+        
+            let pointsToSet = 0;
+            if (playerPoints >= 1000) {
+                pointsToSet = 40;
+            } else if (playerPoints >= 100) {
+                pointsToSet = 20;
+            } else if (playerPoints >= 50) {
+                pointsToSet = 10;
+            } else if (playerPoints >= 20) {
+                pointsToSet = 5;
+            }
+            // Only update if the new points to set is greater than the current points
+            if (pointsToSet > currentPoints) {
+                localStorage.setItem('playerPoints', pointsToSet.toString());
+            }
+        
+            alert(`Game Over! Your current discount: ${localStorage.getItem('playerPoints') || 0}`);
             location.reload();
         }
-    
+        
+        
         this.isHit = true;
         this.hitDuration = 10;
     }
@@ -484,7 +488,7 @@ class Player {
             const velocityY = Math.sin(angle) * bulletVelocity;
 
             // Create the bullet at the start position
-            const bulletSize = 10; // Set the desired bullet size
+            const bulletSize = 10; 
             const bullet = new Bullet(bulletStartX, bulletStartY, velocityX, velocityY, bulletSize);
             bullets.push(bullet);
         }
@@ -517,7 +521,7 @@ class Enemy {
         this.wanderAngle += (Math.random() - 0.5) * 0.2; 
 
         // Limit the wander angle to prevent extreme deviations
-        const maxWander = Math.PI / 3; // Maximum deviation angle (e.g., 45 degrees)
+        const maxWander = Math.PI / 3; // Maximum deviation angle 
         this.wanderAngle = Math.max(Math.min(this.wanderAngle, maxWander), -maxWander);
 
         // Calculate the angle towards the player with added randomness
@@ -552,7 +556,7 @@ function checkPlayerEnemyCollisions() {
        if (distance < enemy.size + player.size / 2) {
             player.takeDamage(10); // Player loses 10 HP
 
-            // Apply smoother knockback
+            // Apply knockback
             const knockbackStrength = 100;
             const knockbackX = dx / distance * knockbackStrength;
             const knockbackY = dy / distance * knockbackStrength;
@@ -625,6 +629,9 @@ function addEnemy() {
     const enemy = new Enemy(size, enemyHP, enemySpeed);
     enemies.push(enemy);
 }
+
+
+    window.scrollTo(0, document.body.scrollHeight);
 
 
 let horizontalKeys = []; // Stack to track horizontal keys pressed
@@ -712,8 +719,8 @@ canvas.addEventListener('mouseup', () => {
 
 
 function drawPoints() {
-    ctx.fillStyle = 'black';
-    ctx.font = '20px Arial';
+    ctx.fillStyle = 'Gold';
+    ctx.font = '30px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top'; // Ensure text is drawn from the top
     ctx.fillText(`Points: ${playerPoints}`, canvas.width / 2, 20); // Adjust Y position as needed
@@ -805,3 +812,4 @@ resizeCanvas();
 
 
 updateGame();
+

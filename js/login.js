@@ -85,6 +85,8 @@ function loginUser(event) {
     } else {
       alert("Invalid credentials!");
     }
+    alert("Login successful! Redirecting...");
+    window.history.back();
   })
   .catch(error => {
     console.error('Error:', error);
@@ -143,6 +145,8 @@ function registerUser(event) {
             sessionStorage.setItem('username', username);
             sessionStorage.setItem('userImage', userImage);
           }
+          alert("Sign Up Successful! Redirecting...");
+          window.history.back();
       })
       .catch(error => {
           console.error('Error:', error);
@@ -154,3 +158,7 @@ function registerUser(event) {
 
 signInForm.addEventListener('submit', loginUser);
 signUpForm.addEventListener('submit', registerUser);
+
+let cancel = document.getElementById('Cancel');
+
+cancel.addEventListener('click', function() {window.history.back();});

@@ -19,6 +19,9 @@ main{
 .centered {
     text-align: center;
 }
+#Mobile{
+    display: none;
+}
 
 #playButton {
     font-size: 20px;
@@ -37,3 +40,18 @@ main{
     width: 200px;
     height: 50px;
 }
+
+@media (max-width: 1200px) {
+    #gameCanvas {
+      display: none !important;
+    }
+    #pauseMenu{
+        display: none !important;
+    }
+    #homepage{
+        display: none !important;
+    }
+    #Mobile{
+        display: block;
+    }
+  }

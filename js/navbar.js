@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.documentElement.classList.remove('no-scroll'); // Remove the no-scroll class
     });
 
-    // Optional: close the menu and hide the overlay when clicking outside
+    // close the menu and hide the overlay when clicking outside
     document.addEventListener('click', function(event) {
         var isClickInsideMenu = document.getElementById('slideout-menu').contains(event.target);
         var isClickHamburgMenu = document.querySelector('.hamburg-menu').contains(event.target);
@@ -95,3 +95,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Ends Here
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Assign URLs to each menu item
+    var urls = {
+        'Home': '../index.html',
+        'Shop': 'shop.html',
+        'Game': 'game.html',
+        'Contact Us': 'Contact.html',
+        'Forums': 'Discussion.html',
+        'Check out': 'checkout.html' // Assuming you want the button to also navigate
+    };
+
+    // Select all slideout items
+    var items = document.querySelectorAll('.slideout-item, .slideout-button');
+
+    items.forEach(function(item) {
+        item.addEventListener('click', function() {
+            // Get the text content of the item or button
+            var text = item.textContent.trim();
+            // Navigate to the corresponding URL
+            if (urls[text]) {
+                window.location.href = urls[text];
+            }
+        });
+    });
+});

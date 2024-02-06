@@ -15,6 +15,19 @@
 #navigation-header i{
     font-size: 25px;
 }
+.active-nav{
+    background-color: lightgray;
+}
+
+.slideout-item{
+    cursor: pointer;
+    transition: 1s;
+}
+
+.slideout-item:hover{
+    background-color: lightgray;
+}
+
 
 .flex-no-wrap{
     flex-wrap: nowrap !important;

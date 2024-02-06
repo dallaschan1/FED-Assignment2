@@ -197,12 +197,12 @@ function createThreadsDict(threads) {
 }
 
 
-async function fetchPostByThreadID(threadID) {
+async function fetchPostByThreadID() {
     const url = 'https://users-4250.restdb.io/rest/comments';
-    const queryParams = `?q={"MainThread":${threadID}}&fields=MainThread`;
+   
 
     try {
-        const response = await fetch(url + queryParams, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 'x-apikey': '65aa4cb7c0aebd4508c42aa9'
@@ -210,10 +210,10 @@ async function fetchPostByThreadID(threadID) {
         });
         const data = await response.json();
         console.log(data);
-        return data.length; 
+        return data; 
     } catch (error) {
         console.error('Error fetching thread by Thread-ID:', error);
-        return 0;
+        return [];
         
     }
 }
@@ -222,6 +222,7 @@ async function fetchPostByThreadID(threadID) {
 async function createThreads(sortedThreads) {
     const contentDiv = document.getElementById('Content');
     contentDiv.innerHTML = ''; // Clear existing threads
+    let num = await fetchPostByThreadID();
 
     for (const thread of sortedThreads) { // Use a for...of loop instead of forEach
         const threadDiv = document.createElement('div');
@@ -229,9 +230,20 @@ async function createThreads(sortedThreads) {
         threadDiv.dataset.threadId = thread['Thread-ID'];
         
         threadDiv.dataset.tag = thread.tags;
-        let num = await fetchPostByThreadID(thread['Thread-ID']); // This now waits for completion before continuing
+        
 
-        threadDiv.dataset.commentCount = num;
+        let count = 0;
+        for (const nu of num) {
+            if (nu['MainThread'] === thread['Thread-ID']) {
+                count += 1;
+                for (const threadd of globalThreadsData){
+                    if (nu['MainThread'] === threadd['Thread-ID']){
+                        threadd.CommentCount = count;
+                    }
+                }
+            }
+        }
+        threadDiv.dataset.CommentCount = count;
 
         let threadHTML = `
             <div class="Content-Header">
@@ -261,7 +273,7 @@ async function createThreads(sortedThreads) {
         threadHTML += `
             <div class="Comments">
                 <i class="fas fa-comments"></i>
-                <span class="Comments-Count">${num}</span>
+                <span class="Comments-Count">${count}</span>
             </div>`;
 
         threadDiv.innerHTML = threadHTML;

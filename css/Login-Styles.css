@@ -10,8 +10,23 @@
   font-family: "Roboto", "Open Sans", "Rubik", Arial, Helvetica, sans-serif;
 }
 
+body{
+  overflow-x: hidden;
+}
+
+#sign{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .container {
   display: flex;
+}
+#Cancel{
+  font-size: 30px;
+  padding: 0;
+  cursor: pointer;
 }
 
 .forms {
@@ -160,6 +175,9 @@
     object-fit: cover;
   }
 
+  .forms{
+    margin-bottom: 90px;
+  }
   
 }
 

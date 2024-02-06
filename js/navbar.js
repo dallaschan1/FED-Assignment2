@@ -1,9 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // TO REMOVE AFTER API BAN
-    sessionStorage.setItem('isLoggedIn', 'true');
-    sessionStorage.setItem('username', 'ian1');
-    let object = {"_id":"65c1f677d4a556290000b8a9","username":"ian1","cart-items":[{"id":"1","product":"Tray table","color":"White","quantity":"10","totalPrice":"1990.00"},{"id":"2","product":"Loveseat Sofa","color":"Black","quantity":"1","totalPrice":"199.00"},{"id":"3","product":"Loveseat Sofa","color":"Black","quantity":"1","totalPrice":"199.00"}]}
-    sessionStorage.setItem('cart', JSON.stringify(object));
 
     //FUNCTIONS for the slideout menu
     document.querySelector('.hamburg-menu').addEventListener('click', function() {
@@ -53,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const closeCart = document.querySelector('#close-cart');
+    if (closeCart) {
     closeCart.addEventListener('click', function(){
         var cartContainer = document.getElementById('cart-container');
         var cartOverlay = document.getElementById('cart-blur-overlay');
@@ -61,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         cartOverlay.style.display = "none";
         document.body.style.overflowY = "scroll";
     })
+}
 
     document.getElementById('cart-blur-overlay').addEventListener('click', function() {
         var cartContainer = document.getElementById('cart-container');
@@ -81,10 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const observer = new MutationObserver((mutationsList, observer) => {
         let cartContainer = document.getElementById('cart-container');
+        
         for(const mutation of mutationsList) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                 const classList = cartContainer.classList;
-                if (!classList.contains('open-cart')) {
+                let isLoggedIn = sessionStorage.getItem('isLoggedIn');
+                if (!classList.contains('open-cart') && isLoggedIn === true) {
                     // Event triggers when open-cart class is removed
                     console.log('open-cart class was removed');
                     // Updating the cart items to the database when the cart is closed
@@ -207,88 +206,99 @@ document.addEventListener('DOMContentLoaded', function () {
     setUpCartEvenListeners()
 
     // IMPORTANT LOGIC for getting the cart items
-    let username = sessionStorage.getItem('username');
-    let cart = JSON.parse(sessionStorage.getItem('cart'));
-    let currentCartItems = cart['cart-items'];
-    let totalProductPrice = 0.00;
-    const totalBill = document.getElementById('total-bill');
-    console.log(currentCartItems);
-    console.log(currentCartItems.length);
+    // TO REMOVE AFTER API BAN
+    let isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
-    totalProductPrice = generateCartDisplay();
+    if (isLoggedIn === true){
+        // Function to regenerate the cart display
+        let username = sessionStorage.getItem('username');
+        let cart = JSON.parse(sessionStorage.getItem('cart'));
+        let currentCartItems = cart['cart-items'];
+        let totalProductPrice = 0.00;
+        const totalBill = document.getElementById('total-bill');
+        totalProductPrice = generateCartDisplay();
+        // console.log(currentCartItems);
+        // console.log(currentCartItems.length);
 
-    // Function to regenerate the cart display
-    function generateCartDisplay() {
-        let content = "";
-        let totalProductPrice = 0; // Reset total product price
-        if (currentCartItems === undefined || currentCartItems.length === 0){
-            document.getElementById('no-items').style.display = 'flex';
-            document.getElementById('cart-products').style.display = 'none';
-        }
-        console.log(JSON.stringify(currentCartItems));
-        for (var i = 0; i < currentCartItems.length; i++) {
-            let id = currentCartItems[i]["id"];
-            let product = currentCartItems[i]["product"];
-            let color = currentCartItems[i]["color"];
-            let quantity = currentCartItems[i]["quantity"];
-            let totalPrice = currentCartItems[i]["totalPrice"];
-            totalProductPrice += parseFloat(totalPrice);
-            content += `<div id="${id}" class="cart-product-container">
-                            <div class="cart-image-container">
-                            <img src="../images/${product}.png">
-                            </div>
-                            <div class="cart-details">
-                            <div class="cart-text">
-                                <p class="cart-product-name">${product}</p>
-                                <p class="cart-product-color">${color}</p>
-                                <div class="cart-add-quantity">
-                                <i id="${id}-minus" class="fa-solid fa-minus cart-minus"></i>
-                                <input id="${id}-input" class="cart-quantity-input" type="number" value="${quantity}">
-                                <i id="${id}-plus" class="cart-plus fa-solid fa-plus"></i>
+        function generateCartDisplay() {
+            let content = "";
+            let totalProductPrice = 0; // Reset total product price
+            if (currentCartItems === undefined || currentCartItems.length === 0){
+                document.getElementById('no-items').style.display = 'flex';
+                document.getElementById('cart-products').style.display = 'none';
+                document.getElementById('no-item-caption').innerHTML = "Empty Cart";
+            }
+            console.log(JSON.stringify(currentCartItems));
+            for (var i = 0; i < currentCartItems.length; i++) {
+                let id = currentCartItems[i]["id"];
+                let product = currentCartItems[i]["product"];
+                let color = currentCartItems[i]["color"];
+                let quantity = currentCartItems[i]["quantity"];
+                let totalPrice = currentCartItems[i]["totalPrice"];
+                totalProductPrice += parseFloat(totalPrice);
+                content += `<div id="${id}" class="cart-product-container">
+                                <div class="cart-image-container">
+                                <img src="../images/${product}.png">
+                                </div>
+                                <div class="cart-details">
+                                <div class="cart-text">
+                                    <p class="cart-product-name">${product}</p>
+                                    <p class="cart-product-color">${color}</p>
+                                    <div class="cart-add-quantity">
+                                    <i id="${id}-minus" class="fa-solid fa-minus cart-minus"></i>
+                                    <input id="${id}-input" class="cart-quantity-input" type="number" value="${quantity}">
+                                    <i id="${id}-plus" class="cart-plus fa-solid fa-plus"></i>
+                                    </div>
+                                </div>
+                                <div class="cart-price-cancel">
+                                    <p id="${id}-totalprice" class="cart-price">$${totalPrice}</p>
+                                    <i id="${id}-delete" class="fa-solid fa-xmark delete-cart"></i>
+                                </div>
                                 </div>
                             </div>
-                            <div class="cart-price-cancel">
-                                <p id="${id}-totalprice" class="cart-price">$${totalPrice}</p>
-                                <i id="${id}-delete" class="fa-solid fa-xmark delete-cart"></i>
-                            </div>
-                            </div>
-                        </div>
-                        <hr>
-                        `;
+                            <hr>
+                            `;
+            }
+            document.getElementById('cart-products').innerHTML = content;
+            totalBill.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+
+            setUpCartEvenListeners(totalProductPrice);
+
+            return totalProductPrice;
         }
-        document.getElementById('cart-products').innerHTML = content;
-        totalBill.innerHTML = `$${totalProductPrice.toFixed(2)}`;
 
-        setUpCartEvenListeners(totalProductPrice);
+        // Attach event listener to a parent element that persists in the DOM
+        document.getElementById('cart-products').addEventListener('click', function(event) {
+            // Check if the click event originated from a delete button
+            if (event.target.classList.contains('delete-cart')) {
+                let itemId = event.target.id.replace('-delete', ''); // Get the id of the item to be deleted
+                console.log(itemId);
+                // Getting the updated currentCartItems
+                currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
 
-        return totalProductPrice;
+                // Filter out the item with the corresponding id from currentCartItems
+                currentCartItems = currentCartItems.filter(item => item.id !== itemId);
+                console.log(currentCartItems);
+                // Update item IDs accordingly
+                currentCartItems.forEach((item, index) => {
+                    item.id = (index + 1).toString(); 
+                });
+                // Update sessionStorage with the updated cart items
+                let cart = JSON.parse(sessionStorage.getItem('cart'));
+                cart['cart-items'] = currentCartItems;
+                sessionStorage.setItem('cart', JSON.stringify(cart));
+                console.log(JSON.parse(sessionStorage.getItem('cart')));
+                // Regenerate the cart display
+                generateCartDisplay();
+            }
+        });
     }
-
-    // Attach event listener to a parent element that persists in the DOM
-    document.getElementById('cart-products').addEventListener('click', function(event) {
-        // Check if the click event originated from a delete button
-        if (event.target.classList.contains('delete-cart')) {
-            let itemId = event.target.id.replace('-delete', ''); // Get the id of the item to be deleted
-            console.log(itemId);
-            // Getting the updated currentCartItems
-            currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
-
-            // Filter out the item with the corresponding id from currentCartItems
-            currentCartItems = currentCartItems.filter(item => item.id !== itemId);
-            console.log(currentCartItems);
-            // Update item IDs accordingly
-            currentCartItems.forEach((item, index) => {
-                item.id = (index + 1).toString(); 
-            });
-            // Update sessionStorage with the updated cart items
-            let cart = JSON.parse(sessionStorage.getItem('cart'));
-            cart['cart-items'] = currentCartItems;
-            sessionStorage.setItem('cart', JSON.stringify(cart));
-            console.log(JSON.parse(sessionStorage.getItem('cart')));
-            // Regenerate the cart display
-            generateCartDisplay();
-        }
-    });
+    else
+    {
+        document.getElementById('no-items').style.display = 'flex';
+        document.getElementById('cart-products').style.display = 'none';
+        document.getElementById('no-item-caption').innerHTML = "Please Login To Add To Cart";
+    }
 });
 
 
@@ -304,7 +314,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'Game': 'game.html',
         'Contact Us': 'Contact.html',
         'Forums': 'Discussion.html',
-        'Check out': 'checkout.html' // Assuming you want the button to also navigate
+        'Check out': 'checkout.html',
+        'Create A Post': 'Create.html',
     };
 
     // Select all slideout items

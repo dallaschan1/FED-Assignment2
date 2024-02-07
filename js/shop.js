@@ -44,7 +44,7 @@ const filterCards = (selectedCategory, selectedPrice) => {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  const APIKEY = "65b39da5fc1ad2bd332e3653";
+  const APIKEY = "65c3a74b70dd295671262969";
 
   function fetchProductsAndPopulateCards() {
     return new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       };
 
-      fetch("https://fedassg2product-f089.restdb.io/rest/product", settings)
+      fetch("https://fedassg-5f2a.restdb.io/rest/product", settings)
         .then(response => response.json())
         .then(products => {
           let content = "";
@@ -241,6 +241,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       closeModal.addEventListener("click", () =>{
           modal.close();
+          const quantityInput = document.getElementById("quantity-input");
+          let defaultValue = 1;
+          var selectedElements = document.getElementsByClassName('selected-color');
+          for (var i = 0; i < selectedElements.length; i++) {
+              selectedElements[i].classList.remove('selected-color');
+          }
+          document.getElementById('black').classList.add('selected-color');
+          quantityInput.value = defaultValue;
           document.getElementById('product-modal').style.opacity = '0';
           document.body.style.overflowY = "scroll";
       })
@@ -318,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
       var addToCartBtn = document.querySelector(".add-to-cart-btn");
       var addToCartIcon = document.querySelector("#add-to-cart-icon");
       var tickAnimation = document.querySelector("#tick-animation-cart");
+      console.log(sessionStorage.getItem('isLoggedIn'));
       addToCartBtn.addEventListener("click", function(){
         // Tick animation effect
         addToCartIcon.classList.add('hide');
@@ -331,8 +340,15 @@ document.addEventListener("DOMContentLoaded", function () {
           tickAnimation.pause();
         }, 5000);
 
+        const rememberMe = sessionStorage.getItem('rememberMe');
+        if (rememberMe){
+            sessionStorage.setItem('cart', localStorage.getItem('cart'));
+            sessionStorage.setItem('username', localStorage.getItem('username'));
+            sessionStorage.setItem('isLoggedIn', localStorage.getItem('isLoggedIn'));
+        }
+
         // Adding to local storage and cart
-        if (sessionStorage.getItem('isLoggedIn'))
+        if (sessionStorage.getItem('isLoggedIn') === 'true')
         {
           let product = document.getElementById("product-title").innerHTML;
           let color = document.getElementById("color-title").innerHTML;
@@ -341,27 +357,29 @@ document.addEventListener("DOMContentLoaded", function () {
           let totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
           let username = sessionStorage.getItem('username');
           let cart = JSON.parse(sessionStorage.getItem('cart'));
-          let id = cart['cart-items'].length + 1;
-          let cartItem = [{id, product, color, quantity, totalPrice}];
           console.log(cart);
+          let cartId = cart._id;
+          console.log(cartId);
+          currentCartItems = cart['cart-items'];
+          console.log(currentCartItems);
+          let id;
+          let cartItem;
+          let updateCartItems;
+
+          if (currentCartItems === undefined || currentCartItems === null){
+            id = 1;
+            cartItem = [{id, product, color, quantity, totalPrice}];
+            updateCartItems = cartItem; 
+          }
+          else{
+            id = cart['cart-items'].length + 1
+            cartItem = [{id, product, color, quantity, totalPrice}];
+            updateCartItems = [...currentCartItems, ...cartItem];
+          }
+          console.log(updateCartItems);
+
           UpdateCart(username, cartItem);
-
           function UpdateCart(username, cartItem){
-            let cartId = cart._id;
-            console.log(cartId);
-            currentCartItems = cart['cart-items'];
-            console.log(currentCartItems);
-            console.log(cartItem);
-            let updateCartItems;
-
-            // Maybe over here I can check if the new add to cart item is already in the object dic. If so then i will just add the quantity and total
-            if (currentCartItems === undefined || currentCartItems.length === 0){
-              updateCartItems = cartItem; 
-            }
-            else{
-              updateCartItems = [...currentCartItems, ...cartItem];
-            }
-            console.log(updateCartItems);
             
             var jsondata = {
               "username": username,
@@ -377,16 +395,17 @@ document.addEventListener("DOMContentLoaded", function () {
               }, 
               body: JSON.stringify(jsondata) 
             }
-            fetch(`https://fedassg2product-f089.restdb.io/rest/user-cart/${cartId}`, settings)
+            fetch(`https://fedassg-5f2a.restdb.io/rest/user-cart/${cartId}`, settings)
               .then(response => response.json()) // Parse the response JSON and return it
               .then(response => {
                 console.log(response); // Should now log the parsed response data
-                if (sessionStorage.getItem('rememberMe')){
+                if (rememberMe){
                   localStorage.setItem('cart', JSON.stringify(response)); 
                 } else {
                   sessionStorage.setItem('cart', JSON.stringify(response)); 
                 }
                 console.log(JSON.parse(sessionStorage.getItem('cart')));
+                DisplayCartItems();
               });
           }
         }
@@ -398,5 +417,267 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => {
       console.error("Error:", error.message);
     });
+
+    function DisplayCartItems(){
+      console.log(JSON.parse(sessionStorage.getItem('cart')));
+
+      function setUpCartEvenListeners(totalProductPrice) {
+          // Get all input elements with class "cart-quantity-input"
+          let quantityInputs = Array.from(document.getElementsByClassName('cart-quantity-input'));
+          const totalBill = document.getElementById('total-bill');
+
+          // Add event listener to each input
+          quantityInputs.forEach(input => {
+              input.addEventListener('change', function() {
+                  let inputId = input.id; // Get the id of the changed input
+                  let quantity = parseInt(input.value); // Get the new quantity value
+                  // Update the quantity accordingly
+                  if (!isNaN(quantity) && quantity >= 1 && quantity <= 10) {
+                      updateQuantityInSessionStorage(inputId, quantity);
+                  } else {
+                      // Reset the quantity to 1 if it's less than 1 or greater than 10
+                      input.value = Math.min(Math.max(1, quantity), 10);
+                      updateQuantityInSessionStorage(inputId, quantity);
+                      console.log(`Invalid quantity for input with id ${inputId}. Resetting to ${input.value}`);
+                  }
+              });
+          });
+
+          // Function to update quantity in sessionStorage
+          function updateQuantityInSessionStorage(inputId, quantity) {
+              let cart = JSON.parse(sessionStorage.getItem('cart'));
+              let currentCartItems = cart['cart-items'];
+
+              // Find the item in currentCartItems array and update its quantity
+              for (let i = 0; i < currentCartItems.length; i++) {
+                  let currentItem = currentCartItems[i];
+                  if (`${currentItem.id}-input` === inputId) {
+                      totalProductPrice -= parseFloat(currentItem.totalPrice);
+                      document.getElementById(`${currentItem.id}-totalprice`).innerHTML = `$${(parseFloat(currentItem.totalPrice) / parseInt(currentItem.quantity) * parseInt(quantity)).toFixed(2).toString()}`;
+                      currentItem.totalPrice = (parseFloat(currentItem.totalPrice) / parseInt(currentItem.quantity) * parseInt(quantity)).toFixed(2).toString();
+                      console.log(currentItem.totalPrice);
+                      totalProductPrice += parseFloat(currentItem.totalPrice);
+                      totalBill.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+                      currentItem.quantity = quantity.toString();
+                      break;
+                  }
+              }
+
+              // Update cart in sessionStorage
+              sessionStorage.setItem('cart', JSON.stringify(cart));
+              console.log(JSON.parse(sessionStorage.getItem('cart')));
+          }
+
+          // Function to increment the quantity
+          function incrementQuantity(inputId) {
+              let input = document.getElementById(inputId);
+              let newValue = parseInt(input.value) + 1;
+              if (newValue <= 10) {
+                  input.value = newValue;
+                  let quantity = newValue;
+                  updateQuantityInSessionStorage(inputId, quantity);
+              }
+          }
+
+          // Function to decrement the quantity
+          function decrementQuantity(inputId) {
+              let input = document.getElementById(inputId);
+              let newValue = parseInt(input.value) - 1;
+              if (newValue >= 1) {
+                  input.value = newValue;
+                  let quantity = newValue;
+                  updateQuantityInSessionStorage(inputId, quantity);
+              }
+          }
+
+          // Attach event listeners to plus and minus buttons
+          Array.from(document.getElementsByClassName('cart-minus')).forEach(button => {
+              button.addEventListener('click', function() {
+                  let inputId = this.id.replace('-minus', '-input'); // Get the id of the associated input
+                  console.log("input element:", inputId);
+                  decrementQuantity(inputId); // Decrement the quantity
+              });
+          });
+
+          Array.from(document.getElementsByClassName('cart-plus')).forEach(button => {
+              button.addEventListener('click', function() {
+                  let inputId = this.id.replace('-plus', '-input'); // Get the id of the associated input
+                  console.log("input element:", inputId);
+                  incrementQuantity(inputId); // Increment the quantity
+              });
+          });
+      }
+
+      // IMPORTANT LOGIC for getting the cart items
+      // TO REMOVE AFTER API BAN
+      const rememberMe = sessionStorage.getItem('rememberMe');
+      console.log(rememberMe); // false
+      if (rememberMe === true){
+          sessionStorage.setItem('cart', localStorage.getItem('cart'));
+          sessionStorage.setItem('username', localStorage.getItem('username'));
+      }
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+
+      if (isLoggedIn === "true"){
+          document.getElementById('no-items').style.display = 'none';
+          document.getElementById('cart-products').style.display = 'block';
+          let username = sessionStorage.getItem('username');
+          let cart = JSON.parse(sessionStorage.getItem('cart'));
+          console.log(cart);
+          let currentCartItems = cart['cart-items'];
+          console.log(cart['cart-items']);
+          let totalProductPrice = 0.00;
+          const totalBill = document.getElementById('total-bill');
+          totalProductPrice = generateCartDisplay();
+          // console.log(cart);
+          // console.log(currentCartItems);
+          // console.log(currentCartItems.length);
+
+          // Attach event listener to a parent element that persists in the DOM
+          document.getElementById('cart-products').addEventListener('click', function(event) {
+              // Check if the click event originated from a delete button or its parent
+              if (event.target.classList.contains('delete-cart') || event.target.parentElement.classList.contains('delete-cart')) {
+                  // Extract the item ID to be deleted
+                  let itemId = event.target.closest('.cart-product-container').id;
+                  itemId = itemId.replace('-delete', ''); // Get the id of the item to be deleted
+          
+                  // Getting the updated currentCartItems
+                  currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
+          
+                  // Filter out the item with the corresponding id from currentCartItems
+                  currentCartItems = currentCartItems.filter(item => item.id !== itemId);
+          
+                  // Update item IDs accordingly
+                  currentCartItems.forEach((item, index) => {
+                      item.id = (index + 1).toString(); 
+                  });
+          
+                  // Update sessionStorage with the updated cart items
+                  let cart = JSON.parse(sessionStorage.getItem('cart'));
+                  cart['cart-items'] = currentCartItems;
+                  sessionStorage.setItem('cart', JSON.stringify(cart));
+                  console.log(JSON.parse(sessionStorage.getItem('cart')));
+          
+                  // Regenerate the cart display
+                  generateCartDisplay();
+              }
+          });
+
+          // Function to regenerate the cart display
+          function generateCartDisplay() {
+              let content = "";
+              let totalProductPrice = 0; // Reset total product price
+              document.getElementById('no-items').style.display = 'none';
+              document.getElementById('cart-products').style.display = 'block';
+              console.log(currentCartItems);
+              if (currentCartItems === undefined || currentCartItems.length === 0){
+                  console.log("emptycart");
+                  document.getElementById('no-items').style.display = 'flex';
+                  document.getElementById('cart-products').style.display = 'none';
+                  document.getElementById('no-item-caption').innerHTML = "Empty Cart";
+                  totalBill.innerHTML = `$0.00`;
+              }
+              else{
+                  console.log(JSON.stringify(currentCartItems));
+                      for (var i = 0; i < currentCartItems.length; i++) {
+                          let id = currentCartItems[i]["id"];
+                          let product = currentCartItems[i]["product"];
+                          let color = currentCartItems[i]["color"];
+                          let quantity = currentCartItems[i]["quantity"];
+                          let totalPrice = currentCartItems[i]["totalPrice"];
+                          totalProductPrice += parseFloat(totalPrice);
+                          if (window.location.pathname.includes("index.html")){
+                              content += `<div id="${id}" class="cart-product-container">
+                                          <div class="cart-image-container">
+                                          <img src="images/${product}.png">
+                                          </div>
+                                          <div class="cart-details">
+                                          <div class="cart-text">
+                                              <p class="cart-product-name">${product}</p>
+                                              <p class="cart-product-color">${color}</p>
+                                              <div class="cart-add-quantity">
+                                              <i id="${id}-minus" class="fa-solid fa-minus cart-minus"></i>
+                                              <input id="${id}-input" class="cart-quantity-input" type="number" value="${quantity}">
+                                              <i id="${id}-plus" class="cart-plus fa-solid fa-plus"></i>
+                                              </div>
+                                          </div>
+                                          <div class="cart-price-cancel">
+                                              <p id="${id}-totalprice" class="cart-price">$${totalPrice}</p>
+                                              <i id="${id}-delete" class="fa-solid fa-xmark delete-cart"></i>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      <hr>
+                                      `;
+                          }
+                          else{
+                              content += `<div id="${id}" class="cart-product-container">
+                                          <div class="cart-image-container">
+                                          <img src="../images/${product}.png">
+                                          </div>
+                                          <div class="cart-details">
+                                          <div class="cart-text">
+                                              <p class="cart-product-name">${product}</p>
+                                              <p class="cart-product-color">${color}</p>
+                                              <div class="cart-add-quantity">
+                                              <i id="${id}-minus" class="fa-solid fa-minus cart-minus"></i>
+                                              <input id="${id}-input" class="cart-quantity-input" type="number" value="${quantity}">
+                                              <i id="${id}-plus" class="cart-plus fa-solid fa-plus"></i>
+                                              </div>
+                                          </div>
+                                          <div class="cart-price-cancel">
+                                              <p id="${id}-totalprice" class="cart-price">$${totalPrice}</p>
+                                              <i id="${id}-delete" class="fa-solid fa-xmark delete-cart"></i>
+                                          </div>
+                                          </div>
+                                      </div>
+                                      <hr>
+                                      `;
+                          }
+                      }
+                      document.getElementById('cart-products').innerHTML = content;
+                      totalBill.innerHTML = `$${totalProductPrice.toFixed(2)}`;
+
+                      setUpCartEvenListeners(totalProductPrice);
+
+                      return totalProductPrice;
+                  }
+          } 
+          // Attach event listener to a parent element that persists in the DOM
+          document.getElementById('cart-products').addEventListener('click', function(event) {
+              // Check if the click event originated from a delete button or its parent
+              if (event.target.classList.contains('delete-cart') || event.target.parentElement.classList.contains('delete-cart')) {
+                  // Extract the item ID to be deleted
+                  let itemId = event.target.closest('.cart-product-container').id;
+                  itemId = itemId.replace('-delete', ''); // Get the id of the item to be deleted
+          
+                  // Getting the updated currentCartItems
+                  currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
+          
+                  // Filter out the item with the corresponding id from currentCartItems
+                  currentCartItems = currentCartItems.filter(item => item.id !== itemId);
+          
+                  // Update item IDs accordingly
+                  currentCartItems.forEach((item, index) => {
+                      item.id = (index + 1).toString(); 
+                  });
+          
+                  // Update sessionStorage with the updated cart items
+                  let cart = JSON.parse(sessionStorage.getItem('cart'));
+                  cart['cart-items'] = currentCartItems;
+                  sessionStorage.setItem('cart', JSON.stringify(cart));
+          
+                  // Regenerate the cart display
+                  generateCartDisplay();
+              }
+          });
+      }
+      else
+      {
+          document.getElementById('no-items').style.display = 'flex';
+          document.getElementById('cart-products').style.display = 'none';
+          document.getElementById('no-item-caption').innerHTML = "Please Login To Add To Cart";
+      }
+  }
 });
 

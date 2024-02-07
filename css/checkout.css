@@ -56,6 +56,10 @@ border-radius: 10px;
     transition: all ease-in-out 0.6s;
 }
 
+#cart,#mobile-cart{
+    cursor: not-allowed !important;
+}
+
 #checkout-steps{
     margin: 0 auto;
     display: block;
@@ -212,12 +216,12 @@ border-radius: 10px;
     white-space: nowrap;
 }
 
-#cart-products{
+#order-summary-cart-products{
     overflow-y: scroll;
     height: 100%;
 }
 
-#cart-products::-webkit-scrollbar{
+#order-summary-cart-products::-webkit-scrollbar{
     width: 0px;
 }
 
@@ -326,9 +330,14 @@ border-radius: 10px;
 @media (max-width: 600px) {
     #order-summary-container {
         width: 320px; /* Set the desired width */
-        height: 100vh;
+        height: fit-content;
         background-color: white;
         padding: 15px;
+    }
+
+    #order-summary-cart-products{
+        max-height: 100%;
+        height: fit-content;
     }
 
     .cart-image-container {

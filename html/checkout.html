@@ -40,7 +40,7 @@
                 </div>
             
                 <label for="phone_number">PHONE NUMBER</label>
-                <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number" required>
+                <input type="tel" id="phone_number" name="phone_number" placeholder="Phone Number (Eg. +65 1234 1234)" required>
             
                 <label for="email">EMAIL ADDRESS</label>
                 <input type="email" id="email" name="email" placeholder="Your Email" required>
@@ -80,7 +80,7 @@
                 </select>
             
                 <label for="card_number">CARD NUMBER</label>
-                <input type="text" id="card_number" name="card_number" placeholder="1234 1234 1234" required>
+                <input type="text" id="card_number" name="card_number" placeholder="1234 1234 1234 1234" required>
             
                 <div class="side-by-side">
                     <div class="side-input">
@@ -101,54 +101,12 @@
             <div id="order-summary-header">
               <p id="order-summary-title">Order Summary</p>
             </div>
-            <div id="cart-products">
-              <div class="cart-product-container">
-                <div class="cart-image-container">
-                  <img src="../images/Tray table.png">
-                </div>
-                <div class="cart-details">
-                  <div class="cart-text">
-                    <p class="cart-product-name">Tray table</p>
-                    <p class="cart-product-color">Color: Black</p>
-                    <div class="cart-add-quantity">
-                      <i class="fa-solid fa-minus cart-minus"></i>
-                      <input class="cart-quantity-input" type="number">
-                      <i class="cart-plus fa-solid fa-plus"></i>
-                    </div>
-                  </div>
-                  <div class="cart-price-cancel">
-                    <p class="cart-price">$19.99</p>
-                    <i class="fa-solid fa-xmark delete-cart"></i>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="cart-product-container">
-                <div class="cart-image-container">
-                  <img src="../images/Tray table.png">
-                </div>
-                <div class="cart-details">
-                  <div class="cart-text">
-                    <p class="cart-product-name">Tray table</p>
-                    <p class="cart-product-color">Color: Black</p>
-                    <div class="cart-add-quantity">
-                      <i class="fa-solid fa-minus cart-minus"></i>
-                      <input class="cart-quantity-input" type="number">
-                      <i class="cart-plus fa-solid fa-plus"></i>
-                    </div>
-                  </div>
-                  <div class="cart-price-cancel">
-                    <p class="cart-price">$19.99</p>
-                    <i class="fa-solid fa-xmark delete-cart"></i>
-                  </div>
-                </div>
-              </div>
-              <hr>
+            <div id="order-summary-cart-products">
             </div>
             <div id="checkout-section">
                 <div id="point-discount" class="checkout-parts">
                     <p>Point Discount</p>
-                    <P id="discount-cost"><b>-$25.00</b></P>
+                    <P id="discount-cost"><b></b></P>
                 </div>
                 <hr>
                 <div id="shipping-price" class="checkout-parts">
@@ -157,13 +115,13 @@
                 </div>
                 <hr>
                 <div id="sub-total" class="checkout-parts">
-                    <p>Sub Total</p>
-                    <p id="sub-total-bill"><b>$99.99</b></p>
+                    <p>Sub-Total</p>
+                    <p id="sub-total-bill"></p>
                 </div>
                 <hr>
                 <div id="total" class="checkout-parts">
                     <p>Total</p>
-                    <p id="total-bill"><b>$299.99</b></p>
+                    <p id="total-cart-price"></p>
                 </div>
             </div>
           </div>

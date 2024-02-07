@@ -331,7 +331,68 @@ document.addEventListener("DOMContentLoaded", function () {
           tickAnimation.pause();
         }, 5000);
 
-        // Adding to local storage???
+        // Adding to local storage and cart
+        if (sessionStorage.getItem('isLoggedIn'))
+        {
+          let product = document.getElementById("product-title").innerHTML;
+          let color = document.getElementById("color-title").innerHTML;
+          let quantity = document.getElementById("quantity-input").value;
+          let price = parseFloat(document.getElementById("product-price").innerHTML.replace("$", ""));
+          let totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
+          let username = sessionStorage.getItem('username');
+          let cart = JSON.parse(sessionStorage.getItem('cart'));
+          let id = cart['cart-items'].length + 1;
+          let cartItem = [{id, product, color, quantity, totalPrice}];
+          console.log(cart);
+          UpdateCart(username, cartItem);
+
+          function UpdateCart(username, cartItem){
+            let cartId = cart._id;
+            console.log(cartId);
+            currentCartItems = cart['cart-items'];
+            console.log(currentCartItems);
+            console.log(cartItem);
+            let updateCartItems;
+
+            // Maybe over here I can check if the new add to cart item is already in the object dic. If so then i will just add the quantity and total
+            if (currentCartItems === undefined || currentCartItems.length === 0){
+              updateCartItems = cartItem; 
+            }
+            else{
+              updateCartItems = [...currentCartItems, ...cartItem];
+            }
+            console.log(updateCartItems);
+            
+            var jsondata = {
+              "username": username,
+              "cart-items": updateCartItems
+            };
+        
+            var settings = { 
+              method: "PUT", 
+              headers: { 
+                "Content-Type": "application/json",   
+                "x-apikey": APIKEY, 
+                "Cache-Control": "no-cache" 
+              }, 
+              body: JSON.stringify(jsondata) 
+            }
+            fetch(`https://fedassg2product-f089.restdb.io/rest/user-cart/${cartId}`, settings)
+              .then(response => response.json()) // Parse the response JSON and return it
+              .then(response => {
+                console.log(response); // Should now log the parsed response data
+                if (sessionStorage.getItem('rememberMe')){
+                  localStorage.setItem('cart', JSON.stringify(response)); 
+                } else {
+                  sessionStorage.setItem('cart', JSON.stringify(response)); 
+                }
+                console.log(JSON.parse(sessionStorage.getItem('cart')));
+              });
+          }
+        }
+        else{
+          alert('Please login to continue.');
+        }
       })
     })
     .catch(error => {

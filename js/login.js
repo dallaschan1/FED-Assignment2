@@ -54,6 +54,7 @@ function loginUser(event) {
   const password = document.querySelector('.sign-in-form .password input').value;
 
   const rememberMe = document.querySelector('.sign-in-form .remember').checked; 
+  sessionStorage.setItem('rememberMe', rememberMe);
 
   fetch('https://users-4250.restdb.io/rest/accounts?q={"username":"' + username + '"}', {
     method: 'GET',
@@ -72,6 +73,34 @@ function loginUser(event) {
       alert("Login successful!");
       
       const userImage = data[0].userImage; 
+
+      function GetCart(username){
+        let settings = {
+          method: "GET", //[cher] we will use GET to retrieve info
+          headers: {
+            "Content-Type": "application/json",
+            "x-apikey": "65b39da5fc1ad2bd332e3653",
+            "Cache-Control": "no-cache"
+          },
+        }
+
+        fetch("https://fedassg2product-f089.restdb.io/rest/user-cart", settings)
+        .then(response => response.json())
+        .then(response => {
+          for (var i = 0; i < response.length; i++) {
+            if (username === response[i].username){
+              if (rememberMe){
+                localStorage.setItem('cart', JSON.stringify(response[i])); 
+              }
+              else{
+                sessionStorage.setItem('cart', JSON.stringify(response[i])); 
+              }
+            }
+          }
+        })
+      }
+
+      GetCart(username);
 
       if (rememberMe) {
         localStorage.setItem('isLoggedIn', 'true');
@@ -114,7 +143,7 @@ function registerUser(event) {
   reader.onloadend = function() {
       const base64Image = reader.result;
 
-      fetch('https://users-4250.restdb.io/rest/accounts', {
+      return fetch('https://users-4250.restdb.io/rest/accounts', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -136,6 +165,44 @@ function registerUser(event) {
       })
       .then(data => {
           alert("Registration successful!");
+
+          function AddToNewCart(username){
+            var jsondata = {
+              "username": username,
+              "cart-items": null
+            };
+
+            let settings = {
+              method: "POST", //[cher] we will use post to send info
+              headers: {
+                "Content-Type": "application/json",
+                "x-apikey": "65b39da5fc1ad2bd332e3653",
+                "Cache-Control": "no-cache"
+              },
+              body: JSON.stringify(jsondata)
+              // beforeSend: function () {
+              //   @TODO use loading bar instead
+              //   Disable our button or show loading bar
+              //   document.getElementById("contact-submit").disabled = true;
+              //   Clear our form using the form ID and triggering its reset feature
+              //   document.getElementById("add-contact-form").reset();
+              // }
+            }
+
+            fetch("https://fedassg2product-f089.restdb.io/rest/user-cart", settings)
+            .then(response => response.json())
+            .then(response => {
+              if (rememberMe){
+                localStorage.setItem('cart', JSON.stringify(response)); 
+              }
+              else{
+                sessionStorage.setItem('cart', JSON.stringify(response)); 
+              }
+            });
+          };
+          cartItem = null;
+          AddToNewCart(username, cartItem);
+
           if (rememberMe) {
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('username', username);
@@ -146,7 +213,7 @@ function registerUser(event) {
             sessionStorage.setItem('userImage', userImage);
           }
           alert("Sign Up Successful! Redirecting...");
-          window.history.back();
+          // window.history.back();
       })
       .catch(error => {
           console.error('Error:', error);

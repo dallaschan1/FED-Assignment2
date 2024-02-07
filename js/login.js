@@ -183,7 +183,7 @@ reader.onloadend = function() {
         function AddToNewCart(username){
             var jsondata = {
                 "username": username,
-                "cart-items": null
+                "cart-items": []
             };
 
             let settings = {

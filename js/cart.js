@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(){
-    object = {"_id":"65c370b1d0ce5e3900011c4f","username":"ian22","cart-items":[{"id":1,"product":"Luxury Sofa","color":"Black","quantity":"1","totalPrice":"299.00"}]}
-    sessionStorage.setItem('isLoggedIn', 'true');
-    sessionStorage.setItem('RememberMe', false);
-    sessionStorage.setItem('username', 'ian22');
-    sessionStorage.setItem('cart', JSON.stringify(object));
+    // object = {"_id":"65c370b1d0ce5e3900011c4f","username":"ian22","cart-items":[{"id":1,"product":"Luxury Sofa","color":"Black","quantity":"1","totalPrice":"299.00"}]}
+    // sessionStorage.setItem('isLoggedIn', 'true');
+    // sessionStorage.setItem('RememberMe', false);
+    // sessionStorage.setItem('username', 'ian22');
+    // sessionStorage.setItem('cart', JSON.stringify(object));
     // Function for the slideout cart
     function toggleCart() {
         var cartContainer = document.querySelector('#cart-container');

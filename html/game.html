@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../css/normalize.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel='stylesheet' href='../css/style.css'>
     <link rel="stylesheet" href="../css/game.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/footer.css">
     
 </head>
 <body>
@@ -30,10 +32,10 @@
                 <a id="game-nav-link" class="nav-link" href="game.html">Game</a>
               </li>
               <li class="nav-item">
-                <a id="contact-us-nav-link" class="nav-link" href="contact.html">Contact Us</a>
+                <a id="contact-us-nav-link" class="nav-link" href="Contact.html">Contact Us</a>
               </li>
               <li class="nav-item">
-                <a id="forum-nav-link" class="nav-link" href="discussion.html">Forums</a>
+                <a id="forum-nav-link" class="nav-link" href="Discussion.html">Forums</a>
               </li>
             </ul>
             <div class="nav justify-content-end icon-nav">
@@ -73,9 +75,9 @@
             <a id='home-hamburger-link' href="../index.html"><div class="slideout-item"><i class="fa fa-home"></i> Home</div></a>
             <a id="shop-hamburger-link" href="shop.html"><div class="slideout-item"><i class="fa fa-shopping-cart"></i> Shop</div></a>
             <a id="game-hamburger-link" href="game.html"><div class="slideout-item"><i class="fas fa-gamepad"></i> Game</div></a>
-            <a id="contact-us-hamburger-link" href="contact.html"><div class="slideout-item"><i class="fa fa-envelope"></i> Contact Us</div></a>
-            <a id="forums-hamburger-link" href="discussion.html"><div class="slideout-item active-nav"><i class="fa fa-envelope"></i> Forums</div></a>
-            <a id="forums-hamburger-link" href="../../FED-Assignment2/html/Create.html"><div class="slideout-item active-nav"><i class="fa fa-envelope"></i> Create A Post</div></a>
+            <a id="contact-us-hamburger-link" href="Contact.html"><div class="slideout-item"><i class="fa fa-envelope"></i> Contact Us</div></a>
+            <a id="forums-hamburger-link" href="Discussion.html"><div class="slideout-item"><i class="fa fa-envelope"></i> Forums</div></a>
+            <a id="forums-hamburger-link" href="../../FED-Assignment2/html/Create.html"><div class="slideout-item"><i class="fa fa-envelope"></i> Create A Post</div></a>
             <button class="slideout-button"><i class="fas fa-shopping-bag"></i> Check out</button>
           </div>
           <div id="overlay" class="overlay"></div>
@@ -90,8 +92,12 @@
           <p id="cart-title">Cart</p>
           <i id="close-cart" class="fa-solid fa-xmark"></i>
         </div>
+        <div id="no-items">
+          <p id="no-item-caption"></p>
+          <i class="fa-solid fa-cart-plus"></i>
+        </div>
         <div id="cart-products">
-          <div class="cart-product-container">
+          <!-- <div class="cart-product-container">
             <div class="cart-image-container">
               <img src="../images/Tray table.png">
             </div>
@@ -111,12 +117,12 @@
               </div>
             </div>
           </div>
-          <hr>
+          <hr> -->
         </div>
         <div id="checkout-section">
           <div id="bill-amount">
             <p>Total</p>
-            <p id="total-bill">$299.99</p>
+            <p id="total-bill"></p>
           </div>
           <div id="checkout-btn">
             <p>Checkout</p>
@@ -144,13 +150,25 @@
         </div>
         
     </main>
+    <footer class="py-3">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="index.html" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="html/shop.html" class="nav-link px-2 text-muted">Shop</a></li>
+        <li class="nav-item"><a href="html/contact.html" class="nav-link px-2 text-muted">Contact Us</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About Us</a></li>
+      </ul>
+      <p class="text-center text-muted">&copy; 2024 ZenCraft, Inc</p>
+    </footer>
 
     <script src="https://kit.fontawesome.com/229dff7a33.js" crossorigin="anonymous"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/game.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="../js/navbar.js"></script>
+   
     
-    <script src="../js/game.js"></script>
+   
+    
 </body>
 </html>

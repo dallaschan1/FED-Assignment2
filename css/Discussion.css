@@ -30,7 +30,7 @@ main {
 
 
 
-*::-webkit-scrollbar {
+#Content::-webkit-scrollbar {
     display: none; /* Hide scrollbar for WebKit browsers */
 }
 
@@ -47,7 +47,7 @@ main {
     background-color: lightgray;
 }
 
-* {
+#Content {
     -ms-overflow-style: none;  /* Hide scrollbar for IE 10+ */
     scrollbar-width: none;  /* Hide scrollbar for Firefox */
 }
@@ -284,15 +284,6 @@ body{
 
     overflow-y: auto;
 }
-#Content::-webkit-scrollbar {
-    display: none;
-}
-
-/* For other browsers: */
-#Content {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
-}
 
 .thread {
     width: 100%;
@@ -325,6 +316,7 @@ body{
     align-items: center;
 
 }
+
 
 .Head > h2{
     font-size: 23px;

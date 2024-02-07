@@ -2,9 +2,12 @@ body{
     font-family: 'IBM Plex Sans', Arial, sans-serif; 
     background-color: aliceblue;
     overflow-x: hidden;
-    min-height: calc(100vh);
+   
 }
 
+.py-3{
+    margin-top: 110px;
+}
 main {
     display: flex;
     width: 1200px;

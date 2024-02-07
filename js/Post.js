@@ -509,7 +509,7 @@ function createNewCommentHTML(data, replyToUsername) {
 
     date = formatDateTime(data.datetime);
     // Generate the HTML for the new comment
-    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.ReplyTo}" class="${commentClass}">
+    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.MessageID}" class="${commentClass}">
         ${data.ThreadLevel > 1 ? `<div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>` : ''}
         <div class="Head">
             <img src="../images/Default.png">

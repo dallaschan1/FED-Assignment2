@@ -59,3 +59,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+        // Get the base64 string of the user image from local storage
+        const base64Image = localStorage.getItem('userImage');
+
+        // Check if there's an image string
+        if (base64Image) {
+            // Select the profile image elements by their IDs and their parent <a> elements
+            const profileImage = document.getElementById('profileImage');
+            const mobileProfileImage = document.getElementById('mobile-profileImage');
+            const userProfileLink = document.getElementById('user'); // Assuming this is the ID for the desktop link
+            const mobileUserProfileLink = document.getElementById('mobile-user'); // Assuming this is the ID for the mobile link
+
+            // Set the src attribute of the profile image to the base64 string and make it visible
+            if (profileImage) {
+                profileImage.src = base64Image;
+                profileImage.style.display = 'block';
+            }
+
+            // Repeat for the mobile profile image if it exists
+            if (mobileProfileImage) {
+                mobileProfileImage.src = base64Image;
+                mobileProfileImage.style.display = 'block';
+            }
+
+            // Make the profile image and its link unclickable by removing href and adding pointer-events: none
+            if (userProfileLink) {
+                userProfileLink.removeAttribute('href'); // Remove the href attribute to make it unclickable
+                userProfileLink.style.pointerEvents = 'none'; // Additional measure to ensure unclickability
+            }
+
+            // Repeat for the mobile profile link if it exists
+            if (mobileUserProfileLink) {
+                mobileUserProfileLink.removeAttribute('href');
+                mobileUserProfileLink.style.pointerEvents = 'none';
+            }
+        }
+    }
+});

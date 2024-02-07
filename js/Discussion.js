@@ -296,7 +296,7 @@ async function createThreads(sortedThreads) {
             const queryString = `?threadId=${threadId}&membername=${membername}`;
 
             // Redirect to Post.html with the necessary information
-            window.location.href = `Post.html${queryString}`;
+            window.location.href = `post.html${queryString}`;
         });
     });
     document.getElementById('loader').style.display = 'none';
@@ -345,7 +345,7 @@ function filterThreads(searchTerm) {
 }
 
 document.getElementById('createButton').addEventListener('click', function() {
-    window.location.href = 'Create.html';
+    window.location.href = 'create.html';
 });
 
 

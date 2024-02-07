@@ -358,7 +358,7 @@ function createPost(thread, membername) {
         contentDiv.insertBefore(threadDiv, contentDiv.firstChild);});
         const cancel = document.getElementById('Cancel');
         cancel.addEventListener('click', function(){
-            window.location.href = 'Discussion.html';
+            window.location.href = 'discussion.html';
         });
     
 }

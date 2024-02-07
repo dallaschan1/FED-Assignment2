@@ -305,11 +305,27 @@ async function createThreads(sortedThreads) {
 
 
 function setupSearch() {
-    const searchInput = document.querySelector('.search-input');
+    // Query both desktop and mobile search inputs
+    const desktopSearchInput = document.querySelector('.search-input'); // Adjust this selector if necessary
+    const mobileSearchInput = document.getElementById('search-input');
 
-    searchInput.addEventListener('input', function() {
-        filterThreads(this.value.toLowerCase());
-    });
+    // Create a unified function to handle input for both search inputs
+    const handleInput = function(searchInput) {
+        const searchTerm = searchInput.value.toLowerCase();
+        filterThreads(searchTerm);
+    };
+
+    // Listen for input events on both search inputs
+    if (desktopSearchInput) {
+        desktopSearchInput.addEventListener('input', function() {
+            handleInput(this);
+        });
+    }
+    if (mobileSearchInput) {
+        mobileSearchInput.addEventListener('input', function() {
+            handleInput(this);
+        });
+    }
 }
 
 function filterThreads(searchTerm) {

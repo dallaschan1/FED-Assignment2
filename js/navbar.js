@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
 document.addEventListener('DOMContentLoaded', function() {
     // Check if the user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -68,37 +67,33 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get the base64 string of the user image from local storage
         const base64Image = localStorage.getItem('userImage');
 
-        // Check if there's an image string
         if (base64Image) {
-            // Select the profile image elements by their IDs and their parent <a> elements
-            const profileImage = document.getElementById('profileImage');
-            const mobileProfileImage = document.getElementById('mobile-profileImage');
-            const userProfileLink = document.getElementById('user'); // Assuming this is the ID for the desktop link
-            const mobileUserProfileLink = document.getElementById('mobile-user'); // Assuming this is the ID for the mobile link
+            // Define a function to replace the <i> tag with an <img> tag
+            const replaceIconWithImage = (linkId) => {
+                const linkElement = document.getElementById(linkId);
+                if (linkElement) {
+                    // Remove the <i> element if it exists
+                    const iconElement = linkElement.querySelector('i.fa-user');
+                    if (iconElement) {
+                        linkElement.removeChild(iconElement);
+                    }
 
-            // Set the src attribute of the profile image to the base64 string and make it visible
-            if (profileImage) {
-                profileImage.src = base64Image;
-                profileImage.style.display = 'block';
-            }
+                    // Create and append the <img> element
+                    const imgElement = document.createElement('img');
+                    imgElement.src = base64Image;
+                    imgElement.className = 'user-image';
+                    imgElement.alt = 'Profile Picture';
+                    imgElement.style.display = 'block'; // Ensure the image is visible
+                    
+                    // Optionally, set additional styles or attributes to imgElement here
 
-            // Repeat for the mobile profile image if it exists
-            if (mobileProfileImage) {
-                mobileProfileImage.src = base64Image;
-                mobileProfileImage.style.display = 'block';
-            }
+                    linkElement.appendChild(imgElement);
+                }
+            };
 
-            // Make the profile image and its link unclickable by removing href and adding pointer-events: none
-            if (userProfileLink) {
-                userProfileLink.removeAttribute('href'); // Remove the href attribute to make it unclickable
-                userProfileLink.style.pointerEvents = 'none'; // Additional measure to ensure unclickability
-            }
-
-            // Repeat for the mobile profile link if it exists
-            if (mobileUserProfileLink) {
-                mobileUserProfileLink.removeAttribute('href');
-                mobileUserProfileLink.style.pointerEvents = 'none';
-            }
+            // Replace the <i> tag with an <img> tag for both desktop and mobile user links
+            replaceIconWithImage('user');
+            replaceIconWithImage('mobile-user');
         }
     }
 });

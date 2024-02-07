@@ -31,8 +31,10 @@ function fetchAndDisplayComments(threadID) {
     fetch(`${url}?q={"MainThread":${threadID}}`, options)
       .then(response => response.json())
       .then(data => {
+        console.log("Fetched comments:", data);
         const structuredMessages = structureMessages(data);
         console.log(structuredMessages); 
+        console.log("Structured messages:", structuredMessages);
         const commentsHTML = renderComments(Object.values(structuredMessages));
         document.getElementById('Comment-Container').innerHTML += commentsHTML;
 

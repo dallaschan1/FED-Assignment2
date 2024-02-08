@@ -106,3 +106,6 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
    3. Individual Product Modal Pop-Up (Within Index & Shop Page)
    4. Checkout Page
    5. Cart
+
+### Github Pages Link
+- https://dallaschan1.github.io/FED-Assignment2/

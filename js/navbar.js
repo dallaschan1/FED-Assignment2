@@ -59,3 +59,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+        // Get the base64 string of the user image from local storage
+        const base64Image = localStorage.getItem('userImage');
+
+        if (base64Image) {
+            // Define a function to replace the <i> tag with an <img> tag
+            const replaceIconWithImage = (linkId) => {
+                const linkElement = document.getElementById(linkId);
+                if (linkElement) {
+                    // Remove the <i> element if it exists
+                    const iconElement = linkElement.querySelector('i.fa-user');
+                    if (iconElement) {
+                        linkElement.removeChild(iconElement);
+                    }
+
+                    // Create and append the <img> element
+                    const imgElement = document.createElement('img');
+                    imgElement.src = base64Image;
+                    imgElement.className = 'user-image';
+                    imgElement.alt = 'Profile Picture';
+                    imgElement.style.display = 'block'; // Ensure the image is visible
+                    
+                    // Optionally, set additional styles or attributes to imgElement here
+
+                    linkElement.appendChild(imgElement);
+                }
+            };
+
+            // Replace the <i> tag with an <img> tag for both desktop and mobile user links
+            replaceIconWithImage('user');
+            replaceIconWithImage('mobile-user');
+        }
+    }
+});

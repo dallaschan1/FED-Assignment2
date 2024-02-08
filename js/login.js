@@ -235,5 +235,6 @@ signInForm.addEventListener('submit', loginUser);
 signUpForm.addEventListener('submit', registerUser);
 
 let cancel = document.getElementById('Cancel');
-
+let cancel2 = document.getElementById('Cancel2');
 cancel.addEventListener('click', function() {window.history.back();});
+cancel2.addEventListener('click', function() {window.history.back();});

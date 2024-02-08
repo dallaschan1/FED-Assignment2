@@ -31,8 +31,10 @@ function fetchAndDisplayComments(threadID) {
     fetch(`${url}?q={"MainThread":${threadID}}`, options)
       .then(response => response.json())
       .then(data => {
+        console.log("Fetched comments:", data);
         const structuredMessages = structureMessages(data);
         console.log(structuredMessages); 
+        console.log("Structured messages:", structuredMessages);
         const commentsHTML = renderComments(Object.values(structuredMessages));
         document.getElementById('Comment-Container').innerHTML += commentsHTML;
 
@@ -356,7 +358,7 @@ function createPost(thread, membername) {
         contentDiv.insertBefore(threadDiv, contentDiv.firstChild);});
         const cancel = document.getElementById('Cancel');
         cancel.addEventListener('click', function(){
-            window.location.href = 'Discussion.html';
+            window.location.href = 'discussion.html';
         });
     
 }
@@ -507,7 +509,7 @@ function createNewCommentHTML(data, replyToUsername) {
 
     date = formatDateTime(data.datetime);
     // Generate the HTML for the new comment
-    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.ReplyTo}" class="${commentClass}">
+    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.MessageID}" class="${commentClass}">
         ${data.ThreadLevel > 1 ? `<div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>` : ''}
         <div class="Head">
             <img src="../images/Default.png">

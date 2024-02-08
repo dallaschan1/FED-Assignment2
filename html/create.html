@@ -66,7 +66,7 @@
     
         <div id="Right">
           <div class="search-icons">
-            <i class="toggle-cart-button fa-solid fa-cart-shopping"></i>
+            <i id="mobile-cart" class="toggle-cart-button fa-solid fa-cart-shopping"></i>
           </div>
         
           <div class="user-image">
@@ -96,33 +96,16 @@
         <p id="cart-title">Cart</p>
         <i id="close-cart" class="fa-solid fa-xmark"></i>
       </div>
+      <div id="no-items">
+        <p id="no-item-caption"></p>
+        <i class="fa-solid fa-cart-plus"></i>
+      </div>
       <div id="cart-products">
-        <div class="cart-product-container">
-          <div class="cart-image-container">
-            <img src="../images/Tray table.png">
-          </div>
-          <div class="cart-details">
-            <div class="cart-text">
-              <p class="cart-product-name">Tray table</p>
-              <p class="cart-product-color">Color: Black</p>
-              <div class="cart-add-quantity">
-                <i class="fa-solid fa-minus cart-minus"></i>
-                <input class="cart-quantity-input" type="number">
-                <i class="cart-plus fa-solid fa-plus"></i>
-              </div>
-            </div>
-            <div class="cart-price-cancel">
-              <p class="cart-price">$19.99</p>
-              <i class="fa-solid fa-xmark delete-cart"></i>
-            </div>
-          </div>
-        </div>
-        <hr>
       </div>
       <div id="checkout-section">
         <div id="bill-amount">
           <p>Total</p>
-          <p id="total-bill">$299.99</p>
+          <p id="total-bill"></p>
         </div>
         <div id="checkout-btn">
           <p>Checkout</p>
@@ -225,6 +208,7 @@
     <p class="text-center text-muted">&copy; 2024 ZenCraft, Inc</p>
   </footer>
   
+  <script src="../js/cart.js"></script>
     <script src="https://kit.fontawesome.com/229dff7a33.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

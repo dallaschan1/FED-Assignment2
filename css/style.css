@@ -440,7 +440,7 @@ border-radius: 10px;
 
 @media (200px <= width <= 1020px){
   #main-image-container img{
-    content:url("../images/Mobile-Home.jpeg");
+    content:url("../images/mobile-home.jpeg");
     height: 100vh; /* Set the height to cover the full viewport height */
     object-fit: cover;
   }

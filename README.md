@@ -73,6 +73,7 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 - **Image Upload Limitations**: High-quality images may cause issues during account creation or posting in the forum.
 - **Database Reliability**: Occasional downtime with RestDB API can affect site functionality.
 - **Lack of Image Resource**: Due to the lack of resources for the different product color variations, changing the product's color doesn't change the picture of the product to that of the same color.
+- **Buggy**: The shopping cart / display of images sometimes might not work / the design of the website for some reason looks weird on the same aspect ratios / screen size but different devices.
 
 ## Credits
 - Wireframe and design for the home page and the shop page was directly taken from https://www.figma.com/community/file/1299098199775509142

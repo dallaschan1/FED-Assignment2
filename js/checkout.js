@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // IMPORTANT LOGIC for getting the cart items
       // TO REMOVE AFTER API BAN
-      const rememberMe = sessionStorage.getItem('rememberMe');
+      const rememberMe = locationStorage.getItem('rememberMe');
       console.log(rememberMe); // false
       if (rememberMe){
           sessionStorage.setItem('cart', localStorage.getItem('cart'));

@@ -150,6 +150,9 @@ function registerUser(event) {
   const userImage = document.querySelector('.sign-up-form .profile-image input[type="file"]').files[0];
   const phone = document.querySelector('.sign-up-form .phone input[type="tel"]').value;
 
+  localStorage.setItem('rememberMe', rememberMe);
+  console.log(localStorage.getItem('rememberMe'));
+
   if (!username || !password || !email || !userImage) {
       alert("All fields are required, including image upload.");
       return;
@@ -205,6 +208,7 @@ reader.onloadend = function() {
                 if (rememberMe){
                     localStorage.setItem('cart', JSON.stringify(response)); 
                     console.log(JSON.parse(localStorage.getItem('cart')));
+                    console.log(localStorage.getItem('rememberMe'));
                 }
                 else{
                     sessionStorage.setItem('cart', JSON.stringify(response)); 
@@ -225,7 +229,7 @@ reader.onloadend = function() {
             sessionStorage.setItem('userImage', userImage);
         }
         alert("Sign Up Successful! Redirecting...");
-        // window.history.back();
+        window.history.back();
     })
     .catch(error => {
         console.error('Error:', error);

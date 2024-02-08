@@ -125,7 +125,7 @@ function loginUser(event) {
               alert("Login successful! Redirecting...");
               setTimeout(function(){
                 window.history.back();;
-                }, 500);
+                }, 1000);
           })
           .catch(error => {
               console.error('Error:', error);
@@ -234,7 +234,7 @@ reader.onloadend = function() {
         console.log()
         setTimeout(function(){
             window.history.back();;
-        }, 500);
+        }, 1000);
     })
     .catch(error => {
         console.error('Error:', error);

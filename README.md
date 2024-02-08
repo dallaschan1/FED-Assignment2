@@ -24,9 +24,10 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 ## Features
 
 ### Existing Features
-
+- **Dynamic Web Page**: Contents such as products or cart-items are dynamically imported into the web-page.
 - **Game Integration**: Engage in a thrilling game to earn discounts on furniture purchases.
-- **Dynamic Shop Page**: A slider to filter furniture by price range, allowing users to find products within their budget.
+- **Price Range Slider**: Allow users to input a price range using a slider to filter furniture products within their budget.
+- **Product Category Selection**: Provide options for users to select product categories, enabling them to narrow down their search.
 - **Community Forum**: A platform for users to discuss the game, furniture trends, or seek customer support.
 - **Responsive Design**: Built with Bootstrap and custom CSS for a seamless experience across all devices.
 
@@ -34,6 +35,9 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 
 - **Enhanced Game Levels**: Introduce new levels and challenges in the game for even greater rewards.
 - **User Profile Customization**: Allow users to customize their profiles in the forum for a more personalized experience.
+- **Payment Gateway Integration with Stripe API**: Validate user card details during checkout using Stripe API.
+- **Google API Address Validator**: Validate user addresses during checkout using Google Maps API.
+- **Review System for Products**: Allow users to leave reviews for products they have purchased.
 
 ## Technologies Used
 
@@ -50,16 +54,19 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 
 - **Navigation and Checkout Testing**:
   1. Navigated through the site to test the user flow and interface.
-  2. Added items to the cart and proceeded to checkout to ensure the process is smooth and intuitive.
-  3. Sent messages through the contact form to test its functionality and responsiveness.
+  2. Click on any of the shop categories in the index.html should have transported you to the shop.html with the correct category
+  3. Added items to the cart and proceeded to checkout to ensure the process is smooth and intuitive.
+  4. Sent messages through the contact form to test its functionality and responsiveness.
 
 ### Known Issues
 
 - **Game Mechanics**: Players may get stuck in obstacles due to knockback from enemy hits.
 - **Image Upload Limitations**: High-quality images may cause issues during account creation or posting in the forum.
 - **Database Reliability**: Occasional downtime with RestDB API can affect site functionality.
+- **Lack of Image Resource**: Due to the lack of resources for the different product color variations, changing the product's color doesn't change the picture of the product to that of the same color
 
 ## Credits
+- Wireframe and design for the home page and the shop page was directly taken from https://www.figma.com/community/file/1299098199775509142
 
 ### Content
 

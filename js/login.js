@@ -204,7 +204,7 @@ reader.onloadend = function() {
                 console.log("working");
                 if (rememberMe){
                     localStorage.setItem('cart', JSON.stringify(response)); 
-                    console.log(JSON.parse(localStorage.setItem('cart')));
+                    console.log(JSON.parse(localStorage.getItem('cart')));
                 }
                 else{
                     sessionStorage.setItem('cart', JSON.stringify(response)); 
@@ -225,7 +225,7 @@ reader.onloadend = function() {
             sessionStorage.setItem('userImage', userImage);
         }
         alert("Sign Up Successful! Redirecting...");
-        window.history.back();
+        // window.history.back();
     })
     .catch(error => {
         console.error('Error:', error);

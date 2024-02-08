@@ -33,7 +33,6 @@ main {
 #intro>p{
   margin-top: 20px;
   font-family: 'Inter', sans-serif;
-  font-weight: regular;
   width: calc(300px + 40%);
 }
 
@@ -71,7 +70,6 @@ main {
 
 #about-text>p{
   font-family: 'Inter', sans-serif;
-  font-weight: regular;
   width: 70%;
   font-size: 1rem;  
 }

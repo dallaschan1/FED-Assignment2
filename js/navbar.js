@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Check if the user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    
 
     if (isLoggedIn) {
         // Get the base64 string of the user image from local storage

@@ -208,8 +208,7 @@ reader.onloadend = function() {
                 }
             });
         };
-        cartItem = null;
-        AddToNewCart(username, cartItem);
+        AddToNewCart(username);
 
         // Move the code that relies on sessionStorage/localStorage inside this block
         if (rememberMe) {

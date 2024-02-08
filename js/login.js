@@ -123,7 +123,9 @@ function loginUser(event) {
 
               // Redirect user after successful login
               alert("Login successful! Redirecting...");
-            //   window.history.back();
+              setTimeout(function(){
+                window.history.back();;
+                }, 500);
           })
           .catch(error => {
               console.error('Error:', error);
@@ -229,7 +231,10 @@ reader.onloadend = function() {
             sessionStorage.setItem('userImage', userImage);
         }
         alert("Sign Up Successful! Redirecting...");
-        window.history.back();
+        console.log()
+        setTimeout(function(){
+            window.history.back();;
+        }, 500);
     })
     .catch(error => {
         console.error('Error:', error);

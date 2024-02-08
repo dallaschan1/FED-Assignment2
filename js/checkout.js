@@ -86,8 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         discountCost.innerHTML = `<b>-$0.00</b>`;
                       }
                       else{
-                        totalCartPrice.innerHTML = `<b>$${(totalProductPrice*(1-discountPercent)).toFixed(2)}</b>`;
-                        discountCost.innerHTML = `<b>-$${(totalProductPrice*(discountPercent)).toFixed(2)}</b>`;
+                        totalCartPrice.innerHTML = `<b>$${(totalProductPrice*(1-(discountPercent/100))).toFixed(2)}</b>`;
+                        discountCost.innerHTML = `<b>-$${(totalProductPrice*(discountPercent/100)).toFixed(2)}</b>`;
                       }
                       currentItem.quantity = quantity.toString();
                       break;

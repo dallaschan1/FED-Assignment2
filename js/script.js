@@ -77,9 +77,9 @@ function includeHTMLHeader() {
 
   document.getElementById("mobile-navbar-container").style.position = 'absolute';
   document.getElementById('navigation-header').style.position = 'absolute';
-  document.getElementById('zencraft-logo').src = 'images/ZenCraft Logo.png';
-  document.getElementById('mobile-img-logo').src = 'images/ZenCraft Logo.png';
-  document.getElementById('slideout-img-logo').src = 'images/ZenCraft Logo.png';
+  document.getElementById('zencraft-logo').src = 'images/ZenCraft-Logo.png';
+  document.getElementById('mobile-img-logo').src = 'images/ZenCraft-Logo.png';
+  document.getElementById('slideout-img-logo').src = 'images/ZenCraft-Logo.png';
   document.getElementById('user').href = 'html/login.html';
   document.getElementById('mobile-logo').href = '#';
   document.getElementById('logo-link').href = '#';

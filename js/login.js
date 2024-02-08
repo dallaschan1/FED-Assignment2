@@ -123,7 +123,7 @@ function loginUser(event) {
 
               // Redirect user after successful login
               alert("Login successful! Redirecting...");
-            //   window.history.back();
+              window.history.back();
           })
           .catch(error => {
               console.error('Error:', error);

@@ -1,5 +1,27 @@
 
-let length = 0;
+let count = 0;
+
+// Function to initialize the count variable with the total number of comments from the database
+function initializeCount() {
+    const url = 'https://users-4250.restdb.io/rest/comments';
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-apikey': '65aa4cb7c0aebd4508c42aa9'
+        }
+    };
+
+    fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            count = data.length; // Set the count to the total number of comments
+
+            console.log('Total comments count initialized to:', count);
+        })
+        .catch(error => console.error('Error fetching comments count:', error));
+}
+
 function loadContent(){
    
    
@@ -369,22 +391,10 @@ function createPost(thread, membername) {
 
 loadContent();
 
-function adjustFixedPosition() {
-    const mainDiv = document.getElementById('main');
-    const recommendedDiv = document.getElementById('Recommended');
-  
-    const mainDivRect = mainDiv.getBoundingClientRect();
-  
-    // Assuming you want the right edge of `Recommended` to align with the right edge of `main`
-    const rightPosition = window.innerWidth - mainDivRect.right;
-    recommendedDiv.style.right = `${rightPosition}px`;
-  }
-  
-  // Adjust position on load and on window resize
-  window.onload = adjustFixedPosition;
-  window.onresize = adjustFixedPosition;
-  
- 
+window.onload = function() {
+    initializeCount();
+    
+};
 
   
   
@@ -410,7 +420,9 @@ function adjustFixedPosition() {
                     let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') || 'false');
                     let username = isLoggedIn ? (localStorage.getItem('username') || sessionStorage.getItem('username')) : 'defaultUser';
 
+                    count += 1
                     let dataToSend = {
+                        'MessageID': count,
                         'comment-content': textarea.value,
                         'username': username,
                         'datetime': new Date(),
@@ -491,27 +503,9 @@ function postNewReply(commentData, onSuccess, onError) {
 
 
 
-async function createNewCommentHTML(data, replyToUsername) {
-    const apiKey = '65aa4cb7c0aebd4508c42aa9'; // Replace with your actual API key
-    const apiUrl = 'https://users-4250.restdb.io/rest/comments'; // Replace with your actual API URL
-
-    // Fetch the current number of comments to determine the new comment's identifier
-    let newIdentifier = 0;
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-apikey': apiKey
-            }
-        });
-        const comments = await response.json();
-        newIdentifier = comments.length + 1; 
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-
+function createNewCommentHTML(data, replyToUsername) {
     // Determine the comment class based on ThreadLevel
+  
     let commentClass;
     switch(data.ThreadLevel) {
         case 2:
@@ -527,10 +521,10 @@ async function createNewCommentHTML(data, replyToUsername) {
             commentClass = "Comments-Reply4"; // For ThreadLevel 5 and above
     }
 
-    const date = formatDateTime(data.datetime);
-    console.log(data);
+    date = formatDateTime(data.datetime);
+    console.log(data)
     // Generate the HTML for the new comment
-    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${newIdentifier}" class="${commentClass}">
+    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.MessageID}" class="${commentClass}">
         ${data.ThreadLevel > 1 ? `<div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>` : ''}
         <div class="Head">
             <img src="../images/Default.png">
@@ -559,9 +553,6 @@ async function createNewCommentHTML(data, replyToUsername) {
 }
 
 
-
-
-
 function inputAction() {
     // Check login status
     const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || JSON.parse(sessionStorage.getItem('isLoggedIn'));
@@ -579,8 +570,11 @@ function inputAction() {
     const urlParams = new URLSearchParams(window.location.search);
     const MainThread = urlParams.get('threadId');
 
+    count += 1;
+    
     // Prepare comment data
     const commentData = {
+        MessageID: count,
         username: username,
         'comment-content': commentContent,
         ReplyTo: 0,
@@ -601,8 +595,8 @@ function inputAction() {
 
 function appendCommentToUI(commentData) {
 
-    const apiKey = '65aa4cb7c0aebd4508c42aa9'; // Replace with your actual API key
-    const apiUrl = 'https://users-4250.restdb.io/rest/comments'; // Replace with your actual API URL
+    const apiKey = '65aa4cb7c0aebd4508c42aa9'; 
+    const apiUrl = 'https://users-4250.restdb.io/rest/comments';
 
     fetch(apiUrl, {
         method: 'GET',
@@ -616,7 +610,7 @@ function appendCommentToUI(commentData) {
         const date = formatDateTime(commentData.datetime);
         const commentContainer = document.getElementById('Comment-Container');
     const newCommentHTML = `
-        <div data-username = "${commentData.username}" data-level="${commentData.ThreadLevel}" data-identifier="${data.length+1}" class="Comments">
+        <div data-username = "${commentData.username}" data-level="${commentData.ThreadLevel}" data-identifier="${MessageID}" class="Comments">
             <div class="Head">
                 <img src="../images/Default.png">
                 <h3>${commentData.username}</h3>

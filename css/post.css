@@ -149,7 +149,7 @@ textarea {
  
 }
 .py-3{
-    position: absolute;
+    position: static;
     bottom: 0;
 }
 
@@ -218,7 +218,7 @@ textarea {
 }
 
 #Comment-Container{
-    border: 1px solid black;
+    
     min-height: 100px;
    padding-bottom: 50px;
     

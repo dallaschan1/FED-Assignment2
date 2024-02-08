@@ -98,12 +98,12 @@ window.onload = function() {
 };
 
 
-// Remember to bind the lockChangeAlert function to the pointerlockchange event for it to be called appropriately
+//bind the lockChangeAlert function to the pointerlockchange event for it to be called appropriately
 document.addEventListener('pointerlockchange', lockChangeAlert, false);
 document.addEventListener('mozpointerlockchange', lockChangeAlert, false);
 document.addEventListener('webkitpointerlockchange', lockChangeAlert, false);
 
-
+//A little useless since i decided against mobile
 function resizeCanvas() {
     const devicePixelRatio = window.devicePixelRatio || 1;
     
@@ -204,7 +204,7 @@ function scaleGameElements(ratio) {
         enemy.size = baseEnemySize * ratio;
     });
 
-    // Update positions and sizes of other game elements if necessary
+    
     
 }
 function positionGameElements() {

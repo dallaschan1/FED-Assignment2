@@ -1,7 +1,7 @@
 # ZenCraft - The Ultimate Furniture Gaming Experience
 
 ## GitHub Issues: 
-- Due to some unknown reasons, the github deployed website does not function as well as compared to a locally deployed webserver. We had little time to figure the issue and therefore this issue wasn't fixed.
+- Due to some unknown reasons, the github deployed website does not function as well as compared to a locally deployed webserver. We had little time to figure the issue and therefore this issue wasn't resolved.
 
 ## Overview
 

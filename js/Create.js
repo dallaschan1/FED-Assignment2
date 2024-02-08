@@ -53,7 +53,7 @@ autoResizeTextarea(mainTextTextarea);
 
 
 document.getElementById('cancel-button').addEventListener('click', function() {
-    window.location.href = 'Discussion.html';
+    window.location.href = 'discussion.html';
 });
 
 
@@ -171,7 +171,7 @@ function postToAPI(data) {
         const head = document.getElementById('headTitle');
         head.style.display = 'block';
         alert("Post created successfully! Redirecting....");
-        window.location.href = 'Discussion.html';
+        window.location.href = 'discussion.html';
     })
     .catch((error) => {
         console.error('Error:', error);

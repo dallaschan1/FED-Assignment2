@@ -39,10 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'Home': '../index.html',
         'Shop': 'shop.html',
         'Game': 'game.html',
-        'Contact Us': 'Contact.html',
-        'Forums': 'Discussion.html',
+        'Contact Us': 'contact.html',
+        'Forums': 'discussion.html',
         'Check out': 'checkout.html',
-        'Create A Post': 'Create.html',
+        'Create A Post': 'create.html',
     };
 
     // Select all slideout items

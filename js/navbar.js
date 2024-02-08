@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (isLoggedIn) {
         // Get the base64 string of the user image from local storage
-        const base64Image = localStorage.getItem('userImage');
+        const base64Image = localStorage.getItem('userImage') || sessionStorage.getItem('userImage');
 
         if (base64Image) {
             // Define a function to replace the <i> tag with an <img> tag

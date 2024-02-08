@@ -121,11 +121,7 @@ function loginUser(event) {
                   sessionStorage.setItem('userImage', userImage);
               }
 
-              // Redirect user after successful login
-              alert("Login successful! Redirecting...");
-              setTimeout(function(){
-                window.history.back();;
-                }, 1000);
+             
           })
           .catch(error => {
               console.error('Error:', error);
@@ -161,7 +157,7 @@ function registerUser(event) {
   }
   const reader = new FileReader();
   reader.readAsDataURL(userImage); 
-reader.onloadend = function() {
+  reader.onloadend = function() {
     const base64Image = reader.result;
 
     return fetch('https://users-4250.restdb.io/rest/accounts', {
@@ -230,11 +226,9 @@ reader.onloadend = function() {
             sessionStorage.setItem('username', username);
             sessionStorage.setItem('userImage', userImage);
         }
-        alert("Sign Up Successful! Redirecting...");
+        
         console.log()
-        setTimeout(function(){
-            window.history.back();;
-        }, 1000);
+        
     })
     .catch(error => {
         console.error('Error:', error);

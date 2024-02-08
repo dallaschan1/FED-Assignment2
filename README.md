@@ -9,6 +9,22 @@
 ## Video Link
 - https://drive.google.com/file/d/1QwQZ0JqjIrpftkPqI4I-0HpL2ahiDhpv/view?usp=sharing
 
+## Roles
+- **Dallas**
+   1. Game Page
+   2. Forum Page
+   3. Contact Us Page
+   4. Login Page
+   5. Create Page (Create Post)
+   6. Post Page (Comment on a Post)
+
+- **Ian**
+   1. Index (Home) Page
+   2. Shop Page
+   3. Individual Product Modal Pop-Up (Within Index & Shop Page)
+   4. Checkout Page
+   5. Cart
+
 ## Overview
 
 Welcome to ZenCraft, an innovative fusion of online shopping and gaming. Our platform isn't just another furniture store; it's a unique experience that combines the thrill of gaming with the convenience of online furniture shopping. Dive into our exclusive game, reminiscent of popular titles like Agar.io, Surviv.io, and Tank.io, where players battle enemies, overcome challenges, and earn discounts on our wide range of furniture products. With each milestone reached in the game, players unlock special discounts, making shopping not just rewarding but also incredibly fun. Join our community forum to discuss game strategies, furniture trends, or any customer service inquiries. At ZenCraft, we're more than just a store – we're an experience.
@@ -96,19 +112,3 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 ### Acknowledgements
 
 - Inspired by popular .io games and the desire to blend gaming with online shopping, our project aims to create a unique and engaging experience for our users.
-
-### Roles
-- **Dallas**
-   1. Game Page
-   2. Forum Page
-   3. Contact Us Page
-   4. Login Page
-   5. Create Page (Create Post)
-   6. Post Page (Comment on a Post)
-
-- **Ian**
-   1. Index (Home) Page
-   2. Shop Page
-   3. Individual Product Modal Pop-Up (Within Index & Shop Page)
-   4. Checkout Page
-   5. Cart

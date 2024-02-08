@@ -44,7 +44,7 @@ const filterCards = (selectedCategory, selectedPrice) => {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  const APIKEY = "65c3a74b70dd295671262969";
+  const APIKEY = "65c4881fe208c2067b545c56";
 
   function fetchProductsAndPopulateCards() {
     return new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
       };
 
-      fetch("https://fedassg-5f2a.restdb.io/rest/product", settings)
+      fetch("https://fedassg2b-4d22.restdb.io/rest/product", settings)
         .then(response => response.json())
         .then(products => {
           let content = "";
@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function () {
           tickAnimation.pause();
         }, 5000);
 
-        const rememberMe = sessionStorage.getItem('rememberMe');
+        const rememberMe = localStorage.getItem('rememberMe');
         if (rememberMe){
             sessionStorage.setItem('cart', localStorage.getItem('cart'));
             sessionStorage.setItem('username', localStorage.getItem('username'));
@@ -395,7 +395,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }, 
               body: JSON.stringify(jsondata) 
             }
-            fetch(`https://fedassg-5f2a.restdb.io/rest/user-cart/${cartId}`, settings)
+            fetch(`https://fedassg2b-4d22.restdb.io/rest/user-cart/${cartId}`, settings)
               .then(response => response.json()) // Parse the response JSON and return it
               .then(response => {
                 console.log(response); // Should now log the parsed response data
@@ -510,11 +510,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // IMPORTANT LOGIC for getting the cart items
       // TO REMOVE AFTER API BAN
-      const rememberMe = sessionStorage.getItem('rememberMe');
+      const rememberMe = localStorage.getItem('rememberMe');
       console.log(rememberMe); // false
-      if (rememberMe === true){
+      if (rememberMe){
           sessionStorage.setItem('cart', localStorage.getItem('cart'));
           sessionStorage.setItem('username', localStorage.getItem('username'));
+          sessionStorage.setItem('isLoggedIn', localStorage.getItem('isLoggedIn'));
       }
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
@@ -534,34 +535,34 @@ document.addEventListener("DOMContentLoaded", function () {
           // console.log(currentCartItems.length);
 
           // Attach event listener to a parent element that persists in the DOM
-          document.getElementById('cart-products').addEventListener('click', function(event) {
-              // Check if the click event originated from a delete button or its parent
-              if (event.target.classList.contains('delete-cart') || event.target.parentElement.classList.contains('delete-cart')) {
-                  // Extract the item ID to be deleted
-                  let itemId = event.target.closest('.cart-product-container').id;
-                  itemId = itemId.replace('-delete', ''); // Get the id of the item to be deleted
+          // document.getElementById('cart-products').addEventListener('click', function(event) {
+          //     // Check if the click event originated from a delete button or its parent
+          //     if (event.target.classList.contains('delete-cart') || event.target.parentElement.classList.contains('delete-cart')) {
+          //         // Extract the item ID to be deleted
+          //         let itemId = event.target.closest('.cart-product-container').id;
+          //         itemId = itemId.replace('-delete', ''); // Get the id of the item to be deleted
           
-                  // Getting the updated currentCartItems
-                  currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
+          //         // Getting the updated currentCartItems
+          //         currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
           
-                  // Filter out the item with the corresponding id from currentCartItems
-                  currentCartItems = currentCartItems.filter(item => item.id !== itemId);
+          //         // Filter out the item with the corresponding id from currentCartItems
+          //         currentCartItems = currentCartItems.filter(item => item.id !== itemId);
           
-                  // Update item IDs accordingly
-                  currentCartItems.forEach((item, index) => {
-                      item.id = (index + 1).toString(); 
-                  });
+          //         // Update item IDs accordingly
+          //         currentCartItems.forEach((item, index) => {
+          //             item.id = (index + 1).toString(); 
+          //         });
           
-                  // Update sessionStorage with the updated cart items
-                  let cart = JSON.parse(sessionStorage.getItem('cart'));
-                  cart['cart-items'] = currentCartItems;
-                  sessionStorage.setItem('cart', JSON.stringify(cart));
-                  console.log(JSON.parse(sessionStorage.getItem('cart')));
+          //         // Update sessionStorage with the updated cart items
+          //         let cart = JSON.parse(sessionStorage.getItem('cart'));
+          //         cart['cart-items'] = currentCartItems;
+          //         sessionStorage.setItem('cart', JSON.stringify(cart));
+          //         console.log(JSON.parse(sessionStorage.getItem('cart')));
           
-                  // Regenerate the cart display
-                  generateCartDisplay();
-              }
-          });
+          //         // Regenerate the cart display
+          //         generateCartDisplay();
+          //     }
+          // });
 
           // Function to regenerate the cart display
           function generateCartDisplay() {
@@ -643,34 +644,6 @@ document.addEventListener("DOMContentLoaded", function () {
                       return totalProductPrice;
                   }
           } 
-          // Attach event listener to a parent element that persists in the DOM
-          document.getElementById('cart-products').addEventListener('click', function(event) {
-              // Check if the click event originated from a delete button or its parent
-              if (event.target.classList.contains('delete-cart') || event.target.parentElement.classList.contains('delete-cart')) {
-                  // Extract the item ID to be deleted
-                  let itemId = event.target.closest('.cart-product-container').id;
-                  itemId = itemId.replace('-delete', ''); // Get the id of the item to be deleted
-          
-                  // Getting the updated currentCartItems
-                  currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
-          
-                  // Filter out the item with the corresponding id from currentCartItems
-                  currentCartItems = currentCartItems.filter(item => item.id !== itemId);
-          
-                  // Update item IDs accordingly
-                  currentCartItems.forEach((item, index) => {
-                      item.id = (index + 1).toString(); 
-                  });
-          
-                  // Update sessionStorage with the updated cart items
-                  let cart = JSON.parse(sessionStorage.getItem('cart'));
-                  cart['cart-items'] = currentCartItems;
-                  sessionStorage.setItem('cart', JSON.stringify(cart));
-          
-                  // Regenerate the cart display
-                  generateCartDisplay();
-              }
-          });
       }
       else
       {

@@ -56,6 +56,8 @@ function loginUser(event) {
 
   // Get rememberMe checkbox status
   const rememberMe = document.querySelector('.sign-in-form .remember').checked;
+  console.log(rememberMe);
+  localStorage.setItem('rememberMe', rememberMe);
 
   // Fetch user data from API based on username
   fetch('https://users-4250.restdb.io/rest/accounts?q={"username":"' + username + '"}', {
@@ -83,13 +85,13 @@ function loginUser(event) {
                   method: "GET",
                   headers: {
                       "Content-Type": "application/json",
-                      "x-apikey": "65c36adf4355fb2496c1b8c4",
+                      "x-apikey": "65c4881fe208c2067b545c56",
                       "Cache-Control": "no-cache"
                   },
               };
 
               // Fetch cart data
-              return fetch("https://fedassg2-be9d.restdb.io/rest/user-cart", settings)
+              return fetch("https://fedassg2b-4d22.restdb.io/rest/user-cart", settings)
                   .then(response => response.json())
                   .then(response => {
                       for (var i = 0; i < response.length; i++) {
@@ -121,7 +123,7 @@ function loginUser(event) {
 
               // Redirect user after successful login
               alert("Login successful! Redirecting...");
-              window.history.back();
+            //   window.history.back();
           })
           .catch(error => {
               console.error('Error:', error);
@@ -190,17 +192,19 @@ reader.onloadend = function() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-apikey": "65c36adf4355fb2496c1b8c4",
+                    "x-apikey": "65c4881fe208c2067b545c56",
                     "Cache-Control": "no-cache"
                 },
                 body: JSON.stringify(jsondata)
             }
 
-            fetch("https://fedassg2-be9d.restdb.io/rest/user-cart", settings)
+            fetch("https://fedassg2b-4d22.restdb.io/rest/user-cart", settings)
             .then(response => response.json())
             .then(response => {
+                console.log("working");
                 if (rememberMe){
                     localStorage.setItem('cart', JSON.stringify(response)); 
+                    console.log(JSON.parse(localStorage.setItem('cart')));
                 }
                 else{
                     sessionStorage.setItem('cart', JSON.stringify(response)); 

@@ -143,9 +143,10 @@ document.addEventListener("DOMContentLoaded", function () {
       // TO REMOVE AFTER API BAN
       const rememberMe = sessionStorage.getItem('rememberMe');
       console.log(rememberMe); // false
-      if (rememberMe === true){
+      if (rememberMe){
           sessionStorage.setItem('cart', localStorage.getItem('cart'));
           sessionStorage.setItem('username', localStorage.getItem('username'));
+          sessionStorage.setItem('isLoggedIn', localStorage.getItem('isLoggedIn'));
       }
       const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
@@ -290,34 +291,6 @@ document.addEventListener("DOMContentLoaded", function () {
                       return totalProductPrice;
                   }
           } 
-          // Attach event listener to a parent element that persists in the DOM
-          document.getElementById('order-summary-cart-products').addEventListener('click', function(event) {
-              // Check if the click event originated from a delete button or its parent
-              if (event.target.classList.contains('delete-cart') || event.target.parentElement.classList.contains('delete-cart')) {
-                  // Extract the item ID to be deleted
-                  let itemId = event.target.closest('.cart-product-container').id;
-                  itemId = itemId.replace('-delete', ''); // Get the id of the item to be deleted
-          
-                  // Getting the updated currentCartItems
-                  currentCartItems = JSON.parse(sessionStorage.getItem('cart'))['cart-items'];
-          
-                  // Filter out the item with the corresponding id from currentCartItems
-                  currentCartItems = currentCartItems.filter(item => item.id !== itemId);
-          
-                  // Update item IDs accordingly
-                  currentCartItems.forEach((item, index) => {
-                      item.id = (index + 1).toString(); 
-                  });
-          
-                  // Update sessionStorage with the updated cart items
-                  let cart = JSON.parse(sessionStorage.getItem('cart'));
-                  cart['cart-items'] = currentCartItems;
-                  sessionStorage.setItem('cart', JSON.stringify(cart));
-          
-                  // Regenerate the cart display
-                  generateCartDisplay();
-              }
-          });
       }
       else
       {
@@ -346,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem('playerPoints', "0")
           let username = sessionStorage.getItem('username');
           let cartId = JSON.parse(sessionStorage.getItem('cart'))._id;
-          const APIKEY = "65c3a74b70dd295671262969";
+          const APIKEY = "65c4881fe208c2067b545c56";
 
           var jsondata = {
               "username": username,
@@ -362,12 +335,14 @@ document.addEventListener("DOMContentLoaded", function () {
               }, 
               body: JSON.stringify(jsondata) 
           };
-          fetch(`https://fedassg-5f2a.restdb.io/rest/user-cart/${cartId}`, settings)
+          fetch(`https://fedassg2b-4d22.restdb.io/rest/user-cart/${cartId}`, settings)
               .then(response => response.json())
               .then(response => {
                 console.log(response['cart-items']);
+                let rememberMe = localStorage.getItem('rememberMe')
                 if (rememberMe){
                   localStorage.setItem('cart', JSON.stringify(response)); 
+                  console.log(JSON.parse(localStorage.getItem('cart')));
                 }
                 else{
                   sessionStorage.setItem('cart', JSON.stringify(response)); 
@@ -382,13 +357,13 @@ document.addEventListener("DOMContentLoaded", function () {
           tickAnimation.play();
           document.getElementById('thank-you-modal').style.opacity = '1';
           document.body.style.overflowY = "hidden";
-          setTimeout(function(){
-            modal.close();
-            tickAnimation.pause();
-            document.getElementById('thank-you-modal').style.opacity = '0';
-            document.body.style.overflowY = "scroll";
-            window.location.href = "../index.html";
-          }, 15000);
+          // setTimeout(function(){
+          //   modal.close();
+          //   tickAnimation.pause();
+          //   document.getElementById('thank-you-modal').style.opacity = '0';
+          //   document.body.style.overflowY = "scroll";
+          //   window.location.href = "../index.html";
+          // }, 15000);
         }
 
       function validateForm() {

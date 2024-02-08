@@ -54,7 +54,7 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 
 ## Navigation and Checkout Testing
 
-1. **Navigated through the site to test the user flow and interface.**
+1. **Navigate through the site to test the user flow and interface.**
 2. Click on any of the shop categories in the `index.html` should have transported you to the `shop.html` with the correct filtered category.
 3. **Add items to the cart and verify:**
    - Deleting of cart items

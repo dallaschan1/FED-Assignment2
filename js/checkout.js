@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // IMPORTANT LOGIC for getting the cart items
       // TO REMOVE AFTER API BAN
-      const rememberMe = locationStorage.getItem('rememberMe');
+      const rememberMe = localStorage.getItem('rememberMe');
       console.log(rememberMe); // false
       if (rememberMe){
           sessionStorage.setItem('cart', localStorage.getItem('cart'));
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (isNaN(discountPercent)) {
             discountPercent = 0;
           }
-          document.getElementById('no-items').style.display = 'none';
+          // document.getElementById('no-items').style.display = 'none';
           document.getElementById('order-summary-cart-products').style.display = 'block';
           let username = sessionStorage.getItem('username');
           let cart = JSON.parse(sessionStorage.getItem('cart'));
@@ -205,13 +205,10 @@ document.addEventListener("DOMContentLoaded", function () {
           function generateCartDisplay() {
               let content = "";
               let totalProductPrice = 0; // Reset total product price
-              document.getElementById('no-items').style.display = 'none';
               document.getElementById('order-summary-cart-products').style.display = 'block';
               
               if (currentCartItems === undefined || currentCartItems.length === 0){
-                  document.getElementById('no-items').style.display = 'flex';
                   document.getElementById('order-summary-cart-products').innerHTML = '';
-                  document.getElementById('no-item-caption').innerHTML = "Empty Cart";
                   document.getElementById('place-order-btn').style.cursor = 'not-allowed'
                   subTotalBill.innerHTML = `<b>$0.00</b>`;
                   totalCartPrice.innerHTML = `<b>$0.00</b>`;
@@ -335,7 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }, 
               body: JSON.stringify(jsondata) 
           };
-          fetch(`https://fedassg2b-4d22.restdb.io/rest/user-cart/${cartId}`, settings)
+          fetch(`https://fedassg2-be9d.restdb.io/rest/user-cart/${cartId}`, settings)
               .then(response => response.json())
               .then(response => {
                 console.log(response['cart-items']);
@@ -357,13 +354,13 @@ document.addEventListener("DOMContentLoaded", function () {
           tickAnimation.play();
           document.getElementById('thank-you-modal').style.opacity = '1';
           document.body.style.overflowY = "hidden";
-          // setTimeout(function(){
-          //   modal.close();
-          //   tickAnimation.pause();
-          //   document.getElementById('thank-you-modal').style.opacity = '0';
-          //   document.body.style.overflowY = "scroll";
-          //   window.location.href = "../index.html";
-          // }, 15000);
+          setTimeout(function(){
+            modal.close();
+            tickAnimation.pause();
+            document.getElementById('thank-you-modal').style.opacity = '0';
+            document.body.style.overflowY = "scroll";
+            window.location.href = "../index.html";
+          }, 15000);
         }
 
       function validateForm() {

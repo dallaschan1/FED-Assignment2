@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     console.log(cart);
                     console.log(cart['cart-items'])
                     let cartId = cart._id;
-                    const APIKEY = "65c4881fe208c2067b545c56";
+                    const APIKEY = "65c36adf4355fb2496c1b8c4";
 
                     var jsondata = {
                         "username": username,
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         }, 
                         body: JSON.stringify(jsondata) 
                     };
-                    fetch(`https://fedassg2b-4d22.restdb.io/rest/user-cart/${cartId}`, settings)
+                    fetch(`https://fedassg2-be9d.restdb.io/rest/user-cart/${cartId}`, settings)
                         .then(response => response.json()) // Parse the response JSON and return it
                         .then(response => {
                             for (var i = 0; i < response.length; i++) {
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         console.log(cart);
                         console.log(cart['cart-items'])
                         let cartId = cart._id;
-                        const APIKEY = "65c4881fe208c2067b545c56";
+                        const APIKEY = "65c36adf4355fb2496c1b8c4";
 
                         var jsondata = {
                             "username": username,
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function(){
                             }, 
                             body: JSON.stringify(jsondata) 
                         };
-                        fetch(`https://fedassg2b-4d22.restdb.io/rest/user-cart/${cartId}`, settings)
+                        fetch(`https://fedassg2-be9d.restdb.io/rest/user-cart/${cartId}`, settings)
                             .then(response => response.json()) // Parse the response JSON and return it
                             .then(response => {
                                 for (var i = 0; i < response.length; i++) {

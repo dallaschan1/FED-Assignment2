@@ -85,13 +85,13 @@ function loginUser(event) {
                   method: "GET",
                   headers: {
                       "Content-Type": "application/json",
-                      "x-apikey": "65c4881fe208c2067b545c56",
+                      "x-apikey": "65c36adf4355fb2496c1b8c4",
                       "Cache-Control": "no-cache"
                   },
               };
 
               // Fetch cart data
-              return fetch("https://fedassg2b-4d22.restdb.io/rest/user-cart", settings)
+              return fetch("https://fedassg2-be9d.restdb.io/rest/user-cart", settings)
                   .then(response => response.json())
                   .then(response => {
                       for (var i = 0; i < response.length; i++) {
@@ -195,13 +195,13 @@ reader.onloadend = function() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "x-apikey": "65c4881fe208c2067b545c56",
+                    "x-apikey": "65c36adf4355fb2496c1b8c4",
                     "Cache-Control": "no-cache"
                 },
                 body: JSON.stringify(jsondata)
             }
 
-            fetch("https://fedassg2b-4d22.restdb.io/rest/user-cart", settings)
+            fetch("https://fedassg2-be9d.restdb.io/rest/user-cart", settings)
             .then(response => response.json())
             .then(response => {
                 console.log("working");

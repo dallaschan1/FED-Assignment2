@@ -3,6 +3,12 @@
 ## GitHub Issues: 
 - Due to some unknown reasons, the github deployed website does not function as well as compared to a locally deployed webserver. We had little time to figure the issue and therefore this issue wasn't resolved.
 
+## Github Pages Link
+- https://dallaschan1.github.io/FED-Assignment2/
+
+## Video Link
+- https://drive.google.com/file/d/1QwQZ0JqjIrpftkPqI4I-0HpL2ahiDhpv/view?usp=sharing
+
 ## Overview
 
 Welcome to ZenCraft, an innovative fusion of online shopping and gaming. Our platform isn't just another furniture store; it's a unique experience that combines the thrill of gaming with the convenience of online furniture shopping. Dive into our exclusive game, reminiscent of popular titles like Agar.io, Surviv.io, and Tank.io, where players battle enemies, overcome challenges, and earn discounts on our wide range of furniture products. With each milestone reached in the game, players unlock special discounts, making shopping not just rewarding but also incredibly fun. Join our community forum to discuss game strategies, furniture trends, or any customer service inquiries. At ZenCraft, we're more than just a store – we're an experience.
@@ -106,6 +112,3 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
    3. Individual Product Modal Pop-Up (Within Index & Shop Page)
    4. Checkout Page
    5. Cart
-
-### Github Pages Link
-- https://dallaschan1.github.io/FED-Assignment2/

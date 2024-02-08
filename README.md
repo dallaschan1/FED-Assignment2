@@ -52,11 +52,17 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 
 ### Manual Testing Scenarios
 
-- **Navigation and Checkout Testing**:
-  1. Navigated through the site to test the user flow and interface.
-  2. Click on any of the shop categories in the index.html should have transported you to the shop.html with the correct category
-  3. Added items to the cart and proceeded to checkout to ensure the process is smooth and intuitive.
-  4. Sent messages through the contact form to test its functionality and responsiveness.
+## Navigation and Checkout Testing
+
+1. **Navigated through the site to test the user flow and interface.**
+2. Click on any of the shop categories in the `index.html` should have transported you to the `shop.html` with the correct filtered category.
+3. **Add items to the cart and verify:**
+   - Deleting of cart items
+   - Changing of cart items quantity
+   - Cart items are still there when the cart is closed and opened again
+4. Proceed to checkout with an empty cart and try to place an order. Verify that a relevant error message appears.
+5. Proceed to checkout with a non-empty cart and try to place an order with all inputs valid. Verify that a success message appears.
+6. Sent messages through the contact form to test its functionality and responsiveness.
 
 ### Known Issues
 

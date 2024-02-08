@@ -1,5 +1,5 @@
 
-
+let length = 0;
 function loadContent(){
    
    
@@ -59,6 +59,7 @@ function fetchAndDisplayComments(threadID) {
 function structureMessages(messagesData) {
     let structuredMessages = {};
     let unprocessedMessages = [];
+   
 
     messagesData.forEach(message => {
       if (message.ReplyTo === 0) {
@@ -490,7 +491,26 @@ function postNewReply(commentData, onSuccess, onError) {
 
 
 
-function createNewCommentHTML(data, replyToUsername) {
+async function createNewCommentHTML(data, replyToUsername) {
+    const apiKey = '65aa4cb7c0aebd4508c42aa9'; // Replace with your actual API key
+    const apiUrl = 'https://users-4250.restdb.io/rest/comments'; // Replace with your actual API URL
+
+    // Fetch the current number of comments to determine the new comment's identifier
+    let newIdentifier = 0;
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-apikey': apiKey
+            }
+        });
+        const comments = await response.json();
+        newIdentifier = comments.length + 1; 
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+
     // Determine the comment class based on ThreadLevel
     let commentClass;
     switch(data.ThreadLevel) {
@@ -507,9 +527,10 @@ function createNewCommentHTML(data, replyToUsername) {
             commentClass = "Comments-Reply4"; // For ThreadLevel 5 and above
     }
 
-    date = formatDateTime(data.datetime);
+    const date = formatDateTime(data.datetime);
+    console.log(data);
     // Generate the HTML for the new comment
-    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${data.MessageID}" class="${commentClass}">
+    let html = `<div data-username="${data.username}" data-level="${data.ThreadLevel}" data-identifier="${newIdentifier}" class="${commentClass}">
         ${data.ThreadLevel > 1 ? `<div class="Reply">Replying to <span class="Reply-Name">${replyToUsername}</span></div>` : ''}
         <div class="Head">
             <img src="../images/Default.png">
@@ -536,7 +557,6 @@ function createNewCommentHTML(data, replyToUsername) {
 
     return html;
 }
-
 
 
 

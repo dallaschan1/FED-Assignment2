@@ -1,5 +1,8 @@
 # ZenCraft - The Ultimate Furniture Gaming Experience
 
+## GitHub Issues: 
+- Due to some unknown reasons, the github deployed website does not function as well as compared to a locally deployed webserver. We had little time to figure the issue and therefore this issue wasn't resolved.
+
 ## Overview
 
 Welcome to ZenCraft, an innovative fusion of online shopping and gaming. Our platform isn't just another furniture store; it's a unique experience that combines the thrill of gaming with the convenience of online furniture shopping. Dive into our exclusive game, reminiscent of popular titles like Agar.io, Surviv.io, and Tank.io, where players battle enemies, overcome challenges, and earn discounts on our wide range of furniture products. With each milestone reached in the game, players unlock special discounts, making shopping not just rewarding but also incredibly fun. Join our community forum to discuss game strategies, furniture trends, or any customer service inquiries. At ZenCraft, we're more than just a store – we're an experience.
@@ -69,7 +72,7 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 - **Game Mechanics**: Players may get stuck in obstacles due to knockback from enemy hits.
 - **Image Upload Limitations**: High-quality images may cause issues during account creation or posting in the forum.
 - **Database Reliability**: Occasional downtime with RestDB API can affect site functionality.
-- **Lack of Image Resource**: Due to the lack of resources for the different product color variations, changing the product's color doesn't change the picture of the product to that of the same color
+- **Lack of Image Resource**: Due to the lack of resources for the different product color variations, changing the product's color doesn't change the picture of the product to that of the same color.
 
 ## Credits
 - Wireframe and design for the home page and the shop page was directly taken from https://www.figma.com/community/file/1299098199775509142
@@ -80,8 +83,24 @@ Our website is designed for gamers who love to shop, furniture enthusiasts who e
 
 ### Media
 
-- Game was created by ourselves
+- Game was originally created by ourselves
 
 ### Acknowledgements
 
 - Inspired by popular .io games and the desire to blend gaming with online shopping, our project aims to create a unique and engaging experience for our users.
+
+### Roles
+- **Dallas**
+   1. Game Page
+   2. Forum Page
+   3. Contact Us Page
+   4. Login Page
+   5. Create Page (Create Post)
+   6. Post Page (Comment on a Post)
+
+- **Ian**
+   1. Index (Home) Page
+   2. Shop Page
+   3. Individual Product Modal Pop-Up (Within Index & Shop Page)
+   4. Checkout Page
+   5. Cart
